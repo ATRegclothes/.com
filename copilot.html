@@ -23,6 +23,7 @@
       flex-direction: column;
       border-radius: 10px;
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      overflow: hidden; /* Ensure content doesn't spill out of rounded corners */
     }
     .chat-header {
       background: #007bff;
@@ -30,27 +31,41 @@
       padding: 15px;
       font-size: 20px;
       text-align: center;
+      flex-shrink: 0; /* Prevent header from shrinking */
     }
     .chat-box {
       flex: 1;
       padding: 15px;
       overflow-y: auto;
       background: #f9f9f9;
+      display: flex;
+      flex-direction: column; /* Messages will stack vertically */
     }
     .message {
-      margin: 10px 0;
+      margin: 8px 0; /* Adjusted margin for slightly less space */
+      padding: 10px 12px;
+      border-radius: 18px; /* More rounded corners for messages */
+      max-width: 75%; /* Limit message width */
+      word-wrap: break-word; /* Ensure long words break */
     }
     .user {
-      text-align: left;
+      align-self: flex-start; /* Align user messages to the left */
+      background-color: #e0f2ff; /* Light blue for user messages */
       color: #333;
+      text-align: left;
+      border-bottom-left-radius: 4px; /* Slightly less rounded on the bottom-left for user */
     }
     .bot {
+      align-self: flex-end; /* Align bot messages to the right */
+      background-color: #007bff; /* Blue for bot messages */
+      color: white;
       text-align: right;
-      color: #007bff;
+      border-bottom-right-radius: 4px; /* Slightly less rounded on the bottom-right for bot */
     }
     .chat-input {
       display: flex;
       border-top: 1px solid #ccc;
+      flex-shrink: 0; /* Prevent input from shrinking */
     }
     input {
       flex: 1;
@@ -60,11 +75,14 @@
       outline: none;
     }
     button {
-      padding: 15px;
+      padding: 15px 20px; /* Slightly more horizontal padding */
       background: #007bff;
       color: white;
       border: none;
       cursor: pointer;
+      font-size: 16px;
+      border-radius: 0 0 10px 0; /* Rounded only on the bottom right corner */
+      transition: background 0.3s ease; /* Smooth transition for hover */
     }
     button:hover {
       background: #0056b3;
@@ -82,24 +100,34 @@
   </div>
 
   <script>
-    const API_KEY = "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";
+    // ⚠️ IMPORTANT: Replace "YOUR_ACTUAL_OPENROUTER_API_KEY_HERE" with your real API key from OpenRouter.ai
+    // Get your key from: https://openrouter.ai/settings/keys
+    const API_KEY = "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"; 
 
+    // Function to append messages to the chat box
     function appendMessage(sender, text) {
       const chatBox = document.getElementById("chat-box");
       const msg = document.createElement("div");
       msg.className = `message ${sender}`;
       msg.innerText = text;
       chatBox.appendChild(msg);
+      // Scroll to the bottom to show the latest message
       chatBox.scrollTop = chatBox.scrollHeight;
     }
 
+    // Function to send a message to the AI
     async function sendMessage() {
       const input = document.getElementById("user-input");
       const text = input.value.trim();
-      if (!text) return;
-      appendMessage("user", text);
-      input.value = "";
 
+      // Don't send empty messages
+      if (!text) return;
+
+      // Display user's message
+      appendMessage("user", text);
+      input.value = ""; // Clear the input field
+
+      // System prompt to define the AI's persona and rules
       const systemPrompt = `
 You are ATR Copilot, a helpful assistant that ONLY answers questions about the ATR.egclothes brand. 
 If the user asks about discounts, coupons, vouchers, or promo codes, always reply: "Sorry, I can't answer that. Do you have another question?"
@@ -108,25 +136,52 @@ Otherwise, reply like a smart, friendly assistant who understands both Arabic an
 Keep answers short, friendly, and natural.
       `;
 
-      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${API_KEY}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          model: "mistralai/mistral-7b-instruct",
-          messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: text }
-          ]
-        })
-      });
+      try {
+        const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${API_KEY}`,
+            "Content-Type": "application/json",
+            // Optional: for OpenRouter analytics/leaderboard
+            "HTTP-Referer": window.location.href, 
+            "X-Title": "ATR Copilot (Web Demo)" 
+          },
+          body: JSON.stringify({
+            // You can change the model. "mistralai/mistral-7b-instruct" is a good balance of cost/performance.
+            // Other options: "openai/gpt-3.5-turbo", "openai/gpt-4o", etc.
+            "model": "mistralai/mistral-7b-instruct", 
+            "messages": [
+              { "role": "system", "content": systemPrompt },
+              { "role": "user", "content": text }
+            ]
+          })
+        });
 
-      const data = await res.json();
-      const reply = data.choices?.[0]?.message?.content?.trim();
-      appendMessage("bot", reply || "(No reply received)");
+        // Check if the response was successful (HTTP status 200-299)
+        if (!res.ok) {
+          const errorData = await res.json();
+          console.error("API Error:", res.status, errorData);
+          appendMessage("bot", `Error from AI: ${errorData.message || res.statusText}`);
+          return;
+        }
+
+        const data = await res.json();
+        // Extract the AI's reply from the response
+        const reply = data.choices?.[0]?.message?.content?.trim();
+        appendMessage("bot", reply || "(No reply received)"); // Display AI's reply
+      } catch (error) {
+        console.error("Fetch Error:", error);
+        appendMessage("bot", "Oops! Something went wrong while connecting to the AI. Please try again.");
+      }
     }
+
+    // Allow sending message with Enter key
+    document.getElementById("user-input").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault(); // Prevent default Enter key behavior (e.g., new line)
+        sendMessage();
+      }
+    });
   </script>
 </body>
 </html>
