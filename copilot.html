@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>ATR Copilot</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .chat-container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    .chat-box {
+      height: 300px;
+      overflow-y: auto;
+      background: #fafafa;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .chat-box .user {
+      text-align: left;
+      color: #444;
+      margin: 8px;
+    }
+    .chat-box .bot {
+      text-align: right;
+      color: #006;
+      margin: 8px;
+    }
+    .input-box {
+      display: flex;
+      gap: 10px;
+    }
+    #user-input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <h1>🤖 ATR Copilot</h1>
+    <div class="chat-box" id="chat-box"></div>
+    <div class="input-box">
+      <input type="text" id="user-input" placeholder="اكتب سؤالك عن ATR.egclothes..." />
+      <button onclick="sendMessage()">إرسال</button>
+    </div>
+  </div>
+
+  <script>
+    function appendMessage(sender, text) {
+      const box = document.getElementById("chat-box");
+      const msg = document.createElement("div");
+      msg.className = sender;
+      msg.innerText = text;
+      box.appendChild(msg);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("user-input");
+      const text = input.value.trim();
+      if (!text) return;
+      appendMessage("user", text);
+      input.value = "";
+      setTimeout(() => botReply(text.toLowerCase()), 500);
+    }
+
+    function botReply(msg) {
+      const normalized = msg.replace(/[؟،.]/g, "");
+
+      // سؤال 1: الكوليكشن الجديد
+      if (
+        normalized.includes("الكوليكشن") &&
+        (normalized.includes("امتى") || normalized.includes("ميعاد") || normalized.includes("هينزل"))
+      ) {
+        appendMessage("bot", "مفيش لحد دلوقت معاد محدد لنزول الكوليكشن الجديد");
+        return;
+      }
+
+      // سؤال 2: فوتشرات / كوبونات / خصومات
+      if (
+        normalized.includes("كوبون") ||
+        normalized.includes("كوبونات") ||
+        normalized.includes("خصم") ||
+        normalized.includes("خصومات") ||
+        normalized.includes("voucher") ||
+        normalized.includes("فوتشر") ||
+        normalized.includes("فوتشرات")
+      ) {
+        appendMessage("bot", "مينفعش اجاوب عن السؤال دا, عندك اي سؤال تاني؟");
+        return;
+      }
+
+      // سؤال 3: عروض أو خصومات قريبة
+      if (
+        (normalized.includes("خصم") || normalized.includes("عروض")) &&
+        (normalized.includes("قريب") || normalized.includes("امتى") || normalized.includes("هيكون"))
+      ) {
+        appendMessage("bot", "ايوا, هيكون في خصومات وعروضات قريبا ان شاء الله");
+        return;
+      }
+
+      // أي سؤال خارج نطاق ATR
+      appendMessage("bot", "عذرا لا استطيع الاجابة ف انا مزود بمعلومات عن البراند Atr.egclothes فقط");
+    }
+  </script>
+</body>
+</html>
