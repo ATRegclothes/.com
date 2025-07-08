@@ -2,152 +2,130 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>ATR Copilot</title>
+  <title>ATR Copilot - Smart AI</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background: #f4f4f4;
+      font-family: Arial, sans-serif;
+      background: #eef1f5;
       margin: 0;
       padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
     .chat-container {
-      max-width: 600px;
-      margin: 40px auto;
       background: white;
-      padding: 20px;
+      width: 100%;
+      max-width: 600px;
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
       border-radius: 10px;
-      box-shadow: 0 0 10px #ccc;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .chat-header {
+      background: #007bff;
+      color: white;
+      padding: 15px;
+      font-size: 20px;
+      text-align: center;
     }
     .chat-box {
-      height: 300px;
-      overflow-y: auto;
-      background: #fafafa;
-      border: 1px solid #ccc;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-    .chat-box .user {
-      text-align: left;
-      color: #444;
-      margin: 8px;
-    }
-    .chat-box .bot {
-      text-align: right;
-      color: #006;
-      margin: 8px;
-    }
-    .input-box {
-      display: flex;
-      gap: 10px;
-    }
-    #user-input {
       flex: 1;
-      padding: 10px;
+      padding: 15px;
+      overflow-y: auto;
+      background: #f9f9f9;
+    }
+    .message {
+      margin: 10px 0;
+    }
+    .user {
+      text-align: left;
+      color: #333;
+    }
+    .bot {
+      text-align: right;
+      color: #007bff;
+    }
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+    input {
+      flex: 1;
+      padding: 15px;
       font-size: 16px;
+      border: none;
+      outline: none;
     }
     button {
-      padding: 10px 15px;
-      font-size: 16px;
-      background-color: #007bff;
+      padding: 15px;
+      background: #007bff;
       color: white;
       border: none;
       cursor: pointer;
-      border-radius: 5px;
     }
     button:hover {
-      background-color: #0056b3;
+      background: #0056b3;
     }
   </style>
 </head>
 <body>
   <div class="chat-container">
-    <h1>🤖 ATR Copilot</h1>
+    <div class="chat-header">ATR Copilot 🤖</div>
     <div class="chat-box" id="chat-box"></div>
-    <div class="input-box">
-      <input type="text" id="user-input" placeholder="Ask me anything about ATR.egclothes..." />
+    <div class="chat-input">
+      <input type="text" id="user-input" placeholder="Ask about ATR.egclothes...">
       <button onclick="sendMessage()">Send</button>
     </div>
   </div>
 
   <script>
+    const API_KEY = "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";
+
     function appendMessage(sender, text) {
-      const box = document.getElementById("chat-box");
+      const chatBox = document.getElementById("chat-box");
       const msg = document.createElement("div");
-      msg.className = sender;
+      msg.className = `message ${sender}`;
       msg.innerText = text;
-      box.appendChild(msg);
-      box.scrollTop = box.scrollHeight;
+      chatBox.appendChild(msg);
+      chatBox.scrollTop = chatBox.scrollHeight;
     }
 
-    function detectLanguage(text) {
-      const arabic = /[\u0600-\u06FF]/;
-      let arabicCount = 0, englishCount = 0;
-      const words = text.split(/\s+/);
-      for (let word of words) {
-        if (arabic.test(word)) arabicCount++;
-        else englishCount++;
-      }
-      return arabicCount >= englishCount ? "ar" : "en";
-    }
-
-    function sendMessage() {
+    async function sendMessage() {
       const input = document.getElementById("user-input");
       const text = input.value.trim();
       if (!text) return;
       appendMessage("user", text);
       input.value = "";
-      setTimeout(() => botReply(text.toLowerCase()), 500);
-    }
 
-    function botReply(msg) {
-      const lang = detectLanguage(msg);
-      const cleaned = msg.replace(/[؟,?.،]/g, "");
+      const systemPrompt = `
+You are ATR Copilot, a helpful assistant that ONLY answers questions about the ATR.egclothes brand. 
+If the user asks about discounts, coupons, vouchers, or promo codes, always reply: "Sorry, I can't answer that. Do you have another question?"
+If the question is not about ATR.egclothes, reply: "Sorry, I can only answer questions related to ATR.egclothes."
+Otherwise, reply like a smart, friendly assistant who understands both Arabic and English and speaks like a real human.
+Keep answers short, friendly, and natural.
+      `;
 
-      const greetings = ["hi", "hello", "سلام", "السلام عليكم", "ازيك", "هاي", "yo"];
-      const forbiddenWords = ["كوبون", "كوبونات", "خصم", "خصومات", "voucher", "vouchers", "فوتشر", "فوتشرات", "كود", "promo"];
+      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${API_KEY}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          model: "mistralai/mistral-7b-instruct",
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: text }
+          ]
+        })
+      });
 
-      // تحية
-      if (greetings.some(g => cleaned.includes(g))) {
-        appendMessage("bot", lang === "ar"
-          ? "أهلاً بيك! معاك ATR Copilot، اسألني أي حاجة عن ATR.egclothes."
-          : "Hello! I'm ATR Copilot. Ask me anything about ATR.egclothes.");
-        return;
-      }
-
-      // كوليكشن جديد
-      if (
-        (cleaned.includes("collection") || cleaned.includes("كوليكشن") || cleaned.includes("كلكشن") || cleaned.includes("drop")) &&
-        (cleaned.includes("امتى") || cleaned.includes("ميعاد") || cleaned.includes("when") || cleaned.includes("next") || cleaned.includes("release"))
-      ) {
-        appendMessage("bot", lang === "ar"
-          ? "مفيش لحد دلوقت معاد محدد لنزول الكوليكشن الجديد"
-          : "There's no confirmed date yet for the next collection.");
-        return;
-      }
-
-      // كوبونات
-      if (forbiddenWords.some(word => cleaned.includes(word))) {
-        appendMessage("bot", lang === "ar"
-          ? "مينفعش اجاوب عن السؤال دا, عندك اي سؤال تاني؟"
-          : "Sorry, I can't answer that. Do you have another question?");
-        return;
-      }
-
-      // خصومات قريبة
-      if (
-        (cleaned.includes("خصم") || cleaned.includes("عروض") || cleaned.includes("offer") || cleaned.includes("discount")) &&
-        (cleaned.includes("قريب") || cleaned.includes("امتى") || cleaned.includes("هيكون") || cleaned.includes("soon"))
-      ) {
-        appendMessage("bot", lang === "ar"
-          ? "ايوا, هيكون في خصومات وعروضات قريبا ان شاء الله"
-          : "Yes! Discounts and offers are coming soon insha'Allah.");
-        return;
-      }
-
-      // سؤال خارج ATR
-      appendMessage("bot", lang === "ar"
-        ? "عذرا لا استطيع الاجابة، فـ أنا مزود بمعلومات عن البراند ATR.egclothes فقط"
-        : "Sorry, I can only answer questions about ATR.egclothes.");
+      const data = await res.json();
+      const reply = data.choices?.[0]?.message?.content?.trim();
+      appendMessage("bot", reply || "(No reply received)");
     }
   </script>
 </body>
