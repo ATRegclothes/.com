@@ -938,3 +938,249 @@
                     action="https://formsubmit.co/hamletmohamed5@gmail.com"
                     method="POST"
                 >
+                    <input type="hidden" name="_subject" value="New Order from ATR Store" />
+                    <input type="hidden" name="_captcha" value="false" />
+                    <input
+                        type="text"
+                        name="Name"
+                        id="name"
+                        placeholder="Full Name"
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="Phone Number"
+                        id="phone"
+                        placeholder="Phone Number"
+                        required
+                    />
+                    <textarea
+                        name="Address"
+                        id="address"
+                        placeholder="Address"
+                        required
+                    ></textarea>
+                    <textarea
+                        name="Order"
+                        id="order-details"
+                        readonly
+                        required
+                    ></textarea>
+                    <button type="submit">Send Order</button>
+                    <button type="button" onclick="hideCheckout()" class="secondary">
+                        Back to Cart
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="accs">
+        <h2>
+            <img
+                src="https://i.postimg.cc/fTtx7CxL/Facee-Book.png"
+                alt="Facebook"
+            />
+            <a href="https://www.facebook.com/share/16gCsUYy2D/"
+                >Atr.egclothes</a
+            >
+        </h2>
+        <h2>
+            <img src="https://i.postimg.cc/ZKG6wNcL/Insta.jpg" alt="Instagram" />
+            <a href="https://www.instagram.com/atr.eg_clothes?igsh=cjF5ZG04OXZoOXNr"
+                >atr.eg_clothes</a
+            >
+        </h2>
+        <h2>
+            <img src="https://i.postimg.cc/jjKPbrBw/tiktok.png" alt="TikTok" />
+            <a href="https://www.tiktok.com/@atr.eg?_t=ZS-8wcTlljLwht&_r=1"
+                >Atr_egclothes</a
+            >
+        </h2>
+    </div>
+
+    <script>
+        let cart = [];
+        let subtotal = 0;
+        let discount = 0;
+        let finalTotal = 0;
+
+        const vouchers = {
+            "452023": 0.15,
+        };
+
+        const cartModal = document.getElementById("cartModal");
+        const openCartButton = document.getElementById("openCartButton");
+        const checkoutForm = document.getElementById("checkout-form");
+        const cartItemCount = document.getElementById("cartItemCount");
+
+        // Get all container elements for horizontal scrolling
+        const containers = document.querySelectorAll('.container');
+        const dragHints = document.querySelectorAll('.drag-hint');
+
+        // Function to check if it's a mobile device
+        function isMobile() {
+            return window.innerWidth <= 768; // Based on your media query
+        }
+
+        // Show drag hint on mobile after a delay
+        function showDragHint(hintElement) {
+            if (isMobile()) {
+                hintElement.classList.add('show');
+                setTimeout(() => {
+                    hintElement.classList.remove('show');
+                }, 5000); // Hide after 5 seconds
+            }
+        }
+
+        // Hide hint when container is scrolled
+        function hideDragHintOnScroll(container, hintElement) {
+            container.addEventListener('scroll', () => {
+                if (hintElement.classList.contains('show')) {
+                    hintElement.classList.remove('show');
+                }
+            });
+        }
+
+        // Initialize drag hints for all containers
+        document.addEventListener('DOMContentLoaded', () => {
+            containers.forEach((container, index) => {
+                const hintElement = dragHints[index]; // Assuming hints match containers one-to-one
+                if (hintElement) {
+                    showDragHint(hintElement);
+                    hideDragHintOnScroll(container, hintElement);
+                }
+            });
+        });
+
+        openCartButton.onclick = function () {
+            if (cart.length > 0) {
+                cartModal.style.display = "flex";
+                updateCart();
+            } else {
+                alert("Your cart is empty. Please add items before opening the cart.");
+            }
+        };
+
+        function closeCartModal() {
+            cartModal.style.display = "none";
+            hideCheckout();
+        }
+
+        window.onclick = function (event) {
+            if (event.target == cartModal) {
+                cartModal.style.display = "none";
+                hideCheckout();
+            }
+        };
+
+        function addToCartWithSize(name, price, sizeName) {
+            const sizeRadios = document.getElementsByName(sizeName);
+            let selectedSize = null;
+            for (const radio of sizeRadios) {
+                if (radio.checked) {
+                    selectedSize = radio.value;
+                    break;
+                }
+            }
+            if (!selectedSize) {
+                alert("Please select a size!");
+                return;
+            }
+            cart.push({ name, price, size: selectedSize });
+            updateCart();
+            alert(`${name} (Size: ${selectedSize}) added to cart!`); // Confirmation message
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+            if (cart.length === 0) {
+                closeCartModal();
+            }
+        }
+
+        function clearCart() {
+            cart = [];
+            discount = 0;
+            document.getElementById("voucher-input").value = "";
+            updateCart();
+            closeCartModal();
+        }
+
+        function calculateTotals() {
+            subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+            finalTotal = subtotal - subtotal * discount;
+        }
+
+        function applyVoucher() {
+            const voucherCode = document
+                .getElementById("voucher-input")
+                .value.trim()
+                .toUpperCase();
+            if (vouchers[voucherCode] !== undefined) {
+                discount = vouchers[voucherCode];
+                alert(
+                    `Voucher "${voucherCode}" applied! You got a ${
+                        discount * 100
+                    }% discount.`
+                );
+            } else {
+                discount = 0;
+                alert("Invalid voucher code.");
+            }
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById("cart-items");
+            const subtotalEl = document.getElementById("subtotal");
+            const discountEl = document.getElementById("discount");
+            const totalEl = document.getElementById("total");
+            const orderDetails = document.getElementById("order-details");
+
+            cartItems.innerHTML = "";
+            let orderText = "";
+
+            cart.forEach((item, index) => {
+                const div = document.createElement("div");
+                div.className = "cart-item";
+                div.innerHTML = `
+                    <span>${item.name} (Size: ${item.size}) - ${item.price} EGP</span>
+                    <button class="remove-btn" onclick="removeFromCart(${index})">
+                        <img src="https://i.postimg.cc/mD8zQW2r/remove.png" alt="Remove" />
+                    </button>
+                `;
+                cartItems.appendChild(div);
+                orderText += `${item.name} (Size: ${item.size}) - ${item.price} EGP\n`;
+            });
+
+            calculateTotals();
+            subtotalEl.textContent = subtotal.toFixed(2);
+            discountEl.textContent = (subtotal * discount).toFixed(2);
+            totalEl.textContent = finalTotal.toFixed(2);
+            cartItemCount.textContent = cart.length;
+
+            orderDetails.value = orderText + `\nSubtotal: ${subtotal.toFixed(2)} EGP\nDiscount: ${(subtotal * discount).toFixed(2)} EGP\nTotal: ${finalTotal.toFixed(2)} EGP`;
+        }
+
+        function showCheckout() {
+            if (cart.length === 0) {
+                alert("Your cart is empty. Please add items before checking out.");
+                return;
+            }
+            document.querySelector('.cart').style.display = 'none';
+            checkoutForm.style.display = 'block';
+            updateCart(); // Update order details in the textarea
+        }
+
+        function hideCheckout() {
+            checkoutForm.style.display = 'none';
+            document.querySelector('.cart').style.display = 'block';
+        }
+
+        // Initial cart update to show 0 items
+        updateCart();
+    </script>
+</body>
+</html>
