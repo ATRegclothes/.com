@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>ATR Copilot</title>
   <style>
     body {
-      font-family: 'Cairo', sans-serif;
+      font-family: 'Arial', sans-serif;
       background: #f4f4f4;
       margin: 0;
       padding: 0;
@@ -64,8 +64,8 @@
     <h1>🤖 ATR Copilot</h1>
     <div class="chat-box" id="chat-box"></div>
     <div class="input-box">
-      <input type="text" id="user-input" placeholder="اكتب سؤالك عن ATR.egclothes..." />
-      <button onclick="sendMessage()">إرسال</button>
+      <input type="text" id="user-input" placeholder="Ask me anything about ATR.egclothes..." />
+      <button onclick="sendMessage()">Send</button>
     </div>
   </div>
 
@@ -79,6 +79,17 @@
       box.scrollTop = box.scrollHeight;
     }
 
+    function detectLanguage(text) {
+      const arabic = /[\u0600-\u06FF]/;
+      let arabicCount = 0, englishCount = 0;
+      const words = text.split(/\s+/);
+      for (let word of words) {
+        if (arabic.test(word)) arabicCount++;
+        else englishCount++;
+      }
+      return arabicCount >= englishCount ? "ar" : "en";
+    }
+
     function sendMessage() {
       const input = document.getElementById("user-input");
       const text = input.value.trim();
@@ -89,42 +100,54 @@
     }
 
     function botReply(msg) {
-      const normalized = msg.replace(/[؟،.]/g, "");
+      const lang = detectLanguage(msg);
+      const cleaned = msg.replace(/[؟,?.،]/g, "");
 
-      // سؤال 1: الكوليكشن الجديد
-      if (
-        normalized.includes("الكوليكشن") &&
-        (normalized.includes("امتى") || normalized.includes("ميعاد") || normalized.includes("هينزل"))
-      ) {
-        appendMessage("bot", "مفيش لحد دلوقت معاد محدد لنزول الكوليكشن الجديد");
+      const greetings = ["hi", "hello", "سلام", "السلام عليكم", "ازيك", "هاي", "yo"];
+      const forbiddenWords = ["كوبون", "كوبونات", "خصم", "خصومات", "voucher", "vouchers", "فوتشر", "فوتشرات", "كود", "promo"];
+
+      // تحية
+      if (greetings.some(g => cleaned.includes(g))) {
+        appendMessage("bot", lang === "ar"
+          ? "أهلاً بيك! معاك ATR Copilot، اسألني أي حاجة عن ATR.egclothes."
+          : "Hello! I'm ATR Copilot. Ask me anything about ATR.egclothes.");
         return;
       }
 
-      // سؤال 2: فوتشرات / كوبونات / خصومات
+      // كوليكشن جديد
       if (
-        normalized.includes("كوبون") ||
-        normalized.includes("كوبونات") ||
-        normalized.includes("خصم") ||
-        normalized.includes("خصومات") ||
-        normalized.includes("voucher") ||
-        normalized.includes("فوتشر") ||
-        normalized.includes("فوتشرات")
+        (cleaned.includes("collection") || cleaned.includes("كوليكشن") || cleaned.includes("كلكشن") || cleaned.includes("drop")) &&
+        (cleaned.includes("امتى") || cleaned.includes("ميعاد") || cleaned.includes("when") || cleaned.includes("next") || cleaned.includes("release"))
       ) {
-        appendMessage("bot", "مينفعش اجاوب عن السؤال دا, عندك اي سؤال تاني؟");
+        appendMessage("bot", lang === "ar"
+          ? "مفيش لحد دلوقت معاد محدد لنزول الكوليكشن الجديد"
+          : "There's no confirmed date yet for the next collection.");
         return;
       }
 
-      // سؤال 3: عروض أو خصومات قريبة
-      if (
-        (normalized.includes("خصم") || normalized.includes("عروض")) &&
-        (normalized.includes("قريب") || normalized.includes("امتى") || normalized.includes("هيكون"))
-      ) {
-        appendMessage("bot", "ايوا, هيكون في خصومات وعروضات قريبا ان شاء الله");
+      // كوبونات
+      if (forbiddenWords.some(word => cleaned.includes(word))) {
+        appendMessage("bot", lang === "ar"
+          ? "مينفعش اجاوب عن السؤال دا, عندك اي سؤال تاني؟"
+          : "Sorry, I can't answer that. Do you have another question?");
         return;
       }
 
-      // أي سؤال خارج نطاق ATR
-      appendMessage("bot", "عذرا لا استطيع الاجابة ف انا مزود بمعلومات عن البراند Atr.egclothes فقط");
+      // خصومات قريبة
+      if (
+        (cleaned.includes("خصم") || cleaned.includes("عروض") || cleaned.includes("offer") || cleaned.includes("discount")) &&
+        (cleaned.includes("قريب") || cleaned.includes("امتى") || cleaned.includes("هيكون") || cleaned.includes("soon"))
+      ) {
+        appendMessage("bot", lang === "ar"
+          ? "ايوا, هيكون في خصومات وعروضات قريبا ان شاء الله"
+          : "Yes! Discounts and offers are coming soon insha'Allah.");
+        return;
+      }
+
+      // سؤال خارج ATR
+      appendMessage("bot", lang === "ar"
+        ? "عذرا لا استطيع الاجابة، فـ أنا مزود بمعلومات عن البراند ATR.egclothes فقط"
+        : "Sorry, I can only answer questions about ATR.egclothes.");
     }
   </script>
 </body>
