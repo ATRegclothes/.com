@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8" />
+    <title>ATR.egclothes/main</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000; /* خلفية سوداء */
+            padding: 20px;
+            margin: 0;
+            color: #fff; /* لون الخط أبيض للتباين */
+        }
+
+        /* الجزء العلوي - اللوجو فقط */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1a1a1a;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header-left {
+            flex: 1;
+            text-align: left;
+        }
+
+        .store-name {
+            color: #fff;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .header-center {
+            flex: 1;
+            text-align: center;
+        }
+
+        .logo {
+            max-height: 50px;
+            width: auto;
+            cursor: pointer; /* جعل اللوجو قابل للنقر للعودة للصفحة الرئيسية */
+        }
+
+        .header-right {
+            flex: 1;
+            text-align: right;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        .icon-button {
+            background-color: #1a1a1a;
+            border: 1px solid #1a1a1a;
+            cursor: pointer;
+            color: #fff;
+            font-size: 1.5em;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .icon-button:hover {
+            background-color: #333;
+            border-color: #666;
+            color: #fff;
+        }
+
+        h3, h2 {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            color: #fff; /* لون العناوين أبيض */
+        }
+
+        /* حاوية المنتجات - عرض منتجين في الصف */
+        /* هذه الستايلات أصبحت أقل أهمية هنا لأن معظم المنتجات ستكون في products.html */
+        .container {
+            display: grid; /* استخدام CSS Grid للتخطيط */
+            grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); /* يتكيف تلقائياً، كل عمود لا يقل عن 280 بكسل ويملأ المساحة المتاحة */
+            gap: 30px; /* المسافة بين المنتجات */
+            padding-bottom: 15px;
+            justify-content: center; /* توسيط العناصر في الشبكة */
+            max-width: 600px; /* تحديد أقصى عرض للحاوية لتوسيطها */
+            margin: 0 auto; /* توسيط الحاوية نفسها */
+        }
+
+        /* تصميم بطاقة المنتج (الصورة فقط قابلة للنقر) */
+        .product-card {
+            background-color: #1a1a1a; /* خلفية داكنة لبطاقة المنتج */
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* ظل خفيف للخلفية الداكنة */
+            text-align: center;
+            color: #fff;
+            cursor: pointer; /* مؤشر اليد للإشارة إلى أنه قابل للنقر */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* حركة ناعمة عند التحويل والظل */
+            text-decoration: none; /* إزالة خط تحت الروابط */
+            display: block; /* جعل البطاقة بأكملها قابلة للنقر */
+            overflow: hidden; /* يضمن تطبيق حدود الزوايا المستديرة على الصورة */
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px); /* رفع البطاقة قليلاً عند المرور عليها */
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2); /* ظل أقوى عند المرور عليها */
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: 250px; /* ارتفاع ثابت أكبر للصور */
+            object-fit: cover; /* قص الصورة لتناسب الحجم */
+            border-radius: 8px; /* زوايا مستديرة للصورة */
+            margin-bottom: 0; /* لا يوجد هامش أسفل الصورة حيث تمت إزالة النص */
+            border: 1px solid #333; /* حدود خفيفة حول الصورة */
+        }
+
+        .product-car {
+            background-color: #1a1a1a; /* خلفية داكنة لبطاقة المنتج */
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* ظل خفيف للخلفية الداكنة */
+            text-align: center;
+            color: #fff;
+            cursor: pointer; /* مؤشر اليد للإشارة إلى أنه قابل للنقر */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* حركة ناعمة عند التحويل والظل */
+            text-decoration: none; /* إزالة خط تحت الروابط */
+            display: block; /* جعل البطاقة بأكملها قابلة للنقر */
+            overflow: hidden; /* يضمن تطبيق حدود الزوايا المستديرة على الصورة */
+        }
+
+        .product-car:hover {
+            transform: translateY(-5px); /* رفع البطاقة قليلاً عند المرور عليها */
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2); /* ظل أقوى عند المرور عليها */
+        }
+
+        .product-car img {
+            max-width: 100%;
+            height: 100%; /* ارتفاع ثابت أكبر للصور */
+            object-fit: cover; /* قص الصورة لتناسب الحجم */
+            border-radius: 8px; /* زوايا مستديرة للصورة */
+            margin-bottom: 0; /* لا يوجد هامش أسفل الصورة حيث تمت إزالة النص */
+            border: 1px solid #333; /* حدود خفيفة حول الصورة */
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+            margin: 40px auto; /* توسيط الخط الأفقي */
+            max-width: 80%; /* جعل الخط الأفقي أضيق قليلاً */
+        }
+    </style>
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-left">
+            </div>
+        <div class="header-center">
+            <a href="index.html">
+                <img src="https://i.postimg.cc/0NKPqrym/Untitled399-20250709162221.png" alt="ATR.egclothes Logo" class="logo">
+            </a>
+        </div>
+        <div class="header-right">
+            <button class="icon-button search-button" onclick="location.href='products.html'">
+                <i class="fas fa-search"></i>
+            </button>
+            <button class="icon-button filter-button" onclick="location.href='filter.html'">
+                <i class="fas fa-filter"></i>
+            </button>
+            <button class="icon-button cart-button" onclick="location.href='cart.html'">
+                <i class="fas fa-shopping-cart"></i>
+            </button>
+        </div>
+    </header>
+
+    <a class="product-car" href="partisions.html">
+        <img src="https://i.postimg.cc/JhVjbDv4/Shop-all.jpg" alt="Shop All" width="100%" height="100%"/>
+    </a>
+
+    <hr>
+    <h3>Pants Collection</h3>
+    <div class="container">
+        <a class="product-card" href="Dark-blue-sweatpants.html">
+            <img src="https://i.postimg.cc/bvkWyWrY/DBP.jpg" alt="Dark Blue Sweatpants" />
+        </a>
+        </div>
+
+    <hr>
+    <h3>Shirts & T-shirts Collection</h3>
+    <div class="container">
+        <a class="product-card" href="product-dark-gray-tshirt.html">
+            <img src="https://i.postimg.cc/SxwHpkyt/DGTS.jpg" alt="Dark Gray T-shirt" />
+        </a>
+    </div>
+
+    <hr>
+    <h2>Suits Collections</h2>
+    <h3>Men's Suits</h3>
+    <div class="container">
+        <a class="product-card" href="product-baby-blue-men-suit.html">
+            <img src="https://i.postimg.cc/mZy4NzbZ/BBS.jpg" alt="Baby Blue Suit" />
+        </a>
+        <a class="product-card" href="product-dark-gray-men-suit.html">
+            <img src="https://i.postimg.cc/nV289ykC/DGS.jpg" alt="Dark Gray Suit" />
+        </a>
+    </div>
+
+    <h3>Women's Suits</h3>
+    <div class="container">
+        <a class="product-card" href="product-baby-pink-women-suit.html">
+            <img src="https://i.postimg.cc/j5TPsn7K/BPSW.jpg" alt="Baby Pink Women Suit" />
+        </a>
+        <a class="product-card" href="product-dark-gray-women-suit.html">
+            <img src="https://i.postimg.cc/J0PnCGbT/DGW.jpg" alt="Dark Gray Women Suit" />
+        </a>
+    </div>
+
+    </body>
+</html>
