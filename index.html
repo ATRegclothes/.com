@@ -138,25 +138,27 @@
             box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
         }
 
-        /* Modified products-grid for horizontal scroll and snapping */
-        .products-grid {
+        /* Applying the same flexbox and scroll-snap properties to all .container elements */
+        .container {
             display: flex; /* Changed to flex for horizontal layout */
             overflow-x: auto; /* Enable horizontal scrolling */
             scroll-snap-type: x mandatory; /* Snap to items */
             -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
             gap: 20px; /* Gap between product cards */
             padding: 0 20px 15px; /* Add padding for visual spacing */
-            max-width: 900px;
+            max-width: 900px; /* Adjust max-width if needed for wider views before grid takes over */
             margin: 0 auto;
             justify-content: flex-start; /* Align items to the start */
             scrollbar-width: none; /* Hide scrollbar for Firefox */
+            white-space: nowrap; /* Prevent cards from wrapping */
         }
 
         /* Hide scrollbar for Chrome, Safari, and Opera */
-        .products-grid::-webkit-scrollbar {
+        .container::-webkit-scrollbar {
             display: none;
         }
 
+        /* Product card styling */
         .product-card {
             flex: 0 0 calc(50% - 10px); /* Two cards per row, accounting for gap */
             background-color: #1a1a1a;
@@ -174,6 +176,7 @@
             scroll-snap-align: start; /* Snap to the start of each card */
             max-width: 300px; /* Ensure cards don't become too wide on larger screens */
             box-sizing: border-box; /* Include padding in width calculation */
+            white-space: normal; /* Allow text within card to wrap */
         }
 
         .product-card:hover {
@@ -197,6 +200,36 @@
             color: #fff;
         }
 
+        /* Special .product-car style for the "Shop All" image */
+        .product-car {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            text-decoration: none;
+            display: block;
+            overflow: hidden;
+            margin: 0 auto 20px; /* Center and add bottom margin */
+            max-width: 600px; /* Limit width */
+            box-sizing: border-box;
+        }
+
+        .product-car:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+        }
+
+        .product-car img {
+            max-width: 100%;
+            height: auto; /* Allow height to adjust naturally */
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+
         hr {
             border: 0;
             height: 1px;
@@ -204,84 +237,10 @@
             margin: 40px auto;
             max-width: 80%;
         }
-        .container {
-            display: grid; /* استخدام CSS Grid للتخطيط */
-            grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); /* يتكيف تلقائياً، كل عمود لا يقل عن 280 بكسل ويملأ المساحة المتاحة */
-            gap: 30px; /* المسافة بين المنتجات */
-            padding-bottom: 15px;
-            justify-content: center; /* توسيط العناصر في الشبكة */
-            max-width: 600px; /* تحديد أقصى عرض للحاوية لتوسيطها */
-            margin: 0 auto; /* توسيط الحاوية نفسها */
-        }
-
-        /* تصميم بطاقة المنتج (الصورة فقط قابلة للنقر) */
-        .product-card {
-            background-color: #1a1a1a; /* خلفية داكنة لبطاقة المنتج */
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* ظل خفيف للخلفية الداكنة */
-            text-align: center;
-            color: #fff;
-            cursor: pointer; /* مؤشر اليد للإشارة إلى أنه قابل للنقر */
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* حركة ناعمة عند التحويل والظل */
-            text-decoration: none; /* إزالة خط تحت الروابط */
-            display: block; /* جعل البطاقة بأكملها قابلة للنقر */
-            overflow: hidden; /* يضمن تطبيق حدود الزوايا المستديرة على الصورة */
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px); /* رفع البطاقة قليلاً عند المرور عليها */
-            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2); /* ظل أقوى عند المرور عليها */
-        }
-
-        .product-card img {
-            max-width: 100%;
-            height: 250px; /* ارتفاع ثابت أكبر للصور */
-            object-fit: cover; /* قص الصورة لتناسب الحجم */
-            border-radius: 8px; /* زوايا مستديرة للصورة */
-            margin-bottom: 0; /* لا يوجد هامش أسفل الصورة حيث تمت إزالة النص */
-            border: 1px solid #333; /* حدود خفيفة حول الصورة */
-        }
-
-        .product-car {
-            background-color: #1a1a1a; /* خلفية داكنة لبطاقة المنتج */
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* ظل خفيف للخلفية الداكنة */
-            text-align: center;
-            color: #fff;
-            cursor: pointer; /* مؤشر اليد للإشارة إلى أنه قابل للنقر */
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* حركة ناعمة عند التحويل والظل */
-            text-decoration: none; /* إزالة خط تحت الروابط */
-            display: block; /* جعل البطاقة بأكملها قابلة للنقر */
-            overflow: hidden; /* يضمن تطبيق حدود الزوايا المستديرة على الصورة */
-        }
-
-        .product-car:hover {
-            transform: translateY(-5px); /* رفع البطاقة قليلاً عند المرور عليها */
-            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2); /* ظل أقوى عند المرور عليها */
-        }
-
-        .product-car img {
-            max-width: 100%;
-            height: 100%; /* ارتفاع ثابت أكبر للصور */
-            object-fit: cover; /* قص الصورة لتناسب الحجم */
-            border-radius: 8px; /* زوايا مستديرة للصورة */
-            margin-bottom: 0; /* لا يوجد هامش أسفل الصورة حيث تمت إزالة النص */
-            border: 1px solid #333; /* حدود خفيفة حول الصورة */
-        }
-
-        hr {
-            border: 0;
-            height: 1px;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
-            margin: 40px auto; /* توسيط الخط الأفقي */
-            max-width: 80%; /* جعل الخط الأفقي أضيق قليلاً */
-        }
 
         /* Responsive adjustments */
         @media (min-width: 769px) {
-            .products-grid {
+            .container {
                 display: grid; /* Switch back to grid for larger screens */
                 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
                 gap: 30px;
@@ -289,6 +248,7 @@
                 scroll-snap-type: none; /* Disable snapping */
                 padding: 0; /* Remove padding */
                 justify-content: center; /* Center items in grid */
+                white-space: normal; /* Allow items to wrap */
             }
             .product-card {
                 flex: none; /* Remove flex sizing */
@@ -299,22 +259,22 @@
 
         @media (max-width: 768px) {
             .top-header {
-                padding: 10px; /* Adjust padding for smaller screens */
+                padding: 10px;
             }
             .header-right {
-                gap: 10px; /* Reduce gap on small screens */
+                gap: 10px;
             }
             .icon-button {
-                font-size: 1.2em; /* Smaller icons */
-                padding: 8px 12px; /* Smaller padding */
+                font-size: 1.2em;
+                padding: 8px 12px;
             }
             .back-button {
-                font-size: 1.2em; /* Smaller back button icon */
+                font-size: 1.2em;
             }
             .logo {
-                max-height: 40px; /* Smaller logo */
+                max-height: 40px;
             }
-            .products-grid {
+            .container {
                 padding: 0 10px 15px; /* Adjust padding for smaller screens */
             }
         }
@@ -327,22 +287,22 @@
                 height: 200px;
             }
             .top-header {
-                flex-wrap: wrap; /* Allow header items to wrap on very small screens */
+                flex-wrap: wrap;
                 justify-content: center;
                 gap: 10px;
             }
             .header-left, .header-center, .header-right {
-                flex: none; /* Remove flex grow to allow wrapping */
-                width: 100%; /* Take full width when wrapped */
+                flex: none;
+                width: 100%;
                 text-align: center;
-                justify-content: center; /* Center buttons when wrapped */
-                margin-top: 5px; /* Add some margin between wrapped sections */
+                justify-content: center;
+                margin-top: 5px;
             }
             .header-center {
-                order: -1; /* Move logo to the top when wrapped */
+                order: -1;
             }
             .header-right {
-                order: 1; /* Keep buttons below logo when wrapped */
+                order: 1;
             }
         }
     </style>
@@ -371,25 +331,28 @@
             </button>
         </div>
     </header>
-     <a class="product-car" href="partisions.html">
-        <img src="https://i.postimg.cc/JhVjbDv4/Shop-all.jpg" alt="Shop All" width="100%" height="100%"/>
+
+    <a class="product-car" href="partisions.html">
+        <img src="https://i.postimg.cc/JhVjbDv4/Shop-all.jpg" alt="Shop All" />
     </a>
 
-
-<hr>
+    <hr>
     <h3>Pants Collection</h3>
     <div class="container">
         <a class="product-card" href="Dark-blue-sweatpants.html">
             <img src="https://i.postimg.cc/bvkWyWrY/DBP.jpg" alt="Dark Blue Sweatpants" />
+            <div class="product-name">Dark Blue Sweatpants</div>
         </a>
-        </div>
+    </div>
 
     <hr>
     <h3>Shirts & T-shirts Collection</h3>
     <div class="container">
         <a class="product-card" href="product-dark-gray-tshirt.html">
             <img src="https://i.postimg.cc/SxwHpkyt/DGTS.jpg" alt="Dark Gray T-shirt" />
+            <div class="product-name">Dark Gray T-shirt</div>
         </a>
+        
     </div>
 
     <hr>
@@ -398,15 +361,21 @@
     <div class="container">
         <a class="product-card" href="product-baby-blue-men-suit.html">
             <img src="https://i.postimg.cc/mZy4NzbZ/BBS.jpg" alt="Baby Blue Suit" />
+            <div class="product-name">Baby Blue Suit</div>
         </a>
         <a class="product-card" href="product-baby-brown-men-suit.html">
             <img src="https://i.postimg.cc/GmH1CXv9/DBS.jpg" alt="Baby Brown Suit" />
+            <div class="product-name">Baby Brown Suit</div>
         </a>
+        </div>
+        <div class="container">
         <a class="product-card" href="product-baby-pink-men-suit.html">
             <img src="https://i.postimg.cc/3RHM27VD/BPS.jpg" alt="Baby Pink Suit" />
-            </a>
+            <div class="product-name">Baby Pink Suit</div>
+        </a>
         <a class="product-card" href="product-dark-gray-men-suit.html">
             <img src="https://i.postimg.cc/nV289ykC/DGS.jpg" alt="Dark Gray Suit" />
+            <div class="product-name">Dark Gray Suit</div>
         </a>
     </div>
 
@@ -414,11 +383,13 @@
     <div class="container">
         <a class="product-card" href="product-baby-pink-women-suit.html">
             <img src="https://i.postimg.cc/j5TPsn7K/BPSW.jpg" alt="Baby Pink Women Suit" />
+            <div class="product-name">Baby Pink Women Suit</div>
         </a>
         <a class="product-card" href="product-dark-gray-women-suit.html">
             <img src="https://i.postimg.cc/J0PnCGbT/DGW.jpg" alt="Dark Gray Women Suit" />
+            <div class="product-name">Dark Gray Women Suit</div>
         </a>
     </div>
 
-    </body>
+</body>
 </html>
