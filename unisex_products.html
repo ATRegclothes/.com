@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8" />
+    <title>ATR.egclothes/Unisex Products</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            padding: 20px;
+            margin: 0;
+            color: #fff;
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1a1a1a;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header-left {
+            flex: 1;
+            text-align: left;
+        }
+
+        .store-name {
+            color: #fff;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .header-center {
+            flex: 1;
+            text-align: center;
+        }
+
+        .logo {
+            max-height: 50px;
+            width: auto;
+            cursor: pointer;
+        }
+
+        .header-right {
+            flex: 1;
+            text-align: right;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        .icon-button {
+            background-color: #1a1a1a;
+            border: 1px solid #1a1a1a;
+            cursor: pointer;
+            color: #fff;
+            font-size: 1.5em;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .icon-button:hover {
+            background-color: #333;
+            border-color: #666;
+            color: #fff;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            color: #fff;
+        }
+
+        .search-bar-container {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 10px;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-bar {
+            width: 80%;
+            max-width: 500px;
+            padding: 12px 20px;
+            border: 1px solid #333;
+            border-radius: 25px;
+            background-color: #1a1a1a;
+            color: #fff;
+            font-size: 1.1em;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search-bar::placeholder {
+            color: #aaa;
+        }
+
+        .search-bar:focus {
+            border-color: #666;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding-bottom: 15px;
+            justify-content: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            text-decoration: none;
+            display: block;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #333;
+        }
+
+        .product-card .product-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #fff;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+            margin: 40px auto;
+            max-width: 80%;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-card img {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-left"></div>
+        <div class="header-center">
+            <a href="index.html">
+                <img src="https://i.postimg.cc/0NKPqrym/Untitled399-20250709162221.png" alt="ATR.egclothes Logo" class="logo">
+            </a>
+        </div>
+        <div class="header-right">
+            <button class="icon-button search-button" onclick="location.href='products.html'">
+                <i class="fas fa-search"></i>
+            </button>
+            <button class="icon-button cart-button" onclick="location.href='cart.html'">
+                <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="icon-button filter-button" onclick="location.href='filter.html'">
+                <i class="fas fa-filter"></i>
+            </button>
+        </div>
+    </header>
+
+    <h1>Unisex Products</h1>
+
+    <div class="search-bar-container">
+        <input type="text" id="productSearch" class="search-bar" placeholder="Search for unisex clothing..." onkeyup="filterProducts()">
+    </div>
+
+    <div class="products-grid" id="allProductsGrid">
+        </div>
+
+    <script>
+        // Only Unisex products here
+        const products = [
+            { id: 'dark-blue-sweatpants', name: 'Dark Blue Sweatpants', price: 750, image: 'https://i.postimg.cc/bvkWyWrY/DBP.jpg', link: 'Dark-blue-sweatpants.html', gender: 'unisex' },
+            { id: 'dark-gray-tshirt', name: 'Dark Gray T-shirt', price: 300, image: 'https://i.postimg.cc/SxwHpkyt/DGTS.jpg', link: 'product-dark-gray-tshirt.html', gender: 'unisex' }
+            // Add more unisex products here
+        ];
+
+        const allProductsGrid = document.getElementById('allProductsGrid');
+        const productSearchInput = document.getElementById('productSearch');
+
+        function displayProducts(productsToDisplay) {
+            allProductsGrid.innerHTML = '';
+            if (productsToDisplay.length === 0) {
+                allProductsGrid.innerHTML = '<p style="text-align: center; font-size: 1.2em; margin-top: 50px;">No unisex products found matching your search.</p>';
+                return;
+            }
+            productsToDisplay.forEach(product => {
+                const productCard = document.createElement('a');
+                productCard.className = 'product-card';
+                productCard.href = product.link;
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" />
+                    <div class="product-name">${product.name}</div>
+                `;
+                allProductsGrid.appendChild(productCard);
+            });
+        }
+
+        function filterProducts() {
+            const searchTerm = productSearchInput.value.toLowerCase();
+            const filteredProducts = products.filter(product =>
+                product.name.toLowerCase().includes(searchTerm)
+            );
+            displayProducts(filteredProducts);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            displayProducts(products); // Display all unisex products initially
+        });
+    </script>
+</body>
+</html>
