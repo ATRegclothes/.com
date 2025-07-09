@@ -298,58 +298,49 @@
         </div>
     </header>
 
-    <h1>Women's Products</h1>
-
-    <div class="search-bar-container">
-        <input type="text" id="productSearch" class="search-bar" placeholder="Search for women's clothing..." onkeyup="filterProducts()" aria-label="Search women's products">
-    </div>
-
-    <div class="products-grid" id="allProductsGrid">
+<hr>
+    <h3>Pants Collection</h3>
+    <div class="container">
+        <a class="product-card" href="Dark-blue-sweatpants.html">
+            <img src="https://i.postimg.cc/bvkWyWrY/DBP.jpg" alt="Dark Blue Sweatpants" />
+        </a>
         </div>
 
-    <script>
-        // Only Women's products here
-        const products = [
-            { id: 'baby-pink-women-suit', name: 'Baby Pink Women Suit', price: 1550, image: 'https://i.postimg.cc/j5TPsn7K/BPSW.jpg', link: 'product-baby-pink-women-suit.html', gender: 'women' },
-            { id: 'dark-gray-women-suit', name: 'Dark Gray Women Suit', price: 1500, image: 'https://i.postimg.cc/J0PnCGbT/DGW.jpg', link: 'product-dark-gray-women-suit.html', gender: 'women' },
-            { id: 'women-red-dress', name: 'Women Red Dress', price: 1200, image: 'https://i.postimg.cc/prg7k6g8/WRD.jpg', link: 'product-women-red-dress.html', gender: 'women' },
-            { id: 'women-blue-jeans', name: 'Women Blue Jeans', price: 600, image: 'https://i.postimg.cc/PJz0b4hX/WBJ.jpg', link: 'product-women-blue-jeans.html', gender: 'women' },
-            { id: 'women-white-blouse', name: 'Women White Blouse', price: 450, image: 'https://i.postimg.cc/mgNqP76d/WWB.jpg', link: 'product-women-white-blouse.html', gender: 'women' }
-            // Add more women's products here to see the swipe effect
-        ];
+    <hr>
+    <h3>Shirts & T-shirts Collection</h3>
+    <div class="container">
+        <a class="product-card" href="product-dark-gray-tshirt.html">
+            <img src="https://i.postimg.cc/SxwHpkyt/DGTS.jpg" alt="Dark Gray T-shirt" />
+        </a>
+    </div>
 
-        const allProductsGrid = document.getElementById('allProductsGrid');
-        const productSearchInput = document.getElementById('productSearch');
+    <hr>
+    <h2>Suits Collections</h2>
+    <h3>Men's Suits</h3>
+    <div class="container">
+        <a class="product-card" href="product-baby-blue-men-suit.html">
+            <img src="https://i.postimg.cc/mZy4NzbZ/BBS.jpg" alt="Baby Blue Suit" />
+        </a>
+        <a class="product-card" href="product-baby-brown-men-suit.html">
+            <img src="https://i.postimg.cc/GmH1CXv9/DBS.jpg" alt="Baby Brown Suit" />
+        </a>
+        <a class="product-card" href="product-baby-pink-men-suit.html">
+            <img src="https://i.postimg.cc/3RHM27VD/BPS.jpg" alt="Baby Pink Suit" />
+            </a>
+        <a class="product-card" href="product-dark-gray-men-suit.html">
+            <img src="https://i.postimg.cc/nV289ykC/DGS.jpg" alt="Dark Gray Suit" />
+        </a>
+    </div>
 
-        function displayProducts(productsToDisplay) {
-            allProductsGrid.innerHTML = '';
-            if (productsToDisplay.length === 0) {
-                allProductsGrid.innerHTML = '<p style="text-align: center; font-size: 1.2em; margin-top: 50px;">No women\'s products found matching your search.</p>';
-                return;
-            }
-            productsToDisplay.forEach(product => {
-                const productCard = document.createElement('a');
-                productCard.className = 'product-card';
-                productCard.href = product.link;
-                productCard.innerHTML = `
-                    <img src="${product.image}" alt="${product.name}" />
-                    <div class="product-name">${product.name}</div>
-                `;
-                allProductsGrid.appendChild(productCard);
-            });
-        }
+    <h3>Women's Suits</h3>
+    <div class="container">
+        <a class="product-card" href="product-baby-pink-women-suit.html">
+            <img src="https://i.postimg.cc/j5TPsn7K/BPSW.jpg" alt="Baby Pink Women Suit" />
+        </a>
+        <a class="product-card" href="product-dark-gray-women-suit.html">
+            <img src="https://i.postimg.cc/J0PnCGbT/DGW.jpg" alt="Dark Gray Women Suit" />
+        </a>
+    </div>
 
-        function filterProducts() {
-            const searchTerm = productSearchInput.value.toLowerCase();
-            const filteredProducts = products.filter(product =>
-                product.name.toLowerCase().includes(searchTerm)
-            );
-            displayProducts(filteredProducts);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            displayProducts(products); // Display all women's products initially
-        });
-    </script>
-</body>
+    </body>
 </html>
