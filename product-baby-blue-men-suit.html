@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8" />
+    <title>ATR.egclothes/main</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding: 20px;
+            margin: 0;
+            color: #fff;
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1a1a1a;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header-left {
+            flex: 1;
+            text-align: left;
+        }
+
+        .store-name {
+            color: #fff;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .header-center {
+            flex: 1;
+            text-align: center;
+        }
+
+        .logo {
+            max-height: 50px;
+            width: auto;
+            cursor: pointer; /* إضافة مؤشر لتوضيح أنه قابل للنقر */
+        }
+
+        .header-right {
+            flex: 1;
+            text-align: right;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        .icon-button {
+            background-color: #1a1a1a;
+            border: 1px solid #1a1a1a;
+            cursor: pointer;
+            color: #fff;
+            font-size: 1.5em;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .icon-button:hover {
+            background-color: #333;
+            border-color: #666;
+            color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 15px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .product-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 10px;
+            background-color: #1a1a1a;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .product-display img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .product-display h3 {
+            margin: 10px 0;
+            color: #fff;
+            font-size: 1.5em;
+        }
+
+        .product-display p {
+            margin: 5px 0 15px;
+            color: #eee;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .product-display .sizes {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .product-display .sizes input[type="radio"] {
+            display: none;
+        }
+
+        .product-display .sizes label {
+            padding: 8px 15px;
+            background-color: #000;
+            border: 1px solid #333;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            color: #fff;
+        }
+
+        .product-display .sizes input[type="radio"]:checked + label {
+            background-color: #333;
+            color: #fff;
+            border-color: #666;
+        }
+
+        .product-display .sizes label:hover {
+            background-color: #333;
+            border-color: #666;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .quantity-control button {
+            background-color: #000;
+            color: white;
+            padding: 8px 12px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .quantity-control button:hover {
+            background-color: #333;
+            border-color: #666;
+        }
+
+        .quantity-display {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 8px 15px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            font-size: 1.2em;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .add-to-cart-btn {
+            background-color: #000;
+            color: white;
+            padding: 12px 25px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #333;
+            border-color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-left">
+            </div>
+        <div class="header-center">
+            <a href="index.html">
+                <img src="https://i.postimg.cc/0NKPqrym/Untitled399-20250709162221.png" alt="ATR.egclothes Logo" class="logo">
+            </a>
+        </div>
+        <div class="header-right">
+            <button class="icon-button search-button" onclick="location.href='products.html'">
+                <i class="fas fa-search"></i>
+            </button>
+            <button class="icon-button filter-button" onclick="location.href='filter.html'">
+                <i class="fas fa-filter"></i>
+            </button>
+            <button class="icon-button cart-button" onclick="location.href='cart.html'">
+                <i class="fas fa-shopping-cart"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="product-display">
+        <img
+            src="https://i.postimg.cc/mZy4NzbZ/BBS.jpg"
+            alt="Baby Blue Men Suit" id="product-image"
+        />
+        <h3 id="product-name">Baby Blue Men Suit</h3> <p>Price: <span id="product-price">1500</span> EGP</p> <div class="sizes" id="product-sizes">
+            <input type="radio" id="bbs-size-m" name="size-baby-blue-men-suit" value="M" checked>
+            <label for="bbs-size-m">M</label>
+            <input type="radio" id="bbs-size-l" name="size-baby-blue-men-suit" value="L">
+            <label for="bbs-size-l">L</label>
+            <input type="radio" id="bbs-size-xl" name="size-baby-blue-men-suit" value="XL">
+            <label for="bbs-size-xl">XL</label>
+            <input type="radio" id="bbs-size-xxl" name="size-baby-blue-men-suit" value="XXL">
+            <label for="bbs-size-xxl">XXL</label>
+        </div>
+
+        <div class="quantity-control">
+            <button id="decrease-quantity">-</button>
+            <span id="quantity-display" class="quantity-display">1</span>
+            <button id="increase-quantity">+</button>
+        </div>
+
+        <button class="add-to-cart-btn">Add to cart</button>
+    </div>
+
+    <div class="container">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const decreaseButton = document.getElementById('decrease-quantity');
+            const increaseButton = document.getElementById('increase-quantity');
+            const quantityDisplay = document.getElementById('quantity-display');
+            const addToCartBtn = document.querySelector('.add-to-cart-btn');
+
+            let selectedQuantity = parseInt(quantityDisplay.textContent); // الكمية الافتراضية
+
+            // وظيفة لزيادة الكمية
+            increaseButton.addEventListener('click', () => {
+                selectedQuantity++;
+                quantityDisplay.textContent = selectedQuantity;
+            });
+
+            // وظيفة لإنقاص الكمية
+            decreaseButton.addEventListener('click', () => {
+                if (selectedQuantity > 1) { // لا تسمح بأن تكون الكمية أقل من 1
+                    selectedQuantity--;
+                    quantityDisplay.textContent = selectedQuantity;
+                }
+            });
+
+            // دالة لإضافة المنتج للسلة (هنا بيتم حفظها في Local Storage)
+            addToCartBtn.addEventListener('click', () => {
+                // تم تعديل معرف المنتج ليناسب "Baby Blue Men Suit"
+                const productId = 'baby-blue-men-suit-001'; 
+                const productName = document.getElementById('product-name').textContent;
+                const productPrice = parseFloat(document.getElementById('product-price').textContent);
+                const productImage = document.getElementById('product-image').src;
+                // تم تعديل اسم المقاس في الـ querySelector ليناسب "Baby Blue Men Suit"
+                const selectedSize = document.querySelector('#product-sizes input[name="size-baby-blue-men-suit"]:checked').value;
+
+                let cart = JSON.parse(localStorage.getItem('cart')) || []; // استرجاع السلة أو إنشاء واحدة جديدة
+
+                // البحث عن المنتج في السلة (بنفس الـ ID والمقاس)
+                const existingItemIndex = cart.findIndex(item => item.id === productId && item.size === selectedSize);
+
+                if (existingItemIndex > -1) {
+                    // لو المنتج موجود، زود الكمية
+                    cart[existingItemIndex].quantity += selectedQuantity;
+                } else {
+                    // لو المنتج مش موجود، أضفه كعنصر جديد
+                    cart.push({
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        image: productImage,
+                        size: selectedSize,
+                        quantity: selectedQuantity
+                    });
+                }
+
+                localStorage.setItem('cart', JSON.stringify(cart)); // حفظ السلة في Local Storage
+
+                alert(`تم إضافة ${selectedQuantity} قطعة من ${productName} (مقاس: ${selectedSize}) إلى سلة المشتريات!`);
+
+                // إعادة ضبط الكمية المعروضة إلى 1 بعد الإضافة للسلة
+                selectedQuantity = 1; 
+                quantityDisplay.textContent = selectedQuantity;
+            });
+        });
+    </script>
+</body>
+</html>
