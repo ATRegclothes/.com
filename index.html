@@ -9,7 +9,7 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #000; /* خلفية سوداء */
-            padding: 20px;
+            padding: 0; /* إزالة ال padding من ال body */
             margin: 0;
             color: #fff; /* لون الخط أبيض للتباين */
         }
@@ -20,9 +20,10 @@
             justify-content: space-between;
             align-items: center;
             background-color: #1a1a1a;
-            padding: 10px 20px;
+            padding: 10px 20px; /* يمكن تعديل ال padding هنا ليناسب كل الأجهزة */
             border-radius: 10px;
-            margin-bottom: 20px;
+            margin: 20px; /* Margin من جميع الجهات */
+            box-sizing: border-box; /* لضمان أن ال padding لا يزيد عن عرض العنصر */
         }
 
         .header-left {
@@ -86,7 +87,7 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* يتكيف تلقائياً، كل عمود لا يقل عن 280 بكسل ويملأ المساحة المتاحة */
             gap: 30px; /* المسافة بين المنتجات */
             padding-bottom: 15px;
-            justify-content: center; /* توسيط العناصر في الشبكة (لأكثر من عمود) */
+            justify-items: center; /* توسيط العناصر داخل كل خلية Grid */
             max-width: 900px; /* زيادة أقصى عرض للحاوية عشان تستوعب 280*2 + مسافات */
             margin: 0 auto; /* توسيط الحاوية نفسها */
         }
@@ -160,29 +161,59 @@
 
         /* Responsive adjustments for smaller screens (e.g., mobile) */
         @media (max-width: 768px) {
+            .top-header {
+                padding: 10px; /* تقليل ال padding في الهيدر */
+                margin: 10px; /* تقليل ال margin في الهيدر */
+            }
+            .header-right {
+                gap: 5px; /* تقليل المسافة بين الأزرار في الهيدر */
+            }
+            .icon-button {
+                font-size: 1.2em; /* تصغير حجم الأيقونات */
+                padding: 8px 10px; /* تصغير ال padding للأزرار */
+            }
             .container {
-                /* For screens wider than 480px but <= 768px, display 2 columns */
-                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* تصغير حجم المنتجات للسماح بعرض اثنين */
-                max-width: 600px; /* تقليل أقصى عرض للكونتينر */
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* تصغير حجم المنتجات للسماح بعرض اثنين */
+                max-width: 90%; /* استخدام عرض أكبر للكونتينر */
+                gap: 15px; /* تقليل المسافة بين المنتجات */
+            }
+            .product-card img {
+                height: 160px; /* تصغير ارتفاع الصور على شاشات متوسطة */
             }
         }
 
         @media (max-width: 480px) {
+            .top-header {
+                padding: 8px;
+                margin: 8px;
+            }
+            .header-right {
+                flex-wrap: wrap; /* السماح للأزرار بالنزول لسطر جديد لو المساحة ضاقت */
+                justify-content: center; /* توسيط الأزرار لو نزلت لسطر جديد */
+            }
+            .icon-button {
+                font-size: 1em;
+                padding: 6px 8px;
+            }
+            .logo {
+                max-height: 40px; /* تصغير اللوجو على الموبايل */
+            }
+
             .container {
                 display: flex; /* استخدام Flexbox للعرض المرن */
                 flex-wrap: wrap; /* السماح للعناصر بالنزول لسطر جديد */
                 justify-content: center; /* توسيط المنتجات في الصف */
-                gap: 15px; /* تقليل المسافة بين المنتجات في الموبايل */
+                gap: 10px; /* تقليل المسافة بين المنتجات في الموبايل */
                 max-width: 100%; /* استخدم كامل عرض الشاشة */
-                padding: 0 10px; /* إضافة padding بسيط من الجوانب */
+                padding: 0 5px; /* إضافة padding بسيط من الجوانب */
             }
             .product-card {
-                width: calc(50% - 20px); /* عرض 2 منتج في الصف مع مسافة بينهم */
+                width: calc(50% - 15px); /* عرض 2 منتج في الصف مع مسافة بينهم */
                 margin-bottom: 10px; /* مسافة بين الصفوف */
                 height: auto; /* السماح بتعديل الارتفاع */
             }
             .product-card img {
-                height: 180px; /* تصغير ارتفاع الصور على الموبايل */
+                height: 150px; /* تصغير ارتفاع الصور على الموبايل */
             }
         }
     </style>
