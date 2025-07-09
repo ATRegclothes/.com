@@ -2,33 +2,34 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8" />
-    <title>ATR.egclothes/main</title>
+    <title>ATR.egclothes/Women's Products</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #000; /* خلفية سوداء */
-            padding: 0; /* إزالة ال padding من ال body */
+            background-color: #000;
+            padding: 20px;
             margin: 0;
-            color: #fff; /* لون الخط أبيض للتباين */
+            color: #fff;
         }
 
-        /* الجزء العلوي - اللوجو فقط */
         .top-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             background-color: #1a1a1a;
-            padding: 10px 20px; /* يمكن تعديل ال padding هنا ليناسب كل الأجهزة */
+            padding: 10px 20px;
             border-radius: 10px;
-            margin: 20px; /* Margin من جميع الجهات */
-            box-sizing: border-box; /* لضمان أن ال padding لا يزيد عن عرض العنصر */
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Added subtle shadow for depth */
         }
 
         .header-left {
             flex: 1;
             text-align: left;
+            display: flex; /* Added display flex to align back button */
+            align-items: center;
         }
 
         .store-name {
@@ -45,7 +46,8 @@
         .logo {
             max-height: 50px;
             width: auto;
-            cursor: pointer; /* جعل اللوجو قابل للنقر للعودة للصفحة الرئيسية */
+            cursor: pointer;
+            vertical-align: middle; /* Ensures logo aligns well */
         }
 
         .header-right {
@@ -64,156 +66,209 @@
             font-size: 1.5em;
             padding: 10px 15px;
             border-radius: 8px;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+            display: flex; /* Aligns icon and text if any */
+            align-items: center;
+            justify-content: center;
         }
 
         .icon-button:hover {
             background-color: #333;
             border-color: #666;
-            color: #fff;
+            color: #007bff; /* Changed hover color for icons for better feedback */
         }
 
-        h3, h2 {
+        /* New style for the back button */
+        .back-button {
+            background-color: transparent; /* Changed to transparent for a cleaner look */
+            border: none;
+            cursor: pointer;
+            color: #fff;
+            font-size: 1.5em;
+            padding: 0; /* Remove padding as it's an icon-only button */
+            transition: color 0.3s ease;
+            outline: none; /* Remove outline on focus */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-button:hover {
+            color: #007bff; /* Match icon hover color */
+        }
+
+        h1, h2, h3 {
             text-align: center;
             margin-top: 30px;
             margin-bottom: 20px;
             font-size: 1.8em;
-            color: #fff; /* لون العناوين أبيض */
+            color: #fff;
         }
 
-        /* حاوية المنتجات */
-        .container {
-            display: grid; /* استخدام CSS Grid للتخطيط */
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* يتكيف تلقائياً، كل عمود لا يقل عن 280 بكسل ويملأ المساحة المتاحة */
-            gap: 30px; /* المسافة بين المنتجات */
-            padding-bottom: 15px;
-            justify-items: center; /* توسيط العناصر داخل كل خلية Grid */
-            max-width: 900px; /* زيادة أقصى عرض للحاوية عشان تستوعب 280*2 + مسافات */
-            margin: 0 auto; /* توسيط الحاوية نفسها */
+        .search-bar-container {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 10px;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* تصميم بطاقة المنتج (الصورة فقط قابلة للنقر) */
+        .search-bar {
+            width: 80%;
+            max-width: 500px;
+            padding: 12px 20px;
+            border: 1px solid #333;
+            border-radius: 25px;
+            background-color: #1a1a1a;
+            color: #fff;
+            font-size: 1.1em;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search-bar::placeholder {
+            color: #aaa;
+        }
+
+        .search-bar:focus {
+            border-color: #666;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Modified products-grid for horizontal scroll and snapping */
+        .products-grid {
+            display: flex; /* Changed to flex for horizontal layout */
+            overflow-x: auto; /* Enable horizontal scrolling */
+            scroll-snap-type: x mandatory; /* Snap to items */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            gap: 20px; /* Gap between product cards */
+            padding: 0 20px 15px; /* Add padding for visual spacing */
+            max-width: 900px;
+            margin: 0 auto;
+            justify-content: flex-start; /* Align items to the start */
+            scrollbar-width: none; /* Hide scrollbar for Firefox */
+        }
+
+        /* Hide scrollbar for Chrome, Safari, and Opera */
+        .products-grid::-webkit-scrollbar {
+            display: none;
+        }
+
         .product-card {
-            background-color: #1a1a1a; /* خلفية داكنة لبطاقة المنتج */
+            flex: 0 0 calc(50% - 10px); /* Two cards per row, accounting for gap */
+            background-color: #1a1a1a;
             border-radius: 10px;
             padding: 15px;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* ظل خفيف للخلفية الداكنة */
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
             text-align: center;
             color: #fff;
-            cursor: pointer; /* مؤشر اليد للإشارة إلى أنه قابل للنقر */
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* حركة ناعمة عند التحويل والظل */
-            text-decoration: none; /* إزالة خط تحت الروابط */
-            display: block; /* جعل البطاقة بأكملها قابلة للنقر */
-            overflow: hidden; /* يضمن تطبيق حدود الزوايا المستديرة على الصورة */
+            cursor: grab; /* Indicate it's draggable/swappable */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            text-decoration: none;
+            display: flex; /* Use flex to align content within card */
+            flex-direction: column;
+            justify-content: space-between; /* Push image and name apart if needed */
+            scroll-snap-align: start; /* Snap to the start of each card */
+            max-width: 300px; /* Ensure cards don't become too wide on larger screens */
+            box-sizing: border-box; /* Include padding in width calculation */
         }
 
         .product-card:hover {
-            transform: translateY(-5px); /* رفع البطاقة قليلاً عند المرور عليها */
-            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2); /* ظل أقوى عند المرور عليها */
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
         }
 
         .product-card img {
             max-width: 100%;
-            height: 250px; /* ارتفاع ثابت أكبر للصور */
-            object-fit: cover; /* قص الصورة لتناسب الحجم */
-            border-radius: 8px; /* زوايا مستديرة للصورة */
-            margin-bottom: 0; /* لا يوجد هامش أسفل الصورة حيث تمت إزالة النص */
-            border: 1px solid #333; /* حدود خفيفة حول الصورة */
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #333;
         }
 
-        .product-car {
-            background-color: #1a1a1a; /* خلفية داكنة لبطاقة المنتج */
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* ظل خفيف للخلفية الداكنة */
-            text-align: center;
+        .product-card .product-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 10px;
             color: #fff;
-            cursor: pointer; /* مؤشر اليد للإشارة إلى أنه قابل للنقر */
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* حركة ناعمة عند التحويل والظل */
-            text-decoration: none; /* إزالة خط تحت الروابط */
-            display: block; /* جعل البطاقة بأكملها قابلة للنقر */
-            overflow: hidden; /* يضمن تطبيق حدود الزوايا المستديرة على الصورة */
-            max-width: 900px; /* عشان يفضل في المنتصف زيه زي باقي ال containers */
-            margin: 0 auto 20px auto; /* توسيطه و مسافة تحتيه */
-        }
-
-        .product-car:hover {
-            transform: translateY(-5px); /* رفع البطاقة قليلاً عند المرور عليها */
-            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2); /* ظل أقوى عند المرور عليها */
-        }
-
-        .product-car img {
-            max-width: 100%;
-            height: 100%; /* ارتفاع ثابت أكبر للصور */
-            object-fit: cover; /* قص الصورة لتناسب الحجم */
-            border-radius: 8px; /* زوايا مستديرة للصورة */
-            margin-bottom: 0; /* لا يوجد هامش أسفل الصورة حيث تمت إزالة النص */
-            border: 1px solid #333; /* حدود خفيفة حول الصورة */
         }
 
         hr {
             border: 0;
             height: 1px;
             background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
-            margin: 40px auto; /* توسيط الخط الأفقي */
-            max-width: 80%; /* جعل الخط الأفقي أضيق قليلاً */
+            margin: 40px auto;
+            max-width: 80%;
         }
 
-        /* Responsive adjustments for smaller screens (e.g., mobile) */
+        /* Responsive adjustments */
+        @media (min-width: 769px) {
+            .products-grid {
+                display: grid; /* Switch back to grid for larger screens */
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 30px;
+                overflow-x: visible; /* Disable horizontal scroll */
+                scroll-snap-type: none; /* Disable snapping */
+                padding: 0; /* Remove padding */
+                justify-content: center; /* Center items in grid */
+            }
+            .product-card {
+                flex: none; /* Remove flex sizing */
+                width: auto; /* Revert to auto width */
+                max-width: none; /* Remove max-width */
+            }
+        }
+
         @media (max-width: 768px) {
             .top-header {
-                padding: 10px; /* تقليل ال padding في الهيدر */
-                margin: 10px; /* تقليل ال margin في الهيدر */
+                padding: 10px; /* Adjust padding for smaller screens */
             }
             .header-right {
-                gap: 5px; /* تقليل المسافة بين الأزرار في الهيدر */
+                gap: 10px; /* Reduce gap on small screens */
             }
             .icon-button {
-                font-size: 1.2em; /* تصغير حجم الأيقونات */
-                padding: 8px 10px; /* تصغير ال padding للأزرار */
+                font-size: 1.2em; /* Smaller icons */
+                padding: 8px 12px; /* Smaller padding */
             }
-            .container {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* تصغير حجم المنتجات للسماح بعرض اثنين */
-                max-width: 90%; /* استخدام عرض أكبر للكونتينر */
-                gap: 15px; /* تقليل المسافة بين المنتجات */
+            .back-button {
+                font-size: 1.2em; /* Smaller back button icon */
             }
-            .product-card img {
-                height: 160px; /* تصغير ارتفاع الصور على شاشات متوسطة */
+            .logo {
+                max-height: 40px; /* Smaller logo */
+            }
+            .products-grid {
+                padding: 0 10px 15px; /* Adjust padding for smaller screens */
             }
         }
 
         @media (max-width: 480px) {
-            .top-header {
-                padding: 8px;
-                margin: 8px;
-            }
-            .header-right {
-                flex-wrap: wrap; /* السماح للأزرار بالنزول لسطر جديد لو المساحة ضاقت */
-                justify-content: center; /* توسيط الأزرار لو نزلت لسطر جديد */
-            }
-            .icon-button {
-                font-size: 1em;
-                padding: 6px 8px;
-            }
-            .logo {
-                max-height: 40px; /* تصغير اللوجو على الموبايل */
-            }
-
-            .container {
-                display: flex; /* استخدام Flexbox للعرض المرن */
-                flex-wrap: wrap; /* السماح للعناصر بالنزول لسطر جديد */
-                justify-content: center; /* توسيط المنتجات في الصف */
-                gap: 10px; /* تقليل المسافة بين المنتجات في الموبايل */
-                max-width: 100%; /* استخدم كامل عرض الشاشة */
-                padding: 0 5px; /* إضافة padding بسيط من الجوانب */
-            }
             .product-card {
-                width: calc(50% - 15px); /* عرض 2 منتج في الصف مع مسافة بينهم */
-                margin-bottom: 10px; /* مسافة بين الصفوف */
-                height: auto; /* السماح بتعديل الارتفاع */
+                flex: 0 0 calc(50% - 10px); /* Ensure two per row even on very small screens */
             }
             .product-card img {
-                height: 150px; /* تصغير ارتفاع الصور على الموبايل */
+                height: 200px;
+            }
+            .top-header {
+                flex-wrap: wrap; /* Allow header items to wrap on very small screens */
+                justify-content: center;
+                gap: 10px;
+            }
+            .header-left, .header-center, .header-right {
+                flex: none; /* Remove flex grow to allow wrapping */
+                width: 100%; /* Take full width when wrapped */
+                text-align: center;
+                justify-content: center; /* Center buttons when wrapped */
+                margin-top: 5px; /* Add some margin between wrapped sections */
+            }
+            .header-center {
+                order: -1; /* Move logo to the top when wrapped */
+            }
+            .header-right {
+                order: 1; /* Keep buttons below logo when wrapped */
             }
         }
     </style>
@@ -221,6 +276,9 @@
 <body>
     <header class="top-header">
         <div class="header-left">
+            <button class="back-button" onclick="history.back()" aria-label="Go back to previous page">
+                <i class="fas fa-arrow-left"></i>
+            </button>
         </div>
         <div class="header-center">
             <a href="index.html">
@@ -228,65 +286,70 @@
             </a>
         </div>
         <div class="header-right">
-            <button class="icon-button search-button" onclick="location.href='products.html'">
+            <button class="icon-button search-button" onclick="location.href='products.html'" aria-label="Search all products">
                 <i class="fas fa-search"></i>
             </button>
-            <button class="icon-button filter-button" onclick="location.href='filter.html'">
-                <i class="fas fa-filter"></i>
-            </button>
-            <button class="icon-button cart-button" onclick="location.href='cart.html'">
+            <button class="icon-button cart-button" onclick="location.href='cart.html'" aria-label="View shopping cart">
                 <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="icon-button filter-button" onclick="location.href='filter.html'" aria-label="Filter products">
+                <i class="fas fa-filter"></i>
             </button>
         </div>
     </header>
 
-    <a class="product-car" href="partisions.html">
-        <img src="https://i.postimg.cc/JhVjbDv4/Shop-all.jpg" alt="Shop All" width="100%" height="100%"/>
-    </a>
+    <h1>Women's Products</h1>
 
-    <hr>
-    <h3>Pants Collection</h3>
-    <div class="container">
-        <a class="product-card" href="Dark-blue-sweatpants.html">
-            <img src="https://i.postimg.cc/bvkWyWrY/DBP.jpg" alt="Dark Blue Sweatpants" />
-        </a>
+    <div class="search-bar-container">
+        <input type="text" id="productSearch" class="search-bar" placeholder="Search for women's clothing..." onkeyup="filterProducts()" aria-label="Search women's products">
     </div>
 
-    <hr>
-    <h3>Shirts & T-shirts Collection</h3>
-    <div class="container">
-        <a class="product-card" href="product-dark-gray-tshirt.html">
-            <img src="https://i.postimg.cc/SxwHpkyt/DGTS.jpg" alt="Dark Gray T-shirt" />
-        </a>
-    </div>
+    <div class="products-grid" id="allProductsGrid">
+        </div>
 
-    <hr>
-    <h2>Suits Collections</h2>
-    <h3>Men's Suits</h3>
-    <div class="container">
-        <a class="product-card" href="product-baby-blue-men-suit.html">
-            <img src="https://i.postimg.cc/mZy4NzbZ/BBS.jpg" alt="Baby Blue Suit" />
-        </a>
-        <a class="product-card" href="product-baby-brown-men-suit.html">
-            <img src="https://i.postimg.cc/GmH1CXv9/DBS.jpg" alt="Baby Brown Suit" />
-        </a>
-        <a class="product-card" href="product-baby-pink-men-suit.html">
-            <img src="https://i.postimg.cc/3RHM27VD/BPS.jpg" alt="Baby Pink Suit" />
-            </a>
-        <a class="product-card" href="product-dark-gray-men-suit.html">
-            <img src="https://i.postimg.cc/nV289ykC/DGS.jpg" alt="Dark Gray Suit" />
-        </a>
-    </div>
+    <script>
+        // Only Women's products here
+        const products = [
+            { id: 'baby-pink-women-suit', name: 'Baby Pink Women Suit', price: 1550, image: 'https://i.postimg.cc/j5TPsn7K/BPSW.jpg', link: 'product-baby-pink-women-suit.html', gender: 'women' },
+            { id: 'dark-gray-women-suit', name: 'Dark Gray Women Suit', price: 1500, image: 'https://i.postimg.cc/J0PnCGbT/DGW.jpg', link: 'product-dark-gray-women-suit.html', gender: 'women' },
+            { id: 'women-red-dress', name: 'Women Red Dress', price: 1200, image: 'https://i.postimg.cc/prg7k6g8/WRD.jpg', link: 'product-women-red-dress.html', gender: 'women' },
+            { id: 'women-blue-jeans', name: 'Women Blue Jeans', price: 600, image: 'https://i.postimg.cc/PJz0b4hX/WBJ.jpg', link: 'product-women-blue-jeans.html', gender: 'women' },
+            { id: 'women-white-blouse', name: 'Women White Blouse', price: 450, image: 'https://i.postimg.cc/mgNqP76d/WWB.jpg', link: 'product-women-white-blouse.html', gender: 'women' }
+            // Add more women's products here to see the swipe effect
+        ];
 
-    <h3>Women's Suits</h3>
-    <div class="container">
-        <a class="product-card" href="product-baby-pink-women-suit.html">
-            <img src="https://i.postimg.cc/j5TPsn7K/BPSW.jpg" alt="Baby Pink Women Suit" />
-        </a>
-        <a class="product-card" href="product-dark-gray-women-suit.html">
-            <img src="https://i.postimg.cc/J0PnCGbT/DGW.jpg" alt="Dark Gray Women Suit" />
-        </a>
-    </div>
+        const allProductsGrid = document.getElementById('allProductsGrid');
+        const productSearchInput = document.getElementById('productSearch');
 
+        function displayProducts(productsToDisplay) {
+            allProductsGrid.innerHTML = '';
+            if (productsToDisplay.length === 0) {
+                allProductsGrid.innerHTML = '<p style="text-align: center; font-size: 1.2em; margin-top: 50px;">No women\'s products found matching your search.</p>';
+                return;
+            }
+            productsToDisplay.forEach(product => {
+                const productCard = document.createElement('a');
+                productCard.className = 'product-card';
+                productCard.href = product.link;
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" />
+                    <div class="product-name">${product.name}</div>
+                `;
+                allProductsGrid.appendChild(productCard);
+            });
+        }
+
+        function filterProducts() {
+            const searchTerm = productSearchInput.value.toLowerCase();
+            const filteredProducts = products.filter(product =>
+                product.name.toLowerCase().includes(searchTerm)
+            );
+            displayProducts(filteredProducts);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            displayProducts(products); // Display all women's products initially
+        });
+    </script>
 </body>
 </html>
