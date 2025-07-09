@@ -80,15 +80,14 @@
             color: #fff; /* لون العناوين أبيض */
         }
 
-        /* حاوية المنتجات - عرض منتجين في الصف */
-        /* هذه الستايلات أصبحت أقل أهمية هنا لأن معظم المنتجات ستكون في products.html */
+        /* حاوية المنتجات */
         .container {
             display: grid; /* استخدام CSS Grid للتخطيط */
-            grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); /* يتكيف تلقائياً، كل عمود لا يقل عن 280 بكسل ويملأ المساحة المتاحة */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* يتكيف تلقائياً، كل عمود لا يقل عن 280 بكسل ويملأ المساحة المتاحة */
             gap: 30px; /* المسافة بين المنتجات */
             padding-bottom: 15px;
-            justify-content: center; /* توسيط العناصر في الشبكة */
-            max-width: 600px; /* تحديد أقصى عرض للحاوية لتوسيطها */
+            justify-content: center; /* توسيط العناصر في الشبكة (لأكثر من عمود) */
+            max-width: 900px; /* زيادة أقصى عرض للحاوية عشان تستوعب 280*2 + مسافات */
             margin: 0 auto; /* توسيط الحاوية نفسها */
         }
 
@@ -133,6 +132,8 @@
             text-decoration: none; /* إزالة خط تحت الروابط */
             display: block; /* جعل البطاقة بأكملها قابلة للنقر */
             overflow: hidden; /* يضمن تطبيق حدود الزوايا المستديرة على الصورة */
+            max-width: 900px; /* عشان يفضل في المنتصف زيه زي باقي ال containers */
+            margin: 0 auto 20px auto; /* توسيطه و مسافة تحتيه */
         }
 
         .product-car:hover {
@@ -156,12 +157,40 @@
             margin: 40px auto; /* توسيط الخط الأفقي */
             max-width: 80%; /* جعل الخط الأفقي أضيق قليلاً */
         }
+
+        /* Responsive adjustments for smaller screens (e.g., mobile) */
+        @media (max-width: 768px) {
+            .container {
+                /* For screens wider than 480px but <= 768px, display 2 columns */
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* تصغير حجم المنتجات للسماح بعرض اثنين */
+                max-width: 600px; /* تقليل أقصى عرض للكونتينر */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                display: flex; /* استخدام Flexbox للعرض المرن */
+                flex-wrap: wrap; /* السماح للعناصر بالنزول لسطر جديد */
+                justify-content: center; /* توسيط المنتجات في الصف */
+                gap: 15px; /* تقليل المسافة بين المنتجات في الموبايل */
+                max-width: 100%; /* استخدم كامل عرض الشاشة */
+                padding: 0 10px; /* إضافة padding بسيط من الجوانب */
+            }
+            .product-card {
+                width: calc(50% - 20px); /* عرض 2 منتج في الصف مع مسافة بينهم */
+                margin-bottom: 10px; /* مسافة بين الصفوف */
+                height: auto; /* السماح بتعديل الارتفاع */
+            }
+            .product-card img {
+                height: 180px; /* تصغير ارتفاع الصور على الموبايل */
+            }
+        }
     </style>
 </head>
 <body>
     <header class="top-header">
         <div class="header-left">
-            </div>
+        </div>
         <div class="header-center">
             <a href="index.html">
                 <img src="https://i.postimg.cc/0NKPqrym/Untitled399-20250709162221.png" alt="ATR.egclothes Logo" class="logo">
@@ -190,7 +219,7 @@
         <a class="product-card" href="Dark-blue-sweatpants.html">
             <img src="https://i.postimg.cc/bvkWyWrY/DBP.jpg" alt="Dark Blue Sweatpants" />
         </a>
-        </div>
+    </div>
 
     <hr>
     <h3>Shirts & T-shirts Collection</h3>
@@ -228,5 +257,5 @@
         </a>
     </div>
 
-    </body>
+</body>
 </html>
