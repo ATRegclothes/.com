@@ -2,21 +2,22 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8" />
-    <title>ATR.egclothes/main</title>
+    <title>ATR.egclothes/Product Details</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #000;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            padding: 20px;
+            /* background-size, background-repeat, background-attachment:
+               دي مش بتظهر حاليا لأنك مش حاطط صورة خلفية لل body.
+               لو حبيت تحط صورة، ممكن تضيفها هنا. */
+            padding: 0; /* إزالة ال padding من ال body عشان نتحكم فيه في العناصر الداخلية */
             margin: 0;
             color: #fff;
         }
 
+        /* --- Header Styles --- */
         .top-header {
             display: flex;
             justify-content: space-between;
@@ -24,7 +25,8 @@
             background-color: #1a1a1a;
             padding: 10px 20px;
             border-radius: 10px;
-            margin-bottom: 20px;
+            margin: 20px; /* Margin من جميع الجهات عشان الفريم يكون مظبوط */
+            box-sizing: border-box; /* مهم جداً عشان ال padding ما يخليش الفريم يطلع برا */
         }
 
         .header-left {
@@ -46,7 +48,7 @@
         .logo {
             max-height: 50px;
             width: auto;
-            cursor: pointer; /* إضافة مؤشر لتوضيح أنه قابل للنقر */
+            cursor: pointer;
         }
 
         .header-right {
@@ -54,7 +56,7 @@
             text-align: right;
             display: flex;
             justify-content: flex-end;
-            gap: 15px;
+            gap: 15px; /* مسافة بين الأزرار */
         }
 
         .icon-button {
@@ -74,19 +76,12 @@
             color: #fff;
         }
 
+        /* --- Product Display Styles --- */
         h1 {
             text-align: center;
             margin-bottom: 30px;
             color: #fff;
-        }
-
-        .container {
-            display: flex;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            gap: 20px;
-            padding-bottom: 15px;
-            -webkit-overflow-scrolling: touch;
+            padding: 0 20px; /* عشان ما تلزقش في الأطراف على الموبايل */
         }
 
         .product-display {
@@ -99,14 +94,15 @@
             border-radius: 10px;
             background-color: #1a1a1a;
             box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-            max-width: 400px;
+            max-width: 400px; /* تحديد أقصى عرض لبطاقة المنتج الرئيسية */
             margin-left: auto;
             margin-right: auto;
+            box-sizing: border-box; /* مهم جداً هنا أيضاً */
         }
 
         .product-display img {
             max-width: 100%;
-            height: auto;
+            height: auto; /* السماح للصورة بتعديل ارتفاعها للحفاظ على تناسب الأبعاد */
             border-radius: 8px;
             margin-bottom: 15px;
         }
@@ -115,6 +111,7 @@
             margin: 10px 0;
             color: #fff;
             font-size: 1.5em;
+            text-align: center;
         }
 
         .product-display p {
@@ -122,11 +119,14 @@
             color: #eee;
             font-size: 1.2em;
             font-weight: bold;
+            text-align: center;
         }
 
         .product-display .sizes {
             margin-bottom: 20px;
             display: flex;
+            flex-wrap: wrap; /* للسماح بالمقاسات بالنزول لسطر جديد لو كتير */
+            justify-content: center; /* توسيط المقاسات */
             gap: 10px;
         }
 
@@ -155,22 +155,22 @@
             border-color: #666;
         }
 
-        .quantity-control { /* تعديل اسم الكلاس هنا */
+        .quantity-control {
             display: flex;
             align-items: center;
-            gap: 5px; /* تقليل المسافة بين الأزرار والرقم */
+            gap: 5px;
             margin-top: 20px;
-            margin-bottom: 20px; /* إضافة مسافة سفلية */
+            margin-bottom: 20px;
         }
 
         .quantity-control button {
             background-color: #000;
             color: white;
-            padding: 8px 12px; /* تعديل حجم الأزرار */
+            padding: 8px 12px;
             border: 1px solid #333;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 1.2em; /* تكبير حجم الخط للأزرار */
+            font-size: 1.2em;
             transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
@@ -182,11 +182,11 @@
         .quantity-display {
             background-color: #1a1a1a;
             color: #fff;
-            padding: 8px 15px; /* تعديل حجم عرض الكمية */
+            padding: 8px 15px;
             border: 1px solid #333;
             border-radius: 5px;
-            font-size: 1.2em; /* تكبير حجم الخط للكمية */
-            min-width: 40px; /* ضمان حجم ثابت */
+            font-size: 1.2em;
+            min-width: 40px;
             text-align: center;
         }
 
@@ -199,20 +199,182 @@
             cursor: pointer;
             font-size: 1.1em;
             transition: background-color 0.3s ease, border-color 0.3s ease;
-            width: 100%; /* جعل الزر يأخذ العرض الكامل */
-            margin-top: 15px; /* إضافة مسافة أعلى الزر */
+            width: 100%; /* جعل الزر يأخذ العرض الكامل داخل ال product-display */
+            margin-top: 15px;
+            box-sizing: border-box; /* مهم جداً لضمان عدم خروج الزر عن إطار الأب */
         }
 
         .add-to-cart-btn:hover {
             background-color: #333;
             border-color: #666;
         }
+
+        /* --- Related Products Section --- */
+        .related-products-section {
+            margin-top: 60px; /* مسافة أعلى قسم المنتجات المقترحة */
+            text-align: center;
+        }
+
+        .related-products-section h2 {
+            font-size: 2em;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+
+        .related-products-container {
+            display: grid; /* استخدام Grid للعرض المرن للمنتجات */
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* 2 منتج على الموبايل و 3-4 على الشاشات الأكبر */
+            gap: 20px; /* مسافة بين المنتجات */
+            max-width: 1000px; /* أقصى عرض للكونتينر */
+            margin: 0 auto; /* توسيط الكونتينر */
+            padding: 0 20px; /* padding من الجوانب عشان ما يلزقش في الأطراف */
+            box-sizing: border-box;
+        }
+
+        .related-product-card {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            text-decoration: none;
+            display: flex; /* استخدام فليكس بوكس لتوسيط المحتوى داخله */
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between; /* لتوزيع المحتوى */
+        }
+
+        .related-product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+        }
+
+        .related-product-card img {
+            max-width: 100%;
+            height: 200px; /* ارتفاع ثابت للصور في المنتجات المقترحة */
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #333;
+        }
+
+        .related-product-card h4 {
+            margin: 5px 0;
+            font-size: 1.1em;
+            color: #fff;
+        }
+
+        .related-product-card p {
+            font-size: 1em;
+            font-weight: bold;
+            color: #eee;
+            margin-bottom: 0;
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            .top-header {
+                padding: 10px;
+                margin: 15px; /* تقليل المارجن قليلاً */
+            }
+            .header-right {
+                gap: 8px; /* تقليل المسافة بين الأزرار في الهيدر */
+            }
+            .icon-button {
+                font-size: 1.2em;
+                padding: 8px 12px;
+            }
+            .logo {
+                max-height: 45px;
+            }
+
+            .product-display {
+                max-width: 90%; /* عرض أكبر لبطاقة المنتج الرئيسية */
+                padding: 15px;
+            }
+            .product-display img {
+                height: 200px; /* تقليل ارتفاع الصورة الرئيسية قليلاً */
+            }
+            .product-display h3 {
+                font-size: 1.3em;
+            }
+            .product-display p {
+                font-size: 1.1em;
+            }
+
+            .related-products-container {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* تصغير حجم المنتجات للسماح بعرض اثنين */
+                gap: 15px;
+                padding: 0 15px;
+            }
+            .related-product-card img {
+                height: 150px; /* تصغير ارتفاع صور المنتجات المقترحة */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-header {
+                padding: 8px 10px;
+                margin: 10px;
+            }
+            .header-right {
+                flex-wrap: wrap; /* السماح للأزرار بالنزول لسطر جديد */
+                justify-content: center; /* توسيط الأزرار لو نزلت */
+                gap: 5px; /* تقليل المسافة بين الأزرار جداً */
+            }
+            .icon-button {
+                font-size: 1em;
+                padding: 6px 8px;
+            }
+            .logo {
+                max-height: 35px;
+            }
+            
+            .product-display {
+                max-width: 95%; /* استخدام أقصى عرض على الموبايل */
+                padding: 10px;
+            }
+            .product-display img {
+                height: 180px; /* ضبط ارتفاع الصورة الرئيسية على الموبايل */
+            }
+            .product-display h3 {
+                font-size: 1.2em;
+            }
+            .product-display p {
+                font-size: 1em;
+            }
+
+            .related-products-section h2 {
+                font-size: 1.8em;
+                margin-bottom: 20px;
+            }
+            .related-products-container {
+                grid-template-columns: repeat(2, 1fr); /* 2 عمود ثابت على الموبايل */
+                gap: 10px;
+                padding: 0 10px;
+            }
+            .related-product-card {
+                padding: 10px;
+            }
+            .related-product-card img {
+                height: 120px; /* ارتفاع صغير لصور المنتجات المقترحة */
+            }
+            .related-product-card h4 {
+                font-size: 1em;
+            }
+            .related-product-card p {
+                font-size: 0.9em;
+            }
+        }
     </style>
 </head>
 <body>
     <header class="top-header">
         <div class="header-left">
-            </div>
+        </div>
         <div class="header-center">
             <a href="index.html">
                 <img src="https://i.postimg.cc/0NKPqrym/Untitled399-20250709162221.png" alt="ATR.egclothes Logo" class="logo">
@@ -259,7 +421,30 @@
         <button class="add-to-cart-btn">Add to cart</button>
     </div>
 
-    <div class="container">
+    <div class="related-products-section">
+        <h2>You might also like</h2>
+        <div class="related-products-container">
+            <a class="related-product-card" href="product-example-1.html">
+                <img src="https://i.postimg.cc/nV289ykC/DGS.jpg" alt="Dark Gray Suit" />
+                <h4>Dark Gray Suit</h4>
+                <p>900 EGP</p>
+            </a>
+            <a class="related-product-card" href="product-example-2.html">
+                <img src="https://i.postimg.cc/SxwHpkyt/DGTS.jpg" alt="Dark Gray T-shirt" />
+                <h4>Dark Gray T-shirt</h4>
+                <p>300 EGP</p>
+            </a>
+            <a class="related-product-card" href="product-example-3.html">
+                <img src="https://i.postimg.cc/mZy4NzbZ/BBS.jpg" alt="Baby Blue Suit" />
+                <h4>Baby Blue Suit</h4>
+                <p>950 EGP</p>
+            </a>
+            <a class="related-product-card" href="product-example-4.html">
+                <img src="https://i.postimg.cc/j5TPsn7K/BPSW.jpg" alt="Baby Pink Women Suit" />
+                <h4>Baby Pink Women Suit</h4>
+                <p>880 EGP</p>
+            </a>
+            </div>
     </div>
 
     <script>
@@ -315,10 +500,10 @@
 
                 localStorage.setItem('cart', JSON.stringify(cart)); // حفظ السلة في Local Storage
 
-                alert(`Added ${selectedQuantity} from ${productName} (size: ${selectedSize}) your cart!`);
+                alert(`Added ${selectedQuantity} from ${productName} (size: ${selectedSize}) to your cart!`);
                 
                 // إعادة ضبط الكمية المعروضة إلى 1 بعد الإضافة للسلة
-                selectedQuantity = 1; 
+                selectedQuantity = 1;
                 quantityDisplay.textContent = selectedQuantity;
             });
         });
