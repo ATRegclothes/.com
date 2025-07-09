@@ -9,11 +9,15 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #000; /* Black background */
-            padding: 20px;
+            padding: 0; /* إزالة ال padding من ال body */
             margin: 0;
             color: #fff; /* White text */
+            min-height: 100vh; /* يضمن أن ال body يملأ الشاشة بالكامل */
+            display: flex;
+            flex-direction: column; /* لضمان أن الفوتر (إن وجد) يكون في الأسفل */
         }
 
+        /* --- Header Styles --- */
         .top-header {
             display: flex;
             justify-content: space-between;
@@ -21,12 +25,15 @@
             background-color: #1a1a1a; /* Slightly darker header background */
             padding: 10px 20px;
             border-radius: 10px;
-            margin-bottom: 20px;
+            margin: 20px; /* إضافة Margin من جميع الجوانب عشان الفريم يكون مظبوط */
+            box-sizing: border-box; /* مهم جداً عشان ال padding ما يخليش الفريم يطلع برا */
+            flex-shrink: 0; /* يمنع الهيدر من الانكماش */
         }
 
         .header-left {
             flex: 1;
             text-align: left;
+            /* يمكن إضافة هنا Store Name إذا كنت تريد أن يظهر في صفحة السلة */
         }
 
         .store-name {
@@ -78,6 +85,8 @@
             border-radius: 10px;
             padding: 25px;
             box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            flex-grow: 1; /* يسمح للكونتينر بأخذ المساحة المتاحة */
+            box-sizing: border-box; /* يضمن أن البادنج لا يخرج العناصر */
         }
 
         .cart-container h2, .checkout-form h3 {
@@ -102,6 +111,8 @@
             padding: 15px;
             gap: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap; /* للسماح للعناصر بالنزول لسطر جديد على الشاشات الصغيرة */
+            justify-content: center; /* توسيط العناصر عند الالتفاف */
         }
 
         .cart-item img {
@@ -110,11 +121,14 @@
             object-fit: cover;
             border-radius: 5px;
             border: 1px solid #555;
+            flex-shrink: 0; /* يمنع الصورة من الانكماش */
         }
 
         .item-details {
             flex-grow: 1;
             color: #fff;
+            min-width: 150px; /* يضمن أن التفاصيل تأخذ مساحة كافية */
+            text-align: left; /* للحفاظ على المحاذاة */
         }
 
         .item-details h4 {
@@ -132,6 +146,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            flex-shrink: 0; /* يمنع عناصر التحكم في الكمية من الانكماش */
         }
 
         .item-quantity button {
@@ -155,12 +170,13 @@
             color: #fff;
         }
 
-        .item-total-price { /* Changed from .item-total to avoid conflict with main total */
+        .item-total-price {
             font-weight: bold;
             font-size: 1.2em;
             color: #fff;
             min-width: 100px;
             text-align: right;
+            flex-shrink: 0; /* يمنع السعر الإجمالي من الانكماش */
         }
 
         .remove-item-btn {
@@ -172,6 +188,8 @@
             cursor: pointer;
             transition: background-color 0.3s ease, border-color 0.3s ease;
             font-size: 0.9em;
+            flex-shrink: 0; /* يمنع زر الإزالة من الانكماش */
+            margin-left: auto; /* يدفع الزر إلى اليمين قدر الإمكان */
         }
 
         .remove-item-btn:hover {
@@ -180,6 +198,47 @@
         }
 
         /* Voucher and Summary Styling */
+        .coupon-section {
+            display: flex; /* لعرض الإدخال والزر جنبًا إلى جنب */
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            gap: 5px; /* مسافة بسيطة بين الإدخال والزر */
+            margin-top: 20px;
+        }
+
+        .coupon-section input[type="text"] {
+            flex-grow: 1; /* للسماح للإدخال بأخذ المساحة المتاحة */
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #000;
+            color: #fff;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        .coupon-section input[type="text"]::placeholder {
+            color: #aaa;
+        }
+
+        .coupon-section button {
+            padding: 10px 15px; /* Adjust padding for better look */
+            background-color: #000;
+            color: white;
+            border: 1px solid #333;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            box-sizing: border-box;
+            flex-shrink: 0; /* يمنع الزر من الانكماش */
+        }
+
+        .coupon-section button:hover {
+            background-color: #333;
+            border-color: #666;
+        }
+
         .cart-summary-section {
             border-top: 1px solid #333;
             margin-top: 25px;
@@ -207,50 +266,12 @@
             border-top: 1px solid #555;
         }
 
-        .coupon-section {
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-        }
-
-        .coupon-section input[type="text"] {
-            width: calc(100% - 100px); /* Adjust width for button */
-            padding: 10px;
-            border: 1px solid #555;
-            border-radius: 5px;
-            background-color: #000;
-            color: #fff;
-            font-size: 1em;
-            margin-right: 5px;
-            box-sizing: border-box; /* Include padding and border in element's total width and height */
-        }
-
-        .coupon-section input[type="text"]::placeholder {
-            color: #aaa;
-        }
-
-        .coupon-section button {
-            width: 90px;
-            padding: 10px;
-            background-color: #000;
-            color: white;
-            border: 1px solid #333;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-            box-sizing: border-box;
-        }
-
-        .coupon-section button:hover {
-            background-color: #333;
-            border-color: #666;
-        }
-
         .cart-action-buttons {
             display: flex;
             justify-content: space-between;
             gap: 15px;
             margin-top: 25px;
+            flex-wrap: wrap; /* تسمح للأزرار بالنزول لسطر جديد */
         }
 
         .cart-action-buttons button {
@@ -263,6 +284,7 @@
             font-size: 1.1em;
             cursor: pointer;
             transition: background-color 0.3s ease, border-color 0.3s ease;
+            min-width: 150px; /* حد أدنى للعرض لمنع الأزرار من الانكماش الزائد */
         }
 
         .cart-action-buttons button:hover {
@@ -279,6 +301,7 @@
             padding: 30px;
             box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
             display: none; /* Hidden by default */
+            box-sizing: border-box;
         }
 
         .checkout-form form {
@@ -296,6 +319,7 @@
             background-color: #000;
             color: #fff;
             font-size: 1em;
+            box-sizing: border-box; /* مهم هنا أيضاً */
         }
 
         .checkout-form input[type="text"]::placeholder,
@@ -305,7 +329,7 @@
         }
 
         .checkout-form textarea {
-            resize: vertical; /* Allow vertical resizing */
+            resize: vertical;
             min-height: 80px;
         }
 
@@ -318,6 +342,7 @@
             font-size: 1.2em;
             cursor: pointer;
             transition: background-color 0.3s ease, border-color 0.3s ease;
+            box-sizing: border-box;
         }
 
         .checkout-form button[type="submit"]:hover {
@@ -330,6 +355,144 @@
             color: #ccc;
             font-size: 1.2em;
             padding: 50px 0;
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            .top-header {
+                padding: 10px;
+                margin: 15px; /* تقليل المارجن قليلاً */
+            }
+            .header-right {
+                gap: 8px; /* تقليل المسافة بين الأزرار في الهيدر */
+            }
+            .icon-button {
+                font-size: 1.2em;
+                padding: 8px 12px;
+            }
+            .logo {
+                max-height: 45px;
+            }
+
+            .cart-container {
+                margin: 20px auto;
+                padding: 20px;
+            }
+            .cart-item {
+                flex-direction: column; /* جعل العناصر تتكدس رأسياً على الشاشات الأصغر */
+                align-items: flex-start; /* محاذاة العناصر إلى اليسار */
+                text-align: left;
+            }
+            .cart-item img {
+                margin-bottom: 10px;
+            }
+            .item-details {
+                width: 100%; /* جعل تفاصيل العنصر تأخذ عرض كامل */
+                text-align: center; /* توسيط التفاصيل */
+            }
+            .item-quantity {
+                width: 100%; /* جعل الكمية تأخذ عرض كامل */
+                justify-content: center; /* توسيط أزرار الكمية */
+                margin-top: 10px;
+            }
+            .item-total-price {
+                width: 100%; /* جعل السعر الإجمالي يأخذ عرض كامل */
+                text-align: center; /* توسيط السعر */
+                margin-top: 10px;
+            }
+            .remove-item-btn {
+                margin: 10px auto 0; /* توسيط زر الإزالة */
+            }
+
+            .coupon-section {
+                flex-direction: column; /* جعل حقل الكوبون والزر يتكدسان رأسياً */
+                align-items: stretch; /* يضمن أن العناصر تأخذ العرض الكامل */
+            }
+            .coupon-section input[type="text"] {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 10px; /* إضافة مسافة سفلية */
+            }
+            .coupon-section button {
+                width: 100%;
+            }
+
+            .cart-action-buttons {
+                flex-direction: column; /* جعل أزرار الإجراءات تتكدس رأسياً */
+            }
+            .cart-action-buttons button {
+                width: 100%; /* جعل الأزرار تأخذ عرض كامل */
+            }
+            .checkout-form {
+                margin: 20px auto;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-header {
+                padding: 8px 10px;
+                margin: 10px;
+            }
+            .header-right {
+                flex-wrap: wrap; /* السماح للأزرار بالنزول لسطر جديد */
+                justify-content: center; /* توسيط الأزرار لو نزلت */
+                gap: 5px; /* تقليل المسافة بين الأزرار جداً */
+            }
+            .icon-button {
+                font-size: 1em;
+                padding: 6px 8px;
+            }
+            .logo {
+                max-height: 35px;
+            }
+            
+            .cart-container {
+                padding: 15px;
+            }
+            .cart-container h2, .checkout-form h3 {
+                font-size: 1.8em;
+                margin-bottom: 20px;
+            }
+            .cart-item {
+                padding: 10px;
+            }
+            .cart-item img {
+                width: 80px;
+                height: 80px;
+            }
+            .item-details h4 {
+                font-size: 1.1em;
+            }
+            .item-details p {
+                font-size: 0.9em;
+            }
+            .item-quantity button {
+                padding: 3px 8px;
+            }
+            .item-quantity span {
+                font-size: 1em;
+            }
+            .item-total-price {
+                font-size: 1.1em;
+            }
+            .remove-item-btn {
+                padding: 6px 10px;
+                font-size: 0.8em;
+            }
+
+            .cart-summary-section p {
+                font-size: 1em;
+            }
+            #total {
+                font-size: 1.4em;
+            }
+            .checkout-form {
+                padding: 15px;
+            }
+            .checkout-form button[type="submit"] {
+                font-size: 1.1em;
+            }
         }
     </style>
 </head>
@@ -358,7 +521,7 @@
     <div class="cart-container" id="main-cart-section">
         <h2>Your Shopping Cart</h2>
         <div id="cart-items-list" class="cart-items">
-            </div>
+        </div>
         <div id="empty-cart-message" class="empty-cart-message" style="display: none;">
             Your cart is empty.
         </div>
@@ -441,11 +604,14 @@
 
                 let discount = 0;
                 // Apply discount based on currentDiscount
-                if (couponInput.value === 'HALFPRICE') {
+                if (couponInput.value.toUpperCase() === 'HALFPRICE') { // تأكد من فحص القيمة المدخلة حاليا
                     discount = subtotal * currentDiscount;
                 } else {
                     discount = currentDiscount;
                 }
+                
+                // Ensure discount doesn't make total negative
+                discount = Math.min(discount, subtotal); 
 
                 let total = subtotal - discount;
 
@@ -461,12 +627,18 @@
             function renderCart() {
                 let cart = getCart();
                 cartItemsList.innerHTML = ''; // Clear the list before re-rendering
-                currentDiscount = 0; // Reset discount when re-rendering cart
+                currentDiscount = 0; // Reset discount when re-rendering cart to ensure it's re-applied
 
                 if (cart.length === 0) {
                     emptyCartMessage.style.display = 'block';
+                    document.querySelector('.coupon-section').style.display = 'none'; // إخفاء قسم الكوبون
+                    document.querySelector('.cart-summary-section').style.display = 'none'; // إخفاء ملخص السلة
+                    document.querySelector('.cart-action-buttons').style.display = 'none'; // إخفاء أزرار الإجراءات
                 } else {
                     emptyCartMessage.style.display = 'none';
+                    document.querySelector('.coupon-section').style.display = 'flex'; // إظهار قسم الكوبون
+                    document.querySelector('.cart-summary-section').style.display = 'block'; // إظهار ملخص السلة
+                    document.querySelector('.cart-action-buttons').style.display = 'flex'; // إظهار أزرار الإجراءات
                 }
 
                 cart.forEach((item, index) => {
@@ -497,41 +669,41 @@
             // Function to add event listeners to cart buttons
             function addCartEventListeners() {
                 document.querySelectorAll('.quantity-plus').forEach(button => {
-                    button.onclick = (event) => { // Using onclick for simplicity
+                    button.onclick = (event) => {
                         const index = event.target.dataset.index;
                         let cart = getCart();
                         cart[index].quantity++;
                         saveCart(cart);
-                        renderCart();
+                        renderCart(); // Re-render to update all display elements
                     };
                 });
 
                 document.querySelectorAll('.quantity-minus').forEach(button => {
-                    button.onclick = (event) => { // Using onclick for simplicity
+                    button.onclick = (event) => {
                         const index = event.target.dataset.index;
                         let cart = getCart();
                         if (cart[index].quantity > 1) {
                             cart[index].quantity--;
                             saveCart(cart);
-                            renderCart();
+                            renderCart(); // Re-render to update all display elements
                         } else {
                             if (confirm('Are you sure you want to remove this item?')) {
                                 cart.splice(index, 1);
                                 saveCart(cart);
-                                renderCart();
+                                renderCart(); // Re-render to update all display elements
                             }
                         }
                     };
                 });
 
                 document.querySelectorAll('.remove-item-btn').forEach(button => {
-                    button.onclick = (event) => { // Using onclick for simplicity
+                    button.onclick = (event) => {
                         if (confirm('Are you sure you want to remove this item from your cart?')) {
                             const index = event.target.dataset.index;
                             let cart = getCart();
                             cart.splice(index, 1);
                             saveCart(cart);
-                            renderCart();
+                            renderCart(); // Re-render to update all display elements
                         }
                     };
                 });
@@ -572,6 +744,7 @@
                 if (confirm('Are you sure you want to clear your entire cart?')) {
                     localStorage.removeItem('cart');
                     renderCart(); // Re-render to show empty cart
+                    couponInput.value = ''; // Clear coupon input
                     currentDiscount = 0; // Reset discount
                     updateCartTotals(); // Update totals
                 }
