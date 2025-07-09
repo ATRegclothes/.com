@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8" />
+    <title>ATR.egclothes/Cart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Black background */
+            padding: 20px;
+            margin: 0;
+            color: #fff; /* White text */
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1a1a1a; /* Slightly darker header background */
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header-left {
+            flex: 1;
+            text-align: left;
+        }
+
+        .store-name {
+            color: #fff;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .header-center {
+            flex: 1;
+            text-align: center;
+        }
+
+        .logo {
+            max-height: 50px;
+            width: auto;
+        }
+
+        .header-right {
+            flex: 1;
+            text-align: right;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        .icon-button {
+            background-color: #1a1a1a;
+            border: 1px solid #1a1a1a;
+            cursor: pointer;
+            color: #fff;
+            font-size: 1.5em;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .icon-button:hover {
+            background-color: #333;
+            border-color: #666;
+            color: #fff;
+        }
+
+        /* Cart and Checkout Form Styling */
+        .cart-container {
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        }
+
+        .cart-container h2, .checkout-form h3 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            background-color: #000;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            gap: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 1px solid #555;
+        }
+
+        .item-details {
+            flex-grow: 1;
+            color: #fff;
+        }
+
+        .item-details h4 {
+            margin: 0 0 5px;
+            font-size: 1.3em;
+        }
+
+        .item-details p {
+            margin: 0;
+            color: #ccc;
+            font-size: 0.95em;
+        }
+
+        .item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .item-quantity button {
+            background-color: #000;
+            border: 1px solid #555;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .item-quantity button:hover {
+            background-color: #333;
+            border-color: #888;
+        }
+
+        .item-quantity span {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .item-total-price { /* Changed from .item-total to avoid conflict with main total */
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #fff;
+            min-width: 100px;
+            text-align: right;
+        }
+
+        .remove-item-btn {
+            background-color: #444;
+            color: white;
+            border: 1px solid #666;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        .remove-item-btn:hover {
+            background-color: #666;
+            border-color: #888;
+        }
+
+        /* Voucher and Summary Styling */
+        .cart-summary-section {
+            border-top: 1px solid #333;
+            margin-top: 25px;
+            padding-top: 20px;
+        }
+
+        .cart-summary-section p {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            color: #ccc;
+        }
+
+        .cart-summary-section p strong {
+            color: #fff;
+        }
+
+        #total {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #fff;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #555;
+        }
+
+        .coupon-section {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+
+        .coupon-section input[type="text"] {
+            width: calc(100% - 100px); /* Adjust width for button */
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #000;
+            color: #fff;
+            font-size: 1em;
+            margin-right: 5px;
+            box-sizing: border-box; /* Include padding and border in element's total width and height */
+        }
+
+        .coupon-section input[type="text"]::placeholder {
+            color: #aaa;
+        }
+
+        .coupon-section button {
+            width: 90px;
+            padding: 10px;
+            background-color: #000;
+            color: white;
+            border: 1px solid #333;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .coupon-section button:hover {
+            background-color: #333;
+            border-color: #666;
+        }
+
+        .cart-action-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .cart-action-buttons button {
+            flex: 1;
+            padding: 15px;
+            background-color: #000;
+            color: white;
+            border: 1px solid #333;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .cart-action-buttons button:hover {
+            background-color: #333;
+            border-color: #666;
+        }
+
+        /* Checkout Form Specific Styling */
+        .checkout-form {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            display: none; /* Hidden by default */
+        }
+
+        .checkout-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .checkout-form input[type="text"],
+        .checkout-form input[type="tel"],
+        .checkout-form textarea {
+            padding: 12px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #000;
+            color: #fff;
+            font-size: 1em;
+        }
+
+        .checkout-form input[type="text"]::placeholder,
+        .checkout-form input[type="tel"]::placeholder,
+        .checkout-form textarea::placeholder {
+            color: #aaa;
+        }
+
+        .checkout-form textarea {
+            resize: vertical; /* Allow vertical resizing */
+            min-height: 80px;
+        }
+
+        .checkout-form button[type="submit"] {
+            padding: 15px;
+            background-color: #000;
+            color: white;
+            border: 1px solid #333;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .checkout-form button[type="submit"]:hover {
+            background-color: #333;
+            border-color: #666;
+        }
+
+        .empty-cart-message {
+            text-align: center;
+            color: #ccc;
+            font-size: 1.2em;
+            padding: 50px 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-left">
+            </div>
+        <div class="header-center">
+            <a href="index.html">
+                <img src="https://i.postimg.cc/0NKPqrym/Untitled399-20250709162221.png" alt="ATR.egclothes Logo" class="logo">
+            </a>
+        </div>
+        <div class="header-right">
+            <button class="icon-button search-button" onclick="location.href='products.html'">
+                <i class="fas fa-search"></i>
+            </button>
+            <button class="icon-button filter-button" onclick="location.href='filter.html'">
+                <i class="fas fa-filter"></i>
+            </button>
+            <button class="icon-button cart-button" onclick="location.href='cart.html'">
+                <i class="fas fa-shopping-cart"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="cart-container" id="main-cart-section">
+        <h2>Your Shopping Cart</h2>
+        <div id="cart-items-list" class="cart-items">
+            </div>
+        <div id="empty-cart-message" class="empty-cart-message" style="display: none;">
+            Your cart is empty.
+        </div>
+
+        <div class="coupon-section">
+            <input type="text" id="coupon-input" placeholder="Enter coupon code" />
+            <button id="apply-coupon-btn">Apply</button>
+        </div>
+
+        <div class="cart-summary-section">
+            <p><strong>Subtotal:</strong> <span id="subtotal">0.00</span> EGP</p>
+            <p><strong>Discount:</strong> <span id="discount">0.00</span> EGP</p>
+            <p style="font-size: 1.6em; font-weight: bold; color: #fff; margin-top: 15px; padding-top: 10px; border-top: 1px solid #555;">
+                <strong>Total:</strong> <span id="total">0.00</span> EGP
+            </p>
+        </div>
+
+        <div class="cart-action-buttons">
+            <button id="checkout-button">Checkout</button>
+            <button id="clear-cart-button">Clear Cart</button>
+        </div>
+    </div>
+
+    <div class="checkout-form" id="checkout-form">
+        <h3>Submit Your Order</h3>
+        <form id="orderForm" action="https://formsubmit.co/hamletmohamed5@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="New Order from ATR Store" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="text" name="Name" id="name" placeholder="Full Name" required />
+            <input type="tel" name="Phone Number" id="phone" placeholder="Phone Number" required />
+            <textarea name="Address" id="address" placeholder="Address" required></textarea>
+            <textarea name="Order Details" id="order-details" readonly></textarea>
+            <button type="submit">Submit Order</button>
+        </form>
+        <button id="back-to-cart-button" class="checkout-form-back-button" style="margin-top: 15px; background-color: #444; border: 1px solid #666; color: white; padding: 10px; border-radius: 8px; cursor: pointer;">Back to Cart</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartItemsList = document.getElementById('cart-items-list');
+            const subtotalSpan = document.getElementById('subtotal');
+            const discountSpan = document.getElementById('discount');
+            const totalSpan = document.getElementById('total');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+            const couponInput = document.getElementById('coupon-input');
+            const applyCouponBtn = document.getElementById('apply-coupon-btn');
+            const checkoutButton = document.getElementById('checkout-button');
+            const clearCartButton = document.getElementById('clear-cart-button');
+            const mainCartSection = document.getElementById('main-cart-section');
+            const checkoutFormSection = document.getElementById('checkout-form');
+            const orderDetailsTextarea = document.getElementById('order-details');
+            const backToCartButton = document.getElementById('back-to-cart-button');
+
+            let currentDiscount = 0; // Stores the active discount amount
+
+            // Define available vouchers and their values
+            const vouchers = {
+                'SALE20': 20, // 20 EGP discount
+                'FREESHIP': 0, // Placeholder for future free shipping logic (no direct money discount here)
+                'HALFPRICE': 0.5 // 50% discount (as a decimal)
+            };
+
+            // Function to retrieve cart from Local Storage
+            function getCart() {
+                return JSON.parse(localStorage.getItem('cart')) || [];
+            }
+
+            // Function to save cart to Local Storage
+            function saveCart(cart) {
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+
+            // Function to calculate and update totals
+            function updateCartTotals() {
+                let cart = getCart();
+                let subtotal = 0;
+                cart.forEach(item => {
+                    subtotal += item.price * item.quantity;
+                });
+
+                let discount = 0;
+                // Apply discount based on currentDiscount
+                if (couponInput.value === 'HALFPRICE') {
+                    discount = subtotal * currentDiscount;
+                } else {
+                    discount = currentDiscount;
+                }
+
+                let total = subtotal - discount;
+
+                subtotalSpan.textContent = subtotal.toFixed(2);
+                discountSpan.textContent = discount.toFixed(2);
+                totalSpan.textContent = total.toFixed(2);
+
+                // Update order details for the form
+                updateOrderDetailsForForm();
+            }
+
+            // Function to render cart items
+            function renderCart() {
+                let cart = getCart();
+                cartItemsList.innerHTML = ''; // Clear the list before re-rendering
+                currentDiscount = 0; // Reset discount when re-rendering cart
+
+                if (cart.length === 0) {
+                    emptyCartMessage.style.display = 'block';
+                } else {
+                    emptyCartMessage.style.display = 'none';
+                }
+
+                cart.forEach((item, index) => {
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('cart-item');
+                    itemElement.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="item-details">
+                            <h4>${item.name}</h4>
+                            <p>Size: ${item.size}</p>
+                            <p>Price: ${item.price.toFixed(2)} EGP</p>
+                        </div>
+                        <div class="item-quantity">
+                            <button class="quantity-minus" data-index="${index}">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="quantity-plus" data-index="${index}">+</button>
+                        </div>
+                        <div class="item-total-price">${(item.price * item.quantity).toFixed(2)} EGP</div>
+                        <button class="remove-item-btn" data-index="${index}">Remove</button>
+                    `;
+                    cartItemsList.appendChild(itemElement);
+                });
+
+                updateCartTotals(); // Update totals after rendering items
+                addCartEventListeners(); // Re-add event listeners
+            }
+
+            // Function to add event listeners to cart buttons
+            function addCartEventListeners() {
+                document.querySelectorAll('.quantity-plus').forEach(button => {
+                    button.onclick = (event) => { // Using onclick for simplicity
+                        const index = event.target.dataset.index;
+                        let cart = getCart();
+                        cart[index].quantity++;
+                        saveCart(cart);
+                        renderCart();
+                    };
+                });
+
+                document.querySelectorAll('.quantity-minus').forEach(button => {
+                    button.onclick = (event) => { // Using onclick for simplicity
+                        const index = event.target.dataset.index;
+                        let cart = getCart();
+                        if (cart[index].quantity > 1) {
+                            cart[index].quantity--;
+                            saveCart(cart);
+                            renderCart();
+                        } else {
+                            if (confirm('Are you sure you want to remove this item?')) {
+                                cart.splice(index, 1);
+                                saveCart(cart);
+                                renderCart();
+                            }
+                        }
+                    };
+                });
+
+                document.querySelectorAll('.remove-item-btn').forEach(button => {
+                    button.onclick = (event) => { // Using onclick for simplicity
+                        if (confirm('Are you sure you want to remove this item from your cart?')) {
+                            const index = event.target.dataset.index;
+                            let cart = getCart();
+                            cart.splice(index, 1);
+                            saveCart(cart);
+                            renderCart();
+                        }
+                    };
+                });
+            }
+
+            // Function to apply voucher
+            applyCouponBtn.addEventListener('click', () => {
+                const couponCode = couponInput.value.trim().toUpperCase();
+                if (vouchers[couponCode] !== undefined) {
+                    if (couponCode === 'HALFPRICE') {
+                        currentDiscount = vouchers[couponCode]; // Store as percentage
+                        alert(`Voucher '${couponCode}' applied! You get 50% off.`);
+                    } else {
+                        currentDiscount = vouchers[couponCode]; // Store as fixed amount
+                        alert(`Voucher '${couponCode}' applied! You get ${currentDiscount} EGP off.`);
+                    }
+                } else {
+                    currentDiscount = 0; // Reset discount if invalid
+                    alert('Invalid coupon code.');
+                }
+                updateCartTotals();
+            });
+
+            // Function to show checkout form
+            checkoutButton.addEventListener('click', () => {
+                let cart = getCart();
+                if (cart.length === 0) {
+                    alert('Your cart is empty. Please add items before checking out.');
+                    return;
+                }
+                mainCartSection.style.display = 'none';
+                checkoutFormSection.style.display = 'block';
+                updateOrderDetailsForForm(); // Populate order details before showing the form
+            });
+
+            // Function to clear the cart
+            clearCartButton.addEventListener('click', () => {
+                if (confirm('Are you sure you want to clear your entire cart?')) {
+                    localStorage.removeItem('cart');
+                    renderCart(); // Re-render to show empty cart
+                    currentDiscount = 0; // Reset discount
+                    updateCartTotals(); // Update totals
+                }
+            });
+
+            // Function to populate order details in the checkout form
+            function updateOrderDetailsForForm() {
+                let cart = getCart();
+                let details = "Order Summary:\n";
+                cart.forEach(item => {
+                    details += `- ${item.name} (Size: ${item.size}) x${item.quantity} = ${(item.price * item.quantity).toFixed(2)} EGP\n`;
+                });
+                details += `\nSubtotal: ${subtotalSpan.textContent} EGP\n`;
+                details += `Discount: ${discountSpan.textContent} EGP\n`;
+                details += `Total: ${totalSpan.textContent} EGP`;
+                orderDetailsTextarea.value = details;
+            }
+
+            // Function to go back to cart from checkout form
+            backToCartButton.addEventListener('click', () => {
+                checkoutFormSection.style.display = 'none';
+                mainCartSection.style.display = 'block';
+            });
+
+            // Initial render of the cart when the page loads
+            renderCart();
+        });
+    </script>
+</body>
+</html>
