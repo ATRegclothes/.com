@@ -204,6 +204,80 @@
             margin: 40px auto;
             max-width: 80%;
         }
+        .container {
+            display: grid; /* استخدام CSS Grid للتخطيط */
+            grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); /* يتكيف تلقائياً، كل عمود لا يقل عن 280 بكسل ويملأ المساحة المتاحة */
+            gap: 30px; /* المسافة بين المنتجات */
+            padding-bottom: 15px;
+            justify-content: center; /* توسيط العناصر في الشبكة */
+            max-width: 600px; /* تحديد أقصى عرض للحاوية لتوسيطها */
+            margin: 0 auto; /* توسيط الحاوية نفسها */
+        }
+
+        /* تصميم بطاقة المنتج (الصورة فقط قابلة للنقر) */
+        .product-card {
+            background-color: #1a1a1a; /* خلفية داكنة لبطاقة المنتج */
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* ظل خفيف للخلفية الداكنة */
+            text-align: center;
+            color: #fff;
+            cursor: pointer; /* مؤشر اليد للإشارة إلى أنه قابل للنقر */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* حركة ناعمة عند التحويل والظل */
+            text-decoration: none; /* إزالة خط تحت الروابط */
+            display: block; /* جعل البطاقة بأكملها قابلة للنقر */
+            overflow: hidden; /* يضمن تطبيق حدود الزوايا المستديرة على الصورة */
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px); /* رفع البطاقة قليلاً عند المرور عليها */
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2); /* ظل أقوى عند المرور عليها */
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: 250px; /* ارتفاع ثابت أكبر للصور */
+            object-fit: cover; /* قص الصورة لتناسب الحجم */
+            border-radius: 8px; /* زوايا مستديرة للصورة */
+            margin-bottom: 0; /* لا يوجد هامش أسفل الصورة حيث تمت إزالة النص */
+            border: 1px solid #333; /* حدود خفيفة حول الصورة */
+        }
+
+        .product-car {
+            background-color: #1a1a1a; /* خلفية داكنة لبطاقة المنتج */
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* ظل خفيف للخلفية الداكنة */
+            text-align: center;
+            color: #fff;
+            cursor: pointer; /* مؤشر اليد للإشارة إلى أنه قابل للنقر */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* حركة ناعمة عند التحويل والظل */
+            text-decoration: none; /* إزالة خط تحت الروابط */
+            display: block; /* جعل البطاقة بأكملها قابلة للنقر */
+            overflow: hidden; /* يضمن تطبيق حدود الزوايا المستديرة على الصورة */
+        }
+
+        .product-car:hover {
+            transform: translateY(-5px); /* رفع البطاقة قليلاً عند المرور عليها */
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2); /* ظل أقوى عند المرور عليها */
+        }
+
+        .product-car img {
+            max-width: 100%;
+            height: 100%; /* ارتفاع ثابت أكبر للصور */
+            object-fit: cover; /* قص الصورة لتناسب الحجم */
+            border-radius: 8px; /* زوايا مستديرة للصورة */
+            margin-bottom: 0; /* لا يوجد هامش أسفل الصورة حيث تمت إزالة النص */
+            border: 1px solid #333; /* حدود خفيفة حول الصورة */
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+            margin: 40px auto; /* توسيط الخط الأفقي */
+            max-width: 80%; /* جعل الخط الأفقي أضيق قليلاً */
+        }
 
         /* Responsive adjustments */
         @media (min-width: 769px) {
