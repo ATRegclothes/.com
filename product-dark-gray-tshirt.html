@@ -2,8 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8" />
-    <title>ATR.egclothes/main</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATR.egclothes/Product Details</title> <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
@@ -25,11 +24,14 @@
             padding: 10px 20px;
             border-radius: 10px;
             margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Added subtle shadow for depth */
         }
 
         .header-left {
             flex: 1;
             text-align: left;
+            display: flex; /* Added display flex to align back button */
+            align-items: center;
         }
 
         .store-name {
@@ -46,7 +48,8 @@
         .logo {
             max-height: 50px;
             width: auto;
-            cursor: pointer; /* إضافة مؤشر لتوضيح أنه قابل للنقر */
+            cursor: pointer;
+            vertical-align: middle; /* Ensures logo aligns well */
         }
 
         .header-right {
@@ -65,13 +68,35 @@
             font-size: 1.5em;
             padding: 10px 15px;
             border-radius: 8px;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+            display: flex; /* Aligns icon and text if any */
+            align-items: center;
+            justify-content: center;
         }
 
         .icon-button:hover {
             background-color: #333;
             border-color: #666;
+            color: #007bff; /* Changed hover color for icons for better feedback */
+        }
+
+        /* New style for the back button */
+        .back-button {
+            background-color: transparent; /* Changed to transparent for a cleaner look */
+            border: none;
+            cursor: pointer;
             color: #fff;
+            font-size: 1.5em;
+            padding: 0; /* Remove padding as it's an icon-only button */
+            transition: color 0.3s ease;
+            outline: none; /* Remove outline on focus */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-button:hover {
+            color: #007bff; /* Match icon hover color */
         }
 
         h1 {
@@ -207,25 +232,69 @@
             background-color: #333;
             border-color: #666;
         }
+
+        /* Responsive adjustments for header */
+        @media (max-width: 768px) {
+            .top-header {
+                padding: 10px; /* Adjust padding for smaller screens */
+            }
+            .header-right {
+                gap: 10px; /* Reduce gap on small screens */
+            }
+            .icon-button {
+                font-size: 1.2em; /* Smaller icons */
+                padding: 8px 12px; /* Smaller padding */
+            }
+            .back-button {
+                font-size: 1.2em; /* Smaller back button icon */
+            }
+            .logo {
+                max-height: 40px; /* Smaller logo */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-header {
+                flex-wrap: wrap; /* Allow header items to wrap on very small screens */
+                justify-content: center;
+                gap: 10px;
+            }
+            .header-left, .header-center, .header-right {
+                flex: none; /* Remove flex grow to allow wrapping */
+                width: 100%; /* Take full width when wrapped */
+                text-align: center;
+                justify-content: center; /* Center buttons when wrapped */
+                margin-top: 5px; /* Add some margin between wrapped sections */
+            }
+            .header-center {
+                order: -1; /* Move logo to the top when wrapped */
+            }
+            .header-right {
+                order: 1; /* Keep buttons below logo when wrapped */
+            }
+        }
     </style>
 </head>
 <body>
     <header class="top-header">
         <div class="header-left">
-            </div>
+            <button class="back-button" onclick="history.back()" aria-label="Go back to previous page">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
         <div class="header-center">
             <a href="index.html">
                 <img src="https://i.postimg.cc/0NKPqrym/Untitled399-20250709162221.png" alt="ATR.egclothes Logo" class="logo">
             </a>
         </div>
         <div class="header-right">
-            <button class="icon-button search-button" onclick="location.href='products.html'">
+            <button class="icon-button search-button" onclick="location.href='products.html'" aria-label="Search all products">
                 <i class="fas fa-search"></i>
             </button>
-            <button class="icon-button filter-button" onclick="location.href='filter.html'">
+            <button class="icon-button filter-button" onclick="location.href='filter.html'" aria-label="Filter products">
                 <i class="fas fa-filter"></i>
             </button>
-            <button class="icon-button cart-button" onclick="location.href='cart.html'">
+            <button class="icon-button cart-button" onclick="location.href='cart.html'" aria-label="View shopping cart">
                 <i class="fas fa-shopping-cart"></i>
             </button>
         </div>
@@ -251,9 +320,9 @@
         </div>
 
         <div class="quantity-control">
-            <button id="decrease-quantity">-</button>
+            <button id="decrease-quantity" aria-label="Decrease quantity">-</button>
             <span id="quantity-display" class="quantity-display">1</span>
-            <button id="increase-quantity">+</button>
+            <button id="increase-quantity" aria-label="Increase quantity">+</button>
         </div>
 
         <button class="add-to-cart-btn">Add to cart</button>
@@ -288,7 +357,7 @@
             // دالة لإضافة المنتج للسلة (هنا بيتم حفظها في Local Storage)
             addToCartBtn.addEventListener('click', () => {
                 // تم تعديل معرف المنتج ليناسب "Dark Gray T-shirt"
-                const productId = 'dark-gray-tshirt-001'; 
+                const productId = 'dark-gray-tshirt-001';
                 const productName = document.getElementById('product-name').textContent;
                 const productPrice = parseFloat(document.getElementById('product-price').textContent);
                 const productImage = document.getElementById('product-image').src;
@@ -317,10 +386,10 @@
 
                 localStorage.setItem('cart', JSON.stringify(cart)); // حفظ السلة في Local Storage
 
-                alert(`Added ${selectedQuantity} from ${productName} (size: ${selectedSize}) your cart!`);
-                
+                alert(`Added ${selectedQuantity} from ${productName} (size: ${selectedSize}) to your cart!`);
+
                 // إعادة ضبط الكمية المعروضة إلى 1 بعد الإضافة للسلة
-                selectedQuantity = 1; 
+                selectedQuantity = 1;
                 quantityDisplay.textContent = selectedQuantity;
             });
         });
