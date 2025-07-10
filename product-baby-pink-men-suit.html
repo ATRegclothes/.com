@@ -2,54 +2,69 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8" />
-    <title>ATR.egclothes/Product Details</title> <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATR.egclothes/Product Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #000;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            padding: 20px;
+            background-color: #FFFFFF; /* Changed to white */
+            padding: 0; /* Remove body padding to match other pages */
             margin: 0;
-            color: #fff;
+            color: #333; /* Dark text for readability on white background */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
+        /* START - Top Header Styling (Consistent with index.html and women_products.html) */
         .top-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #1a1a1a;
+            background-color: #1a1a1a; /* Dark background */
             padding: 10px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Added subtle shadow for depth */
+            border-radius: 0; /* No border-radius */
+            box-shadow: none; /* No box-shadow */
+            margin-bottom: 0; /* No bottom margin */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: 60px; /* Fixed height */
+            flex-wrap: nowrap; /* Prevent wrapping by default */
         }
 
         .header-left {
             flex: 1;
             text-align: left;
-            display: flex; /* Added display flex to align back button */
+            display: flex; /* Added flex for alignment with button/text */
             align-items: center;
+            gap: 10px; /* Space between back button and text/logo */
         }
 
         .store-name {
-            color: #fff;
-            font-size: 1.8em;
+            color: #fff; /* White text for store name in dark header */
+            font-size: 1.2em; /* Adjusted font size for better fit */
             font-weight: bold;
+            white-space: nowrap; /* Prevent wrapping */
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .header-center {
-            flex: 1;
+            flex-grow: 0; /* Prevent stretching */
+            flex-shrink: 0; /* Prevent shrinking */
             text-align: center;
+            position: absolute; /* Position centrally */
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .logo {
-            max-height: 50px;
+            max-height: 40px; /* Adjusted height for consistency */
             width: auto;
             cursor: pointer;
-            vertical-align: middle; /* Ensures logo aligns well */
+            vertical-align: middle;
         }
 
         .header-right {
@@ -61,57 +76,50 @@
         }
 
         .icon-button {
-            background-color: #1a1a1a;
-            border: 1px solid #1a1a1a;
+            background-color: transparent; /* Transparent background */
+            border: none; /* No border */
             cursor: pointer;
-            color: #fff;
+            color: #fff; /* White icon color */
             font-size: 1.5em;
-            padding: 10px 15px;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-            display: flex; /* Aligns icon and text if any */
+            padding: 5px 10px; /* Adjusted padding */
+            border-radius: 0; /* No border-radius */
+            transition: color 0.3s ease; /* Smooth transition for color */
+            display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .icon-button:hover {
-            background-color: #333;
-            border-color: #666;
-            color: #007bff; /* Changed hover color for icons for better feedback */
+            color: #a0a0a0; /* Lighter grey on hover for icons */
         }
 
-        /* New style for the back button */
-        .back-button {
-            background-color: transparent; /* Changed to transparent for a cleaner look */
+        .menu-button { /* Styled as back button for consistency */
+            background-color: transparent;
             border: none;
             cursor: pointer;
             color: #fff;
             font-size: 1.5em;
-            padding: 0; /* Remove padding as it's an icon-only button */
+            padding: 0;
             transition: color 0.3s ease;
-            outline: none; /* Remove outline on focus */
+            outline: none;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-left: 10px; /* Spacing from left edge */
         }
 
-        .back-button:hover {
-            color: #007bff; /* Match icon hover color */
+        .menu-button:hover {
+            color: #a0a0a0; /* Lighter grey on hover for back button */
         }
+        /* END - Top Header Styling */
 
         h1 {
             text-align: center;
+            margin-top: 30px;
             margin-bottom: 30px;
-            color: #fff;
-        }
-
-        .container {
-            display: flex;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            gap: 20px;
-            padding-bottom: 15px;
-            -webkit-overflow-scrolling: touch;
+            font-size: 2.2em;
+            color: #333; /* Dark text for readability on white background */
+            padding: 0 20px;
         }
 
         .product-display {
@@ -120,13 +128,14 @@
             align-items: center;
             margin-top: 30px;
             padding: 20px;
-            border: 1px solid #333;
+            border: 1px solid #eee; /* Lighter border */
             border-radius: 10px;
-            background-color: #1a1a1a;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            background-color: #fff; /* White background for product card */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Darker shadow for white cards */
             max-width: 400px;
             margin-left: auto;
             margin-right: auto;
+            color: #333; /* Dark text for readability */
         }
 
         .product-display img {
@@ -134,17 +143,18 @@
             height: auto;
             border-radius: 8px;
             margin-bottom: 15px;
+            border: 1px solid #ddd; /* Lighter border for images */
         }
 
         .product-display h3 {
             margin: 10px 0;
-            color: #fff;
+            color: #333; /* Dark text for product name */
             font-size: 1.5em;
         }
 
         .product-display p {
             margin: 5px 0 15px;
-            color: #eee;
+            color: #555; /* Slightly lighter dark text for price */
             font-size: 1.2em;
             font-weight: bold;
         }
@@ -161,23 +171,23 @@
 
         .product-display .sizes label {
             padding: 8px 15px;
-            background-color: #000;
-            border: 1px solid #333;
+            background-color: #f0f0f0; /* Lighter grey background for size buttons */
+            border: 1px solid #ccc; /* Lighter grey border */
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-            color: #fff;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+            color: #333; /* Dark text for size buttons */
         }
 
         .product-display .sizes input[type="radio"]:checked + label {
-            background-color: #333;
-            color: #fff;
-            border-color: #666;
+            background-color: #333; /* Dark background for selected size */
+            color: #fff; /* White text for selected size */
+            border-color: #333;
         }
 
         .product-display .sizes label:hover {
-            background-color: #333;
-            border-color: #666;
+            background-color: #e0e0e0; /* Slightly darker grey on hover */
+            border-color: #a0a0a0;
         }
 
         .quantity-control {
@@ -189,10 +199,10 @@
         }
 
         .quantity-control button {
-            background-color: #000;
-            color: white;
+            background-color: #f0f0f0; /* Lighter grey background for quantity buttons */
+            color: #333; /* Dark text */
             padding: 8px 12px;
-            border: 1px solid #333;
+            border: 1px solid #ccc; /* Lighter grey border */
             border-radius: 5px;
             cursor: pointer;
             font-size: 1.2em;
@@ -200,15 +210,15 @@
         }
 
         .quantity-control button:hover {
-            background-color: #333;
-            border-color: #666;
+            background-color: #e0e0e0; /* Slightly darker grey on hover */
+            border-color: #a0a0a0;
         }
 
         .quantity-display {
-            background-color: #1a1a1a;
-            color: #fff;
+            background-color: #fff; /* White background for quantity display */
+            color: #333; /* Dark text */
             padding: 8px 15px;
-            border: 1px solid #333;
+            border: 1px solid #ccc; /* Lighter grey border */
             border-radius: 5px;
             font-size: 1.2em;
             min-width: 40px;
@@ -216,7 +226,7 @@
         }
 
         .add-to-cart-btn {
-            background-color: #000;
+            background-color: #333; /* Dark button for Add to Cart */
             color: white;
             padding: 12px 25px;
             border: 1px solid #333;
@@ -229,48 +239,107 @@
         }
 
         .add-to-cart-btn:hover {
-            background-color: #333;
-            border-color: #666;
+            background-color: #555; /* Slightly lighter dark grey on hover */
+            border-color: #555;
         }
 
-        /* Responsive adjustments for header */
-        @media (max-width: 768px) {
+        /* Responsive adjustments */
+        @media (min-width: 769px) {
             .top-header {
-                padding: 10px; /* Adjust padding for smaller screens */
-            }
-            .header-right {
-                gap: 10px; /* Reduce gap on small screens */
-            }
-            .icon-button {
-                font-size: 1.2em; /* Smaller icons */
-                padding: 8px 12px; /* Smaller padding */
-            }
-            .back-button {
-                font-size: 1.2em; /* Smaller back button icon */
+                padding: 10px 40px;
             }
             .logo {
-                max-height: 40px; /* Smaller logo */
+                max-height: 50px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-header {
+                padding: 10px;
+            }
+            .header-right {
+                gap: 10px;
+            }
+            .icon-button, .menu-button {
+                font-size: 1.2em;
+                padding: 8px 12px;
+            }
+            .logo {
+                max-height: 35px;
+            }
+            h1 {
+                font-size: 1.8em;
+                margin-top: 25px;
+                margin-bottom: 15px;
             }
         }
 
         @media (max-width: 480px) {
+            /* Header Layout for Small Screens */
             .top-header {
-                flex-wrap: wrap; /* Allow header items to wrap on very small screens */
-                justify-content: center;
-                gap: 10px;
+                flex-wrap: nowrap; /* Keep items in a single line if possible */
+                justify-content: space-between; /* Spread items across the header */
+                padding: 10px;
+                height: auto;
             }
-            .header-left, .header-center, .header-right {
-                flex: none; /* Remove flex grow to allow wrapping */
-                width: 100%; /* Take full width when wrapped */
-                text-align: center;
-                justify-content: center; /* Center buttons when wrapped */
-                margin-top: 5px; /* Add some margin between wrapped sections */
+
+            .header-left {
+                flex: 0 0 auto;
+                width: auto;
+                margin-left: 5px;
             }
+
             .header-center {
-                order: -1; /* Move logo to the top when wrapped */
+                position: static;
+                transform: none;
+                flex: 1 1 auto;
+                text-align: center;
+                min-width: 0;
             }
+
+            .logo {
+                max-height: 30px;
+            }
+
             .header-right {
-                order: 1; /* Keep buttons below logo when wrapped */
+                flex: 0 0 auto;
+                width: auto;
+                justify-content: flex-end;
+                gap: 8px;
+            }
+
+            .icon-button, .menu-button {
+                font-size: 1.2em;
+                padding: 6px 10px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+                margin-top: 20px;
+                margin-bottom: 10px;
+                padding: 0 10px;
+            }
+            /* For very small screens, allow wrapping in the header */
+            @media (max-width: 380px) {
+                .top-header {
+                    flex-wrap: wrap; /* Allow wrapping again on very narrow screens */
+                    justify-content: center;
+                    height: auto; /* Allow height to expand */
+                }
+                .header-left, .header-center, .header-right {
+                    flex: none; /* Reset flex to default to allow width: 100% or auto */
+                    width: 100%; /* Take full width on very narrow screens */
+                    text-align: center;
+                    justify-content: center;
+                    margin-top: 5px; /* Add some spacing between wrapped items */
+                }
+                .header-center {
+                    order: -1; /* Move logo to top when wrapped */
+                }
+                .header-right {
+                    order: 1; /* Move right buttons below logo when wrapped */
+                    gap: 15px; /* Restore gap */
+                }
             }
         }
     </style>
@@ -278,9 +347,10 @@
 <body>
     <header class="top-header">
         <div class="header-left">
-            <button class="back-button" onclick="history.back()" aria-label="Go back to previous page">
+            <button class="menu-button" onclick="history.back()" aria-label="Go back to previous page">
                 <i class="fas fa-arrow-left"></i>
             </button>
+            <span class="store-name">ATR.egclothes</span>
         </div>
         <div class="header-center">
             <a href="index.html">
