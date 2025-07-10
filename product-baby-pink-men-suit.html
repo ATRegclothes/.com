@@ -347,10 +347,13 @@
 <body>
     <header class="top-header">
         <div class="header-left">
-            <button class="menu-button" onclick="history.back()" aria-label="Go back to previous page">
+
+            <button class="menu-button" onclick="location.href='partisions.html'" aria-label="Go back to main menu">
                 <i class="fas fa-arrow-left"></i>
             </button>
-            <span class="store-name">ATR.egclothes</span>
+               
+            </button>
+            
         </div>
         <div class="header-center">
             <a href="index.html">
@@ -361,9 +364,7 @@
             <button class="icon-button search-button" onclick="location.href='products.html'" aria-label="Search all products">
                 <i class="fas fa-search"></i>
             </button>
-            <button class="icon-button filter-button" onclick="location.href='filter.html'" aria-label="Filter products">
-                <i class="fas fa-filter"></i>
-            </button>
+            
             <button class="icon-button cart-button" onclick="location.href='cart.html'" aria-label="View shopping cart">
                 <i class="fas fa-shopping-cart"></i>
             </button>
@@ -406,23 +407,23 @@
             const quantityDisplay = document.getElementById('quantity-display');
             const addToCartBtn = document.querySelector('.add-to-cart-btn');
 
-            let selectedQuantity = parseInt(quantityDisplay.textContent); // الكمية الافتراضية
+            let selectedQuantity = parseInt(quantityDisplay.textContent); // Default quantity
 
-            // وظيفة لزيادة الكمية
+            // Function to increase quantity
             increaseButton.addEventListener('click', () => {
                 selectedQuantity++;
                 quantityDisplay.textContent = selectedQuantity;
             });
 
-            // وظيفة لإنقاص الكمية
+            // Function to decrease quantity
             decreaseButton.addEventListener('click', () => {
-                if (selectedQuantity > 1) { // لا تسمح بأن تكون الكمية أقل من 1
+                if (selectedQuantity > 1) { // Do not allow quantity less than 1
                     selectedQuantity--;
                     quantityDisplay.textContent = selectedQuantity;
                 }
             });
 
-            // دالة لإضافة المنتج للسلة (هنا بيتم حفظها في Local Storage)
+            // Function to add product to cart (saved in Local Storage)
             addToCartBtn.addEventListener('click', () => {
                 // Updated productId for "Baby Pink Men Suit"
                 const productId = 'baby-pink-men-suit-001';
@@ -432,16 +433,16 @@
                 // Updated selector for "Baby Pink Men Suit" sizes
                 const selectedSize = document.querySelector('#product-sizes input[name="size-baby-pink-men-suit"]:checked').value;
 
-                let cart = JSON.parse(localStorage.getItem('cart')) || []; // استرجاع السلة أو إنشاء واحدة جديدة
+                let cart = JSON.parse(localStorage.getItem('cart')) || []; // Retrieve cart or create a new one
 
-                // البحث عن المنتج في السلة (بنفس الـ ID والمقاس)
+                // Search for the product in the cart (by ID and size)
                 const existingItemIndex = cart.findIndex(item => item.id === productId && item.size === selectedSize);
 
                 if (existingItemIndex > -1) {
-                    // لو المنتج موجود، زود الكمية
+                    // If product exists, increase quantity
                     cart[existingItemIndex].quantity += selectedQuantity;
                 } else {
-                    // لو المنتج مش موجود، أضفه كعنصر جديد
+                    // If product does not exist, add as a new item
                     cart.push({
                         id: productId,
                         name: productName,
@@ -452,11 +453,11 @@
                     });
                 }
 
-                localStorage.setItem('cart', JSON.stringify(cart)); // حفظ السلة في Local Storage
+                localStorage.setItem('cart', JSON.stringify(cart)); // Save cart to Local Storage
 
                 alert(`Added ${selectedQuantity} from ${productName} (size: ${selectedSize}) to your cart!`);
 
-                // إعادة ضبط الكمية المعروضة إلى 1 بعد الإضافة للسلة
+                // Reset displayed quantity to 1 after adding to cart
                 selectedQuantity = 1;
                 quantityDisplay.textContent = selectedQuantity;
             });
