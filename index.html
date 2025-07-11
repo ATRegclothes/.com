@@ -1,239 +1,244 @@
-<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8" />
-    <title>ATR.egclothes/Women's Products</title>
+    <title>ATR.egclothes.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background-color: #FFFFFF; /* خلفية بيضاء */
+            padding: 0;
             margin: 0;
-            color: #fff;
+            color: #333; /* لون نص عام داكن ليكون مقروءًا على الخلفية البيضاء */
         }
 
+        /* START - Top Header Styling (Exact Match from index.html) */
         .top-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #1a1a1a;
+            background-color: #1a1a1a; /* لون خلفية Header داكن - يبقى كما هو */
             padding: 10px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Added subtle shadow for depth */
+            border-radius: 0;
+            box-shadow: none;
+            margin-bottom: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: 60px; /* ارتفاع ثابت للهيدر */
+            flex-wrap: nowrap; /* منع الالتفاف افتراضياً */
         }
 
         .header-left {
             flex: 1;
             text-align: left;
-            display: flex; /* Added display flex to align back button */
+            display: flex;
             align-items: center;
         }
 
         .store-name {
-            color: #fff;
+            color: #fff; /* يبقى أبيض ليتناسب مع خلفية Header الداكنة */
             font-size: 1.8em;
             font-weight: bold;
         }
 
         .header-center {
-            flex: 1;
+            flex-grow: 0;
+            flex-shrink: 0;
             text-align: center;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .logo {
-            max-height: 50px;
+            max-height: 40px;
             width: auto;
             cursor: pointer;
-            vertical-align: middle; /* Ensures logo aligns well */
+            vertical-align: middle;
         }
 
         .header-right {
             flex: 1;
             text-align: right;
             display: flex;
-            justify-content: flex-end;
+            justify-content: flex-end; /* Align items to the end (right) */
             gap: 15px;
         }
 
         .icon-button {
-            background-color: #1a1a1a;
-            border: 1px solid #1a1a1a;
-            cursor: pointer;
-            color: #fff;
-            font-size: 1.5em;
-            padding: 10px 15px;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-            display: flex; /* Aligns icon and text if any */
-            align-items: center;
-            justify-content: center;
-        }
-
-        .icon-button:hover {
-            background-color: #333;
-            border-color: #666;
-            color: #007bff; /* Changed hover color for icons for better feedback */
-        }
-
-        /* New style for the back button */
-        .back-button {
-            background-color: transparent; /* Changed to transparent for a cleaner look */
+            background-color: transparent;
             border: none;
             cursor: pointer;
-            color: #fff;
+            color: #fff; /* يبقى أبيض ليتناسب مع خلفية Header الداكنة */
             font-size: 1.5em;
-            padding: 0; /* Remove padding as it's an icon-only button */
+            padding: 5px 10px;
+            border-radius: 0;
             transition: color 0.3s ease;
-            outline: none; /* Remove outline on focus */
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .back-button:hover {
-            color: #007bff; /* Match icon hover color */
+        .icon-button:hover {
+            color: #007bff;
         }
+
+        .menu-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            color: #fff; /* يبقى أبيض ليتناسب مع خلفية Header الداكنة */
+            font-size: 1.5em;
+            padding: 0;
+            transition: color 0.3s ease;
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+        }
+
+        .menu-button:hover {
+            color: #007bff;
+        }
+        /* END - Top Header Styling */
 
         h1, h2, h3 {
             text-align: center;
             margin-top: 30px;
             margin-bottom: 20px;
             font-size: 1.8em;
-            color: #fff;
+            color: #333; /* لون داكن ليظهر على الخلفية البيضاء */
+            padding: 0 20px;
+        }
+
+        .hero-heading {
+            text-align: left;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-top: 40px;
+            margin-bottom: 30px;
+            color: #333; /* لون داكن ليظهر على الخلفية البيضاء */
+            padding-left: 20px;
         }
 
         .search-bar-container {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 10px;
-            background-color: #1a1a1a;
-            border-radius: 10px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            /* This should be `display: block;` or `display: flex;` if you want it visible,
+               but the original first snippet had `display: none;`.
+               If you want it like the second snippet, remove `display: none;`
+               and add the styles from the second snippet's search-bar-container. */
+            display: none; /* Keeping it as in your first snippet, set to block or flex if needed */
         }
 
-        .search-bar {
-            width: 80%;
-            max-width: 500px;
-            padding: 12px 20px;
-            border: 1px solid #333;
-            border-radius: 25px;
-            background-color: #1a1a1a;
-            color: #fff;
-            font-size: 1.1em;
-            outline: none;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .search-bar::placeholder {
-            color: #aaa;
-        }
-
-        .search-bar:focus {
-            border-color: #666;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
-        }
-
-        /* Applying the same flexbox and scroll-snap properties to all .container elements */
         .container {
-            display: flex; /* Changed to flex for horizontal layout */
-            overflow-x: auto; /* Enable horizontal scrolling */
-            scroll-snap-type: x mandatory; /* Snap to items */
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-            gap: 20px; /* Gap between product cards */
-            padding: 0 20px 15px; /* Add padding for visual spacing */
-            max-width: 900px; /* Adjust max-width if needed for wider views before grid takes over */
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            gap: 15px;
+            padding: 0 20px 15px;
+            max-width: 100%;
             margin: 0 auto;
-            justify-content: flex-start; /* Align items to the start */
-            scrollbar-width: none; /* Hide scrollbar for Firefox */
-            white-space: nowrap; /* Prevent cards from wrapping */
+            justify-content: flex-start;
+            scrollbar-width: none;
+            white-space: nowrap;
         }
 
-        /* Hide scrollbar for Chrome, Safari, and Opera */
         .container::-webkit-scrollbar {
             display: none;
         }
 
         /* Product card styling */
         .product-card {
-            flex: 0 0 calc(50% - 10px); /* Two cards per row, accounting for gap */
-            background-color: #1a1a1a;
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-            text-align: center;
-            color: #fff;
-            cursor: grab; /* Indicate it's draggable/swappable */
+            flex: 0 0 calc(50% - 10px);
+            background-color: #FFFFFF; /* تغير إلى الأبيض */
+            border: 1px solid #e0e0e0; /* إضافة حد خفيف */
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* إضافة ظل خفيف */
+            text-align: left;
+            cursor: pointer;
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
             text-decoration: none;
-            display: flex; /* Use flex to align content within card */
+            display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Push image and name apart if needed */
-            scroll-snap-align: start; /* Snap to the start of each card */
-            max-width: 300px; /* Ensure cards don't become too wide on larger screens */
-            box-sizing: border-box; /* Include padding in width calculation */
-            white-space: normal; /* Allow text within card to wrap */
+            justify-content: space-between;
+            scroll-snap-align: start;
+            max-width: 200px;
+            box-sizing: border-box;
+            white-space: normal;
         }
 
         .product-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* ظل أوضح عند التحويم */
         }
 
         .product-card img {
             max-width: 100%;
-            height: 250px;
+            height: 180px;
             object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #333;
+            border-radius: 3px;
+            margin-bottom: 8px;
+            border: none;
         }
 
         .product-card .product-name {
-            font-size: 1.2em;
+            font-size: 1em;
+            font-weight: normal;
+            margin-top: 5px;
+            color: #000; /* تغير إلى الأسود */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product-price {
+            font-size: 1.1em;
             font-weight: bold;
-            margin-top: 10px;
-            color: #fff;
+            color: #000; /* تغير إلى الأسود */
+            margin-top: 5px;
+            margin-bottom: 5px;
         }
 
         /* Special .product-car style for the "Shop All" image */
         .product-car {
-            background-color: #1a1a1a;
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            background-color: #1a1a1a; /* تبقى داكنة لتناسب تصميم fa5reg.com */
+            border-radius: 0;
+            padding: 0;
+            box-shadow: none;
             text-align: center;
             color: #fff;
             cursor: pointer;
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            transition: none;
             text-decoration: none;
             display: block;
             overflow: hidden;
-            margin: 0 auto 20px; /* Center and add bottom margin */
-            max-width: 600px; /* Limit width */
+            margin: 0;
+            max-width: 100%;
             box-sizing: border-box;
         }
 
         .product-car:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+            transform: none;
+            box-shadow: none;
         }
 
         .product-car img {
             max-width: 100%;
-            height: auto; /* Allow height to adjust naturally */
-            border-radius: 8px;
-            border: 1px solid #333;
+            height: auto;
+            border-radius: 0;
+            border: none;
+            display: block;
         }
 
         hr {
             border: 0;
             height: 1px;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+            /* تغير لون الـ hr ليكون داكنًا ليظهر على الخلفية البيضاء */
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
             margin: 40px auto;
             max-width: 80%;
         }
@@ -241,155 +246,283 @@
         /* Responsive adjustments */
         @media (min-width: 769px) {
             .container {
-                display: grid; /* Switch back to grid for larger screens */
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 30px;
-                overflow-x: visible; /* Disable horizontal scroll */
-                scroll-snap-type: none; /* Disable snapping */
-                padding: 0; /* Remove padding */
-                justify-content: center; /* Center items in grid */
-                white-space: normal; /* Allow items to wrap */
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                gap: 15px;
+                padding: 0 20px 15px;
+                max-width: 100%;
+                margin: 0 auto;
+                justify-content: flex-start;
+                scrollbar-width: none;
+                white-space: nowrap;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
             }
+            /* Adjust product card width for larger screens */
             .product-card {
-                flex: none; /* Remove flex sizing */
-                width: auto; /* Revert to auto width */
-                max-width: none; /* Remove max-width */
+                flex: 0 0 calc(25% - 15px);
+                max-width: 250px;
+            }
+            .product-card img {
+                height: 250px;
+            }
+            .product-card .product-name {
+                font-size: 1.2em;
+            }
+            .product-price {
+                font-size: 1.3em;
+            }
+            .top-header {
+                padding: 10px 40px;
+            }
+            .logo {
+                max-height: 50px;
             }
         }
 
         @media (max-width: 768px) {
+            /* Ensure top-header behavior aligns with the second snippet */
             .top-header {
                 padding: 10px;
             }
             .header-right {
                 gap: 10px;
             }
-            .icon-button {
+            .icon-button, .menu-button {
                 font-size: 1.2em;
                 padding: 8px 12px;
             }
-            .back-button {
-                font-size: 1.2em;
-            }
             .logo {
-                max-height: 40px;
+                max-height: 35px;
             }
-            .container {
-                padding: 0 10px 15px; /* Adjust padding for smaller screens */
+            h1 {
+                font-size: 1.8em;
+                margin-top: 25px;
+                margin-bottom: 15px;
+            }
+            /* Product card adjustments for medium screens */
+            .product-card {
+                flex: 0 0 calc(50% - 10px); /* Two columns on medium screens */
+            }
+            .product-card img {
+                height: 160px;
             }
         }
 
         @media (max-width: 480px) {
             .product-card {
-                flex: 0 0 calc(50% - 10px); /* Ensure two per row even on very small screens */
+                padding: 5px;
             }
             .product-card img {
                 height: 200px;
             }
+            /* Header Layout for Small Screens - Matches the second snippet's behavior */
             .top-header {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
+                flex-wrap: nowrap; /* Keep items in a single line if possible */
+                justify-content: space-between; /* Spread items across the header */
+                padding: 10px;
+                height: auto;
             }
-            .header-left, .header-center, .header-right {
-                flex: none;
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-                margin-top: 5px;
+
+            .header-left {
+                flex: 0 0 auto;
+                width: auto;
+                margin-left: 5px;
             }
+
             .header-center {
-                order: -1;
+                position: static;
+                transform: none;
+                flex: 1 1 auto;
+                text-align: center;
+                min-width: 0;
             }
+
+            .logo {
+                max-height: 30px;
+            }
+
             .header-right {
-                order: 1;
+                flex: 0 0 auto;
+                width: auto;
+                justify-content: flex-end;
+                gap: 8px;
+            }
+
+            .icon-button, .menu-button {
+                font-size: 1.2em;
+                padding: 6px 10px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+                margin-top: 20px;
+                margin-bottom: 10px;
+                padding: 0 10px;
+            }
+
+            /* For very small screens, allow wrapping in the header */
+            @media (max-width: 380px) {
+                .top-header {
+                    flex-wrap: wrap; /* Allow wrapping again on very narrow screens */
+                    justify-content: center;
+                    height: auto; /* Allow height to expand */
+                }
+                .header-left, .header-center, .header-right {
+                    flex: none; /* Reset flex to default to allow width: 100% or auto */
+                    width: 100%; /* Take full width on very narrow screens */
+                    text-align: center;
+                    justify-content: center;
+                    margin-top: 5px; /* Add some spacing between wrapped items */
+                }
+                .header-center {
+                    order: -1; /* Move logo to top when wrapped */
+                }
+                .header-right {
+                    order: 1; /* Move right buttons below logo when wrapped */
+                    gap: 15px; /* Restore gap */
+                }
             }
         }
     </style>
-</head>
-<body>
-    <header class="top-header">
-        <div class="header-left">
-            <button class="back-button" onclick="history.back()" aria-label="Go back to previous page">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-        </div>
-        <div class="header-center">
-            <a href="index.html">
-                <img src="https://i.postimg.cc/0NKPqrym/Untitled399-20250709162221.png" alt="ATR.egclothes Logo" class="logo">
-            </a>
-        </div>
-        <div class="header-right">
-            <button class="icon-button search-button" onclick="location.href='products.html'" aria-label="Search all products">
-                <i class="fas fa-search"></i>
-            </button>
-            <button class="icon-button cart-button" onclick="location.href='cart.html'" aria-label="View shopping cart">
-                <i class="fas fa-shopping-cart"></i>
-            </button>
-            <button class="icon-button filter-button" onclick="location.href='filter.html'" aria-label="Filter products">
-                <i class="fas fa-filter"></i>
-            </button>
-        </div>
-    </header>
-
+    </head>
+    <body>
+        <header class="top-header">
+            <div class="header-left">
+                <button class="menu-button" onclick="location.href='partisions.html'">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="header-center">
+                <a href="index.html">
+                    <img src="https://i.postimg.cc/0NKPqrym/Untitled399-20250709162221.png" alt="ATR.egclothes
+                        Logo" class="logo">
+                    </a>
+                </div>
+                <div class="header-right">
+                    <button class="icon-button search-button" onclick="location.href='products.html'">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="icon-button cart-button" onclick="location.href='cart.html'">
+                        <i class="fas fa-shopping-cart"></i>
+                    </button>
+                    </div>
+                </header>
+        
+        <!-- Header ended ---------------------------------------------------------->
+        <hr>
     <a class="product-car" href="partisions.html">
         <img src="https://i.postimg.cc/JhVjbDv4/Shop-all.jpg" alt="Shop All" />
     </a>
 
     <hr>
     <h3>Pants Collection</h3>
-    <div class="container">
-        <a class="product-card" href="Dark-blue-sweatpants.html">
-            <img src="https://i.postimg.cc/bvkWyWrY/DBP.jpg" alt="Dark Blue Sweatpants" />
-            <div class="product-name">Dark Blue Sweatpants</div>
-        </a>
-    </div>
-
+        <div class="container">
+            <a class="product-card" href="Dark-blue-sweatpants.html">
+                <img src="https://i.postimg.cc/bvkWyWrY/DBP.jpg" alt="Dark Blue Sweatpants" />
+                <div class="product-name">Dark Blue Sweatpants</div>
+                <div class="product-price">LE 850.00 EGP</div> </a>
+            <a class="product-card" href="product-baby-pink-sweatpants.html">
+                <img src="https://i.postimg.cc/QMjn8jbq/DGSP.jpg" alt="Baby Pink Sweatpants" />
+                <div class="product-name">Baby Pink Sweatpants</div>
+                <div class="product-price">LE 850.00 EGP</div>
+            </a>
+        </div>
+        <div class="container">
+            <a class="product-card" href="product-dark-gray-sweatpants.html">
+               <img src="https://i.postimg.cc/RFZSH5M7/BPSP.jpg" alt="Dark Gray Sweatpants" />
+               <div class="product-name">Dark Gray Sweatpants</div>
+               <div class="product-price">LE 850.00 EGP</div></a>
+            
+            <a class="product-card" href="product-baby-brown-sweatpants.html">
+               <img src="https://i.postimg.cc/TwBPMN6n/BBSP.jpg" alt="Baby Brown Sweatpants" />
+               <div class="product-name">Baby Brown Sweatpants</div>
+               <div class="product-price">LE 850.00 EGP</div>
+            </a>
+        </div>
+        <!--Sweatpants ended----------------------------------------------------------->
     <hr>
     <h3>Shirts & T-shirts Collection</h3>
     <div class="container">
         <a class="product-card" href="product-dark-gray-tshirt.html">
             <img src="https://i.postimg.cc/SxwHpkyt/DGTS.jpg" alt="Dark Gray T-shirt" />
             <div class="product-name">Dark Gray T-shirt</div>
-        </a>
+            <div class="product-price">LE 700.00 EGP</div> </a>
+            <a class="product-card" href="product-baby-blue-tshirt.html">
+                <img src="https://i.postimg.cc/KYzcKhcn/BBBSH.jpg" alt="Baby Blue T-shirt" />
+                <div class="product-name">Baby Blue T-shirt</div>
+                <div class="product-price">LE 700.00 EGP</div>
+                </a>
+        </div>
+        <div class="container">
+            <a class="product-card" href="product-dark-gray-tshirt.html">
+                <img src="https://i.postimg.cc/3JNPDXPD/BPSH.jpg" alt="Baby Pink T-shirt" />
+                <div class="product-name">Baby Pink T-shirt</div>
+                <div class="product-price">LE 700.00 EGP</div> </a>
+                <a class="product-card" href="product-baby-blue-tshirt.html">
+                    <img src="https://i.postimg.cc/HxWS1Hm7/DGSH.jpg" alt="Baby Blue T-shirt" />
+                    <div class="product-name">Gray T-shirt</div>
+                    <div class="product-price">LE 700.00 EGP</div>
+                    </a>
+            </div>
+        <div class="container">
+            <a class="product-card" href="product-dark-gray-tshirt.html">
+                <img src="https://i.postimg.cc/mgX31MWh/BBSH.jpg" alt="Baby Pink T-shirt" />
+                <div class="product-name">Baby Brown T-shirt</div>
+                <div class="product-price">LE 700.00 EGP</div> </a>
+            </div>
         
-    </div>
+            <!--Shirts & T-shirts ended----------------------------------------------------------->
 
     <hr>
     <h2>Suits Collections</h2>
-    <h3>Men's Suits</h3>
+
     <div class="container">
         <a class="product-card" href="product-baby-blue-men-suit.html">
             <img src="https://i.postimg.cc/mZy4NzbZ/BBS.jpg" alt="Baby Blue Suit" />
             <div class="product-name">Baby Blue Suit</div>
-        </a>
+            <div class="product-price">LE 1500.00 EGP</div> </a>
+
         <a class="product-card" href="product-baby-brown-men-suit.html">
             <img src="https://i.postimg.cc/GmH1CXv9/DBS.jpg" alt="Baby Brown Suit" />
+
             <div class="product-name">Baby Brown Suit</div>
+            <div class="product-price">LE 1500.00 EGP</div>
         </a>
+
         </div>
+
         <div class="container">
         <a class="product-card" href="product-baby-pink-men-suit.html">
             <img src="https://i.postimg.cc/3RHM27VD/BPS.jpg" alt="Baby Pink Suit" />
             <div class="product-name">Baby Pink Suit</div>
+            <div class="product-price">LE 1500.00 EGP</div>
         </a>
+
         <a class="product-card" href="product-dark-gray-men-suit.html">
             <img src="https://i.postimg.cc/nV289ykC/DGS.jpg" alt="Dark Gray Suit" />
             <div class="product-name">Dark Gray Suit</div>
+            <div class="product-price">LE 1500.00 EGP</div>
         </a>
     </div>
+        
+        <div class="container">
+            <a class="product-card" href="product-baby-pink-women-suit.html">
+                <img src="https://i.postimg.cc/j5TPsn7K/BPSW.jpg" alt="Baby Pink Suit" />
+                <div class="product-name">Baby Pink Women Suit</div>
+                <div class="product-price">LE 1500.00 EGP</div>
+            </a>
 
-    <h3>Women's Suits</h3>
-    <div class="container">
-        <a class="product-card" href="product-baby-pink-women-suit.html">
-            <img src="https://i.postimg.cc/j5TPsn7K/BPSW.jpg" alt="Baby Pink Women Suit" />
-            <div class="product-name">Baby Pink Women Suit</div>
-        </a>
-        <a class="product-card" href="product-dark-gray-women-suit.html">
-            <img src="https://i.postimg.cc/J0PnCGbT/DGW.jpg" alt="Dark Gray Women Suit" />
-            <div class="product-name">Dark Gray Women Suit</div>
-        </a>
-    </div>
+            
+            <a class="product-card" href="product-dark-gray-women-suit.html">
+                <img src="https://i.postimg.cc/J0PnCGbT/DGW.jpg" alt="Dark Gray Women Suit" />
+                <div class="product-name">Dark Gray Women Suit</div>
+                <div class="product-price">LE 1500.00 EGP</div>
+            </a>
+        </div>
+        
+        <!--Suits ended----------------------------------------------------------->
 
 </body>
 </html>
