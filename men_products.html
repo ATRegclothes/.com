@@ -183,6 +183,13 @@
             color: #fff;
         }
 
+        .product-price {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #007bff; /* Example: make price stand out */
+            margin-top: 5px;
+        }
+
         hr {
             border: 0;
             height: 1px;
@@ -271,7 +278,7 @@
     </div>
 
     <div class="products-grid" id="allProductsGrid">
-        </div>
+    </div>
 
     <script>
         // Only Men's products here
@@ -299,6 +306,7 @@
                 productCard.innerHTML = `
                     <img src="${product.image}" alt="${product.name}" />
                     <div class="product-name">${product.name}</div>
+                    <div class="product-price">LE ${product.price.toFixed(2)} EGP</div>
                 `;
                 allProductsGrid.appendChild(productCard);
             });
