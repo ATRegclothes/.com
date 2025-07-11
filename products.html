@@ -7,228 +7,359 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background-color: #FFFFFF; /* خلفية بيضاء مطابقة لصفحة الاندكس */
+            padding: 0; /* إزالة الحشو من الجسم */
             margin: 0;
-            color: #fff;
+            color: #333; /* لون نص عام داكن ليكون مقروءًا على الخلفية البيضاء */
         }
 
+        /* START - Top Header Styling (Exact Match from index.html with back button) */
         .top-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #1a1a1a;
+            background-color: #1a1a1a; /* لون خلفية Header داكن - يبقى كما هو */
             padding: 10px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Added subtle shadow for depth */
+            border-radius: 0;
+            box-shadow: none;
+            margin-bottom: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: 60px; /* ارتفاع ثابت للهيدر */
+            flex-wrap: nowrap; /* منع الالتفاف افتراضياً */
         }
 
         .header-left {
             flex: 1;
             text-align: left;
-            display: flex; /* Added display flex to align back button */
+            display: flex;
             align-items: center;
         }
 
         .store-name {
-            color: #fff;
+            color: #fff; /* يبقى أبيض ليتناسب مع خلفية Header الداكنة */
             font-size: 1.8em;
             font-weight: bold;
         }
 
         .header-center {
-            flex: 1;
+            flex-grow: 0;
+            flex-shrink: 0;
             text-align: center;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .logo {
-            max-height: 50px;
+            max-height: 40px;
             width: auto;
             cursor: pointer;
-            vertical-align: middle; /* Ensures logo aligns well */
+            vertical-align: middle;
         }
 
         .header-right {
             flex: 1;
             text-align: right;
             display: flex;
-            justify-content: flex-end;
+            justify-content: flex-end; /* Align items to the end (right) */
             gap: 15px;
         }
 
         .icon-button {
-            background-color: #1a1a1a;
-            border: 1px solid #1a1a1a;
-            cursor: pointer;
-            color: #fff;
-            font-size: 1.5em;
-            padding: 10px 15px;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-            display: flex; /* Aligns icon and text if any */
-            align-items: center;
-            justify-content: center;
-        }
-
-        .icon-button:hover {
-            background-color: #333;
-            border-color: #666;
-            color: #007bff; /* Changed hover color for icons for better feedback */
-        }
-
-        /* New style for the back button */
-        .back-button {
-            background-color: transparent; /* Changed to transparent for a cleaner look */
+            background-color: transparent;
             border: none;
             cursor: pointer;
-            color: #fff;
+            color: #fff; /* يبقى أبيض ليتناسب مع خلفية Header الداكنة */
             font-size: 1.5em;
-            padding: 0; /* Remove padding as it's an icon-only button */
+            padding: 5px 10px;
+            border-radius: 0;
             transition: color 0.3s ease;
-            outline: none; /* Remove outline on focus */
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .back-button:hover {
-            color: #007bff; /* Match icon hover color */
+        .icon-button:hover {
+            color: #007bff;
         }
 
+        .menu-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            color: #fff; /* يبقى أبيض ليتناسب مع خلفية Header الداكنة */
+            font-size: 1.5em;
+            padding: 0;
+            transition: color 0.3s ease;
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+        }
+
+        .menu-button:hover {
+            color: #007bff;
+        }
+        /* END - Top Header Styling */
+
+
+        /* Headings Styling - Adjusted for White Background */
         h1, h2, h3 {
             text-align: center;
             margin-top: 30px;
             margin-bottom: 20px;
             font-size: 1.8em;
-            color: #fff;
+            color: #333; /* لون داكن ليظهر على الخلفية البيضاء */
+            padding: 0 20px; /* نفس الحشو الأفقي */
         }
 
+        /* Search Bar Container and Input Styling - Consistent with white background */
         .search-bar-container {
             text-align: center;
             margin-bottom: 30px;
+            padding: 0 20px; /* إضافة حشو ليتناسق مع padding العناوين */
         }
 
         .search-bar {
-            width: 80%;
+            width: 100%; /* العرض الكامل ضمن الحاوية */
             max-width: 500px;
             padding: 12px 20px;
-            border: 1px solid #333;
+            border: 1px solid #ccc; /* حد فاتح ليظهر على الخلفية البيضاء */
             border-radius: 25px;
-            background-color: #1a1a1a;
-            color: #fff;
+            background-color: #f8f8f8; /* خلفية فاتحة لشريط البحث */
+            color: #333; /* نص داكن لشريط البحث */
             font-size: 1.1em;
             outline: none;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .search-bar::placeholder {
-            color: #aaa;
+            color: #888; /* لون فاتح للنص النائب */
         }
 
         .search-bar:focus {
-            border-color: #666;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+            border-color: #007bff; /* لون أزرق عند التركيز */
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2); /* ظل أزرق خفيف */
         }
 
+        /* Products Grid Layout */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            padding-bottom: 15px;
-            justify-content: center;
-            max-width: 900px; /* Increased max-width for better display of products */
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Adjusted for better mobile and desktop display */
+            gap: 20px;
+            padding: 0 20px 30px;
+            max-width: 1200px;
             margin: 0 auto;
+            justify-items: center; /* Center product cards within their grid cells */
         }
-
+        
+        /* Product Card Styling - Matched exactly to index.html product-card */
         .product-card {
-            background-color: #1a1a1a;
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-            text-align: center;
-            color: #fff;
+            background-color: #FFFFFF; /* أبيض */
+            border: 1px solid #e0e0e0; /* حد خفيف */
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* ظل خفيف */
+            text-align: left;
             cursor: pointer;
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
             text-decoration: none;
-            display: block;
-            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+            width: 100%; /* Ensure cards take full width of their grid cell */
+            max-width: 250px; /* Limit max width for larger screens */
         }
 
         .product-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* ظل أوضح عند التحويم */
         }
 
         .product-card img {
             max-width: 100%;
-            height: 250px;
+            height: 180px; /* Consistent height for images */
             object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 10px; /* Added margin for product name */
-            border: 1px solid #333;
+            border-radius: 3px;
+            margin-bottom: 8px;
+            border: none;
         }
 
         .product-card .product-name {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-top: 10px;
-            color: #fff;
+            font-size: 1em;
+            font-weight: normal;
+            margin-top: 5px;
+            color: #000; /* أسود */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
+        .product-price {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #000;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        /* Horizontal Rule (Divider) - Adjusted for White Background */
         hr {
             border: 0;
             height: 1px;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)); /* خط داكن ليظهر على الخلفية البيضاء */
             margin: 40px auto;
             max-width: 80%;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
+        /* Responsive adjustments - Adjusted to match index.html responsiveness */
+        @media (min-width: 769px) {
             .products-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 4 أعمدة أو أكثر */
+                gap: 20px;
+                padding: 0;
+                max-width: 1200px;
             }
             .top-header {
-                padding: 10px; /* Adjust padding for smaller screens */
-            }
-            .header-right {
-                gap: 10px; /* Reduce gap on small screens */
-            }
-            .icon-button {
-                font-size: 1.2em; /* Smaller icons */
-                padding: 8px 12px; /* Smaller padding */
-            }
-            .back-button {
-                font-size: 1.2em; /* Smaller back button icon */
+                padding: 10px 40px;
             }
             .logo {
-                max-height: 40px; /* Smaller logo */
+                max-height: 50px;
+            }
+            .product-card {
+                max-width: 250px; /* Ensure max-width is respected */
+            }
+            .product-card img {
+                height: 250px; /* Larger image height for desktop */
+            }
+            .product-card .product-name {
+                font-size: 1.2em;
+            }
+            .product-price {
+                font-size: 1.3em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* More flexible for smaller screens */
+                gap: 15px;
+                padding: 0 10px 15px;
+            }
+            .top-header {
+                padding: 10px;
+            }
+            .header-right {
+                gap: 10px;
+            }
+            .icon-button, .menu-button {
+                font-size: 1.2em;
+                padding: 8px 12px;
+            }
+            .logo {
+                max-height: 35px;
+            }
+            .product-card img {
+                height: 160px;
+            }
+            h1 {
+                font-size: 1.8em;
+                margin-top: 25px;
+                margin-bottom: 15px;
+            }
+            .search-bar {
+                padding: 10px 18px;
+                font-size: 1em;
             }
         }
 
         @media (max-width: 480px) {
-            .product-card img {
-                height: 200px;
-            }
-            .top-header {
-                flex-wrap: wrap; /* Allow header items to wrap on very small screens */
-                justify-content: center;
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); /* Smaller grid items for very small screens */
                 gap: 10px;
+                padding: 0 5px 10px;
             }
-            .header-left, .header-center, .header-right {
-                flex: none; /* Remove flex grow to allow wrapping */
-                width: 100%; /* Take full width when wrapped */
-                text-align: center;
-                justify-content: center; /* Center buttons when wrapped */
-                margin-top: 5px; /* Add some margin between wrapped sections */
+            .product-card {
+                padding: 5px;
             }
+            .product-card img {
+                height: 140px;
+            }
+            /* Header Layout for Small Screens */
+            .top-header {
+                flex-wrap: nowrap; /* Keep items in a single line if possible */
+                justify-content: space-between; /* Spread items across the header */
+                padding: 10px;
+                height: auto;
+            }
+
+            .header-left {
+                flex: 0 0 auto;
+                width: auto;
+                margin-left: 5px;
+            }
+
             .header-center {
-                order: -1; /* Move logo to the top when wrapped */
+                position: static;
+                transform: none;
+                flex: 1 1 auto;
+                text-align: center;
+                min-width: 0;
             }
+
+            .logo {
+                max-height: 30px;
+            }
+
             .header-right {
-                order: 1; /* Keep buttons below logo when wrapped */
+                flex: 0 0 auto;
+                width: auto;
+                justify-content: flex-end;
+                gap: 8px;
+            }
+            
+            .icon-button, .menu-button {
+                font-size: 1.2em;
+                padding: 6px 10px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+                margin-top: 20px;
+                margin-bottom: 10px;
+                padding: 0 10px;
+            }
+            .search-bar {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+            /* For very small screens, we might still need to allow wrapping if space is extremely limited */
+            @media (max-width: 380px) { /* Adjust this breakpoint as needed */
+                .top-header {
+                    flex-wrap: wrap; /* Allow wrapping again on very narrow screens */
+                    justify-content: center;
+                    height: auto; /* Allow height to expand */
+                }
+                .header-left, .header-center, .header-right {
+                    flex: none; /* Reset flex to default to allow width: 100% or auto */
+                    width: 100%; /* Take full width on very narrow screens */
+                    text-align: center;
+                    justify-content: center;
+                    margin-top: 5px; /* Add some spacing between wrapped items */
+                }
+                .header-center {
+                    order: -1; /* Move logo to top when wrapped */
+                }
+                .header-right {
+                    order: 1; /* Move right buttons below logo when wrapped */
+                    gap: 15px; /* Restore gap */
+                }
             }
         }
     </style>
@@ -236,8 +367,8 @@
 <body>
     <header class="top-header">
         <div class="header-left">
-            <button class="back-button" onclick="history.back()" aria-label="Go back to previous page">
-                <i class="fas fa-arrow-left"></i>
+            <button class="menu-button" onclick="location.href='partisions.html'" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
             </button>
         </div>
         <div class="header-center">
@@ -248,9 +379,6 @@
         <div class="header-right">
             <button class="icon-button search-button" onclick="location.href='products.html'" aria-label="Search all products">
                 <i class="fas fa-search"></i>
-            </button>
-            <button class="icon-button filter-button" onclick="location.href='filter.html'" aria-label="Filter products">
-                <i class="fas fa-filter"></i>
             </button>
             <button class="icon-button cart-button" onclick="location.href='cart.html'" aria-label="View shopping cart">
                 <i class="fas fa-shopping-cart"></i>
@@ -265,19 +393,19 @@
     </div>
 
     <div class="products-grid" id="allProductsGrid">
-        </div>
+    </div>
 
     <script>
         // Array of all your products
         const products = [
-            { id: 'dark-blue-sweatpants', name: 'Dark Blue Sweatpants', image: 'https://i.postimg.cc/bvkWyWrY/DBP.jpg', link: 'Dark-blue-sweatpants.html' },
-            { id: 'dark-gray-tshirt', name: 'Dark Gray T-shirt', image: 'https://i.postimg.cc/SxwHpkyt/DGTS.jpg', link: 'product-dark-gray-tshirt.html' },
-            { id: 'baby-blue-men-suit', name: 'Baby Blue Men Suit', image: 'https://i.postimg.cc/mZy4NzbZ/BBS.jpg', link: 'product-baby-blue-men-suit.html' },
-            { id: 'baby-brown-men-suit', name: 'Baby Brown Men Suit', image: 'https://i.postimg.cc/GmH1CXv9/DBS.jpg', link: 'product-baby-brown-men-suit.html' },
-            { id: 'baby-pink-men-suit', name: 'Baby Pink Men Suit', image: 'https://i.postimg.cc/3RHM27VD/BPS.jpg', link: 'product-baby-pink-men-suit.html' },
-            { id: 'dark-gray-men-suit', name: 'Dark Gray Men Suit', image: 'https://i.postimg.cc/nV289ykC/DGS.jpg', link: 'product-dark-gray-men-suit.html' },
-            { id: 'baby-pink-women-suit', name: 'Baby Pink Women Suit', image: 'https://i.postimg.cc/j5TPsn7K/BPSW.jpg', link: 'product-baby-pink-women-suit.html' },
-            { id: 'dark-gray-women-suit', name: 'Dark Gray Women Suit', image: 'https://i.postimg.cc/J0PnCGbT/DGW.jpg', link: 'product-dark-gray-women-suit.html' }
+            { id: 'dark-blue-sweatpants', name: 'Dark Blue Sweatpants', image: 'https://i.postimg.cc/bvkWyWrY/DBP.jpg', link: 'dark-blue-sweatpants.html', price: 'LE 850.00 EGP' },
+            { id: 'dark-gray-tshirt', name: 'Dark Gray T-shirt', image: 'https://i.postimg.cc/SxwHpkyt/DGTS.jpg', link: 'dark-gray-tshirt.html', price: 'LE 700.00 EGP' },
+            { id: 'baby-blue-men-suit', name: 'Baby Blue Men Suit', image: 'https://i.postimg.cc/mZy4NzbZ/BBS.jpg', link: 'baby-blue-men-suit.html', price: 'LE 1500.00 EGP' },
+            { id: 'baby-brown-men-suit', name: 'Baby Brown Men Suit', image: 'https://i.postimg.cc/GmH1CXv9/DBS.jpg', link: 'baby-brown-men-suit.html', price: 'LE 1500.00 EGP' },
+            { id: 'baby-pink-men-suit', name: 'Baby Pink Men Suit', image: 'https://i.postimg.cc/3RHM27VD/BPS.jpg', link: 'baby-pink-men-suit.html', price: 'LE 1500.00 EGP' },
+            { id: 'dark-gray-men-suit', name: 'Dark Gray Men Suit', image: 'https://i.postimg.cc/nV289ykC/DGS.jpg', link: 'dark-gray-men-suit.html', price: 'LE 1500.00 EGP' },
+            { id: 'baby-pink-women-suit', name: 'Baby Pink Women Suit', image: 'https://i.postimg.cc/j5TPsn7K/BPSW.jpg', link: 'baby-pink-women-suit.html', price: 'LE 1500.00 EGP' },
+            { id: 'dark-gray-women-suit', name: 'Dark Gray Women Suit', image: 'https://i.postimg.cc/J0PnCGbT/DGW.jpg', link: 'dark-gray-women-suit.html', price: 'LE 1500.00 EGP' }
         ];
 
         const allProductsGrid = document.getElementById('allProductsGrid');
@@ -293,6 +421,7 @@
                 productCard.innerHTML = `
                     <img src="${product.image}" alt="${product.name}" />
                     <div class="product-name">${product.name}</div>
+                    <div class="product-price">${product.price}</div>
                 `;
                 allProductsGrid.appendChild(productCard);
             });
