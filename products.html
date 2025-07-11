@@ -398,14 +398,14 @@
     <script>
         // Array of all your products
         const products = [
-            { id: 'dark-blue-sweatpants', name: 'Dark Blue Sweatpants', image: 'https://i.postimg.cc/bvkWyWrY/DBP.jpg', link: 'dark-blue-sweatpants.html', price: 'LE 850.00 EGP' },
-            { id: 'dark-gray-tshirt', name: 'Dark Gray T-shirt', image: 'https://i.postimg.cc/SxwHpkyt/DGTS.jpg', link: 'dark-gray-tshirt.html', price: 'LE 700.00 EGP' },
-            { id: 'baby-blue-men-suit', name: 'Baby Blue Men Suit', image: 'https://i.postimg.cc/mZy4NzbZ/BBS.jpg', link: 'baby-blue-men-suit.html', price: 'LE 1500.00 EGP' },
-            { id: 'baby-brown-men-suit', name: 'Baby Brown Men Suit', image: 'https://i.postimg.cc/GmH1CXv9/DBS.jpg', link: 'baby-brown-men-suit.html', price: 'LE 1500.00 EGP' },
-            { id: 'baby-pink-men-suit', name: 'Baby Pink Men Suit', image: 'https://i.postimg.cc/3RHM27VD/BPS.jpg', link: 'baby-pink-men-suit.html', price: 'LE 1500.00 EGP' },
-            { id: 'dark-gray-men-suit', name: 'Dark Gray Men Suit', image: 'https://i.postimg.cc/nV289ykC/DGS.jpg', link: 'dark-gray-men-suit.html', price: 'LE 1500.00 EGP' },
-            { id: 'baby-pink-women-suit', name: 'Baby Pink Women Suit', image: 'https://i.postimg.cc/j5TPsn7K/BPSW.jpg', link: 'baby-pink-women-suit.html', price: 'LE 1500.00 EGP' },
-            { id: 'dark-gray-women-suit', name: 'Dark Gray Women Suit', image: 'https://i.postimg.cc/J0PnCGbT/DGW.jpg', link: 'dark-gray-women-suit.html', price: 'LE 1500.00 EGP' }
+            { id: 'dark-blue-sweatpants', name: 'Dark Blue Sweatpants', image: 'https://i.postimg.cc/bvkWyWrY/DBP.jpg', link: 'product-dark-blue-sweatpants.html', price: 'LE 850.00 EGP' },
+            { id: 'dark-gray-tshirt', name: 'Dark Gray T-shirt', image: 'https://i.postimg.cc/SxwHpkyt/DGTS.jpg', link: 'product-dark-gray-tshirt.html', price: 'LE 700.00 EGP' },
+            { id: 'baby-blue-men-suit', name: 'Baby Blue Men Suit', image: 'https://i.postimg.cc/mZy4NzbZ/BBS.jpg', link: 'product-baby-blue-men-suit.html', price: 'LE 1500.00 EGP' },
+            { id: 'baby-brown-men-suit', name: 'Baby Brown Men Suit', image: 'https://i.postimg.cc/GmH1CXv9/DBS.jpg', link: 'product-baby-brown-men-suit.html', price: 'LE 1500.00 EGP' },
+            { id: 'baby-pink-men-suit', name: 'Baby Pink Men Suit', image: 'https://i.postimg.cc/3RHM27VD/BPS.jpg', link: 'product-baby-pink-men-suit.html', price: 'LE 1500.00 EGP' },
+            { id: 'dark-gray-men-suit', name: 'Dark Gray Men Suit', image: 'https://i.postimg.cc/nV289ykC/DGS.jpg', link: 'product-dark-gray-men-suit.html', price: 'LE 1500.00 EGP' },
+            { id: 'baby-pink-women-suit', name: 'Baby Pink Women Suit', image: 'https://i.postimg.cc/j5TPsn7K/BPSW.jpg', link: 'product-baby-pink-women-suit.html', price: 'LE 1500.00 EGP' },
+            { id: 'dark-gray-women-suit', name: 'Dark Gray Women Suit', image: 'https://i.postimg.cc/J0PnCGbT/DGW.jpg', link: 'product-dark-gray-women-suit.html', price: 'LE 1500.00 EGP' }
         ];
 
         const allProductsGrid = document.getElementById('allProductsGrid');
@@ -414,10 +414,14 @@
         // Function to display products
         function displayProducts(productsToDisplay) {
             allProductsGrid.innerHTML = ''; // Clear current products
+            if (productsToDisplay.length === 0) {
+                allProductsGrid.innerHTML = '<p style="text-align: center; font-size: 1.2em; margin-top: 50px; color: #555;">No products found matching your search.</p>';
+                return;
+            }
             productsToDisplay.forEach(product => {
                 const productCard = document.createElement('a');
                 productCard.className = 'product-card';
-                productCard.href = product.link;
+                productCard.href = product.link; // This links to the individual product page
                 productCard.innerHTML = `
                     <img src="${product.image}" alt="${product.name}" />
                     <div class="product-name">${product.name}</div>
