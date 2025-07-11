@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8" />
-    <title>ATR.egclothes/Men's Products</title>
+    <title>ATR.egclothes/Women's Products</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -183,13 +183,6 @@
             color: #fff;
         }
 
-        .product-price {
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #007bff; /* Example: make price stand out */
-            margin-top: 5px;
-        }
-
         hr {
             border: 0;
             height: 1px;
@@ -198,7 +191,7 @@
             max-width: 80%;
         }
 
-        /* Responsive adjustments for header */
+        /* Responsive adjustments */
         @media (max-width: 768px) {
             .products-grid {
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -271,23 +264,21 @@
         </div>
     </header>
 
-    <h1>Men's Products</h1>
+    <h1>Women's Products</h1>
 
     <div class="search-bar-container">
-        <input type="text" id="productSearch" class="search-bar" placeholder="Search for men's clothing..." onkeyup="filterProducts()">
+        <input type="text" id="productSearch" class="search-bar" placeholder="Search for women's clothing..." onkeyup="filterProducts()" aria-label="Search women's products">
     </div>
 
     <div class="products-grid" id="allProductsGrid">
-    </div>
+        </div>
 
     <script>
-        // Only Men's products here
+        // Only Women's products here
         const products = [
-            { id: 'baby-blue-men-suit', name: 'Baby Blue Men Suit', price: 1500, image: 'https://i.postimg.cc/mZy4NzbZ/BBS.jpg', link: 'product-baby-blue-men-suit.html', gender: 'men' },
-            { id: 'baby-brown-men-suit', name: 'Baby Brown Men Suit', price: 1500, image: 'https://i.postimg.cc/GmH1CXv9/DBS.jpg', link: 'product-baby-brown-men-suit.html', gender: 'men' },
-            { id: 'baby-pink-men-suit', name: 'Baby Pink Men Suit', price: 1500, image: 'https://i.postimg.cc/3RHM27VD/BPS.jpg', link: 'product-baby-pink-men-suit.html', gender: 'men' },
-            { id: 'dark-gray-men-suit', name: 'Dark Gray Men Suit', price: 1500, image: 'https://i.postimg.cc/nV289ykC/DGS.jpg', link: 'product-dark-gray-men-suit.html', gender: 'men' }
-            // Add more men's products here
+            { id: 'baby-pink-women-suit', name: 'Baby Pink Women Suit', price: 1550, image: 'https://i.postimg.cc/j5TPsn7K/BPSW.jpg', link: 'product-baby-pink-women-suit.html', gender: 'women' },
+            { id: 'dark-gray-women-suit', name: 'Dark Gray Women Suit', price: 1500, image: 'https://i.postimg.cc/J0PnCGbT/DGW.jpg', link: 'product-dark-gray-women-suit.html', gender: 'women' }
+            // Add more women's products here
         ];
 
         const allProductsGrid = document.getElementById('allProductsGrid');
@@ -296,7 +287,7 @@
         function displayProducts(productsToDisplay) {
             allProductsGrid.innerHTML = '';
             if (productsToDisplay.length === 0) {
-                allProductsGrid.innerHTML = '<p style="text-align: center; font-size: 1.2em; margin-top: 50px;">No men\'s products found matching your search.</p>';
+                allProductsGrid.innerHTML = '<p style="text-align: center; font-size: 1.2em; margin-top: 50px;">No women\'s products found matching your search.</p>';
                 return;
             }
             productsToDisplay.forEach(product => {
@@ -306,7 +297,6 @@
                 productCard.innerHTML = `
                     <img src="${product.image}" alt="${product.name}" />
                     <div class="product-name">${product.name}</div>
-                    <div class="product-price">LE ${product.price.toFixed(2)} EGP</div>
                 `;
                 allProductsGrid.appendChild(productCard);
             });
@@ -321,7 +311,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            displayProducts(products); // Display all men's products initially
+            displayProducts(products); // Display all women's products initially
         });
     </script>
 </body>
