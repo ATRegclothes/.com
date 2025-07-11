@@ -2,52 +2,69 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8" />
-    <title>ATR.egclothes/Women's Products</title>
+    <title>ATR.egclothes/Men's Products</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #000;
-            padding: 20px;
+            background-color: #FFFFFF; /* Changed to white for consistency */
+            padding: 0; /* Remove body padding to match other pages */
             margin: 0;
-            color: #fff;
+            color: #333; /* Dark text for readability on white background */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
+        /* START - Top Header Styling (Consistent with index.html and partitions.html) */
         .top-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #1a1a1a;
+            background-color: #1a1a1a; /* Dark background */
             padding: 10px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Added subtle shadow for depth */
+            border-radius: 0; /* No border-radius */
+            box-shadow: none; /* No box-shadow */
+            margin-bottom: 0; /* No bottom margin */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: 60px; /* Fixed height */
+            flex-wrap: nowrap; /* Prevent wrapping by default */
         }
 
         .header-left {
             flex: 1;
             text-align: left;
-            display: flex; /* Added display flex to align back button */
+            display: flex; /* Added flex for alignment with button/text */
             align-items: center;
+            gap: 10px; /* Space between back button and text/logo */
         }
 
         .store-name {
-            color: #fff;
-            font-size: 1.8em;
+            color: #fff; /* White text for store name in dark header */
+            font-size: 1.2em; /* Adjusted font size for better fit */
             font-weight: bold;
+            white-space: nowrap; /* Prevent wrapping */
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .header-center {
-            flex: 1;
+            flex-grow: 0; /* Prevent stretching */
+            flex-shrink: 0; /* Prevent shrinking */
             text-align: center;
+            position: absolute; /* Position centrally */
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .logo {
-            max-height: 50px;
+            max-height: 40px; /* Adjusted height for consistency */
             width: auto;
             cursor: pointer;
-            vertical-align: middle; /* Ensures logo aligns well */
+            vertical-align: middle;
         }
 
         .header-right {
@@ -59,112 +76,115 @@
         }
 
         .icon-button {
-            background-color: #1a1a1a;
-            border: 1px solid #1a1a1a;
+            background-color: transparent; /* Transparent background */
+            border: none; /* No border */
             cursor: pointer;
-            color: #fff;
+            color: #fff; /* White icon color */
             font-size: 1.5em;
-            padding: 10px 15px;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-            display: flex; /* Aligns icon and text if any */
-            align-items: center;
-            justify-content: center;
-        }
-
-        .icon-button:hover {
-            background-color: #333;
-            border-color: #666;
-            color: #007bff; /* Changed hover color for icons for better feedback */
-        }
-
-        /* New style for the back button */
-        .back-button {
-            background-color: transparent; /* Changed to transparent for a cleaner look */
-            border: none;
-            cursor: pointer;
-            color: #fff;
-            font-size: 1.5em;
-            padding: 0; /* Remove padding as it's an icon-only button */
-            transition: color 0.3s ease;
-            outline: none; /* Remove outline on focus */
+            padding: 5px 10px; /* Adjusted padding */
+            border-radius: 0; /* No border-radius */
+            transition: color 0.3s ease; /* Smooth transition for color */
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .back-button:hover {
-            color: #007bff; /* Match icon hover color */
+        .icon-button:hover {
+            color: #007bff; /* Blue on hover */
         }
 
-        h1, h2, h3 {
-            text-align: center;
-            margin-top: 30px;
-            margin-bottom: 20px;
-            font-size: 1.8em;
+        .menu-button { /* Styled as back button for consistency */
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
             color: #fff;
+            font-size: 1.5em;
+            padding: 0;
+            transition: color 0.3s ease;
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px; /* Spacing from left edge */
+        }
+
+        .menu-button:hover {
+            color: #007bff;
+        }
+        /* END - Top Header Styling */
+
+        h1 {
+            text-align: center;
+            margin-top: 30px; /* Adjusted margin-top */
+            margin-bottom: 30px; /* Adjusted margin-bottom */
+            font-size: 2.2em; /* Adjusted font size */
+            color: #333; /* Changed to dark for readability on white background */
+            padding: 0 20px; /* Added horizontal padding */
         }
 
         .search-bar-container {
             text-align: center;
             margin-bottom: 30px;
             padding: 10px;
-            background-color: #1a1a1a;
+            background-color: #f0f0f0; /* Lighter background for consistency with light theme */
             border-radius: 10px;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for search bar */
         }
 
         .search-bar {
             width: 80%;
             max-width: 500px;
             padding: 12px 20px;
-            border: 1px solid #333;
+            border: 1px solid #ccc; /* Lighter border */
             border-radius: 25px;
-            background-color: #1a1a1a;
-            color: #fff;
+            background-color: #fff; /* White background for input */
+            color: #333; /* Dark text for input */
             font-size: 1.1em;
             outline: none;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .search-bar::placeholder {
-            color: #aaa;
+            color: #888; /* Lighter placeholder */
         }
 
         .search-bar:focus {
-            border-color: #666;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+            border-color: #007bff; /* Blue on focus */
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3); /* Blue shadow on focus */
         }
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            /* Default to 1 column on small screens, will be overridden by media queries */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Fallback and for smaller desktop views */
             gap: 30px;
-            padding-bottom: 15px;
+            padding: 20px; /* Added padding to the grid itself */
             justify-content: center;
-            max-width: 900px;
+            max-width: 960px; /* Increased max-width slightly */
             margin: 0 auto;
         }
 
         .product-card {
-            background-color: #1a1a1a;
+            background-color: #fff; /* White background for product cards */
             border-radius: 10px;
             padding: 15px;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Darker shadow for white cards */
             text-align: center;
-            color: #fff;
+            color: #333; /* Dark text for readability */
             cursor: pointer;
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
             text-decoration: none;
             display: block;
             overflow: hidden;
+            border: 1px solid #eee; /* Subtle border for definition */
         }
 
         .product-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced darker shadow */
         }
 
         .product-card img {
@@ -173,68 +193,143 @@
             object-fit: cover;
             border-radius: 8px;
             margin-bottom: 10px;
-            border: 1px solid #333;
+            border: 1px solid #ddd; /* Lighter border for images */
         }
 
         .product-card .product-name {
             font-size: 1.2em;
             font-weight: bold;
             margin-top: 10px;
-            color: #fff;
+            color: #333; /* Dark text for product name */
         }
 
         hr {
             border: 0;
             height: 1px;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)); /* Darker gradient for white background */
             margin: 40px auto;
             max-width: 80%;
         }
 
         /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .products-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            }
+        @media (min-width: 769px) {
             .top-header {
-                padding: 10px; /* Adjust padding for smaller screens */
-            }
-            .header-right {
-                gap: 10px; /* Reduce gap on small screens */
-            }
-            .icon-button {
-                font-size: 1.2em; /* Smaller icons */
-                padding: 8px 12px; /* Smaller padding */
-            }
-            .back-button {
-                font-size: 1.2em; /* Smaller back button icon */
+                padding: 10px 40px;
             }
             .logo {
-                max-height: 40px; /* Smaller logo */
+                max-height: 50px;
+            }
+            .products-grid {
+                /* On larger screens (desktop), force 2 columns */
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 700px; /* Adjust max-width to make 2 columns look good */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-header {
+                padding: 10px;
+            }
+            .header-right {
+                gap: 10px;
+            }
+            .icon-button, .menu-button {
+                font-size: 1.2em;
+                padding: 8px 12px;
+            }
+            .logo {
+                max-height: 35px;
+            }
+            h1 {
+                font-size: 1.8em;
+                margin-top: 25px;
+                margin-bottom: 15px;
+            }
+            .products-grid {
+                /* On tablets, keep 2 columns but with smaller min width */
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+                padding: 15px;
+                max-width: 480px; /* Constrain width for 2 columns on tablets */
+            }
+            .product-card img {
+                height: 200px;
             }
         }
 
         @media (max-width: 480px) {
-            .product-card img {
-                height: 200px;
-            }
+            /* Header Layout for Small Screens */
             .top-header {
-                flex-wrap: wrap; /* Allow header items to wrap on very small screens */
-                justify-content: center;
-                gap: 10px;
+                flex-wrap: nowrap; /* Keep items in a single line if possible */
+                justify-content: space-between; /* Spread items across the header */
+                padding: 10px;
+                height: auto;
             }
-            .header-left, .header-center, .header-right {
-                flex: none; /* Remove flex grow to allow wrapping */
-                width: 100%; /* Take full width when wrapped */
-                text-align: center;
-                justify-content: center; /* Center buttons when wrapped */
-                margin-top: 5px; /* Add some margin between wrapped sections */
+
+            .header-left {
+                flex: 0 0 auto;
+                width: auto;
+                margin-left: 5px;
             }
+
             .header-center {
-                order: -1; /* Move logo to the top when wrapped */
+                position: static;
+                transform: none;
+                flex: 1 1 auto;
+                text-align: center;
+                min-width: 0;
             }
+
+            .logo {
+                max-height: 30px;
+            }
+
             .header-right {
-                order: 1; /* Keep buttons below logo when wrapped */
+                flex: 0 0 auto;
+                width: auto;
+                justify-content: flex-end;
+                gap: 8px;
+            }
+
+            .icon-button, .menu-button {
+                font-size: 1.2em;
+                padding: 6px 10px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+                margin-top: 20px;
+                margin-bottom: 10px;
+                padding: 0 10px;
+            }
+            .products-grid {
+                /* On mobile, revert to 1 column */
+                grid-template-columns: 1fr;
+                padding: 10px;
+                gap: 15px;
+                max-width: 300px; /* Constrain width for a single column */
+            }
+            /* For very small screens, allow wrapping in the header */
+            @media (max-width: 380px) {
+                .top-header {
+                    flex-wrap: wrap; /* Allow wrapping again on very narrow screens */
+                    justify-content: center;
+                    height: auto; /* Allow height to expand */
+                }
+                .header-left, .header-center, .header-right {
+                    flex: none; /* Reset flex to default to allow width: 100% or auto */
+                    width: 100%; /* Take full width on very narrow screens */
+                    text-align: center;
+                    justify-content: center;
+                    margin-top: 5px; /* Add some spacing between wrapped items */
+                }
+                .header-center {
+                    order: -1; /* Move logo to top when wrapped */
+                }
+                .header-right {
+                    order: 1; /* Move right buttons below logo when wrapped */
+                    gap: 15px; /* Restore gap */
+                }
             }
         }
     </style>
@@ -242,7 +337,8 @@
 <body>
     <header class="top-header">
         <div class="header-left">
-            <button class="back-button" onclick="history.back()" aria-label="Go back to previous page">
+
+            <button class="menu-button" onclick="location.href='partisions.html'" aria-label="Go back to main menu">
                 <i class="fas fa-arrow-left"></i>
             </button>
         </div>
@@ -258,27 +354,27 @@
             <button class="icon-button cart-button" onclick="location.href='cart.html'" aria-label="View shopping cart">
                 <i class="fas fa-shopping-cart"></i>
             </button>
-            <button class="icon-button filter-button" onclick="location.href='filter.html'" aria-label="Filter products">
-                <i class="fas fa-filter"></i>
-            </button>
+            
         </div>
     </header>
 
-    <h1>Women's Products</h1>
+    <h1>Men's Products</h1>
 
     <div class="search-bar-container">
-        <input type="text" id="productSearch" class="search-bar" placeholder="Search for women's clothing..." onkeyup="filterProducts()" aria-label="Search women's products">
+        <input type="text" id="productSearch" class="search-bar" placeholder="Search for men's clothing..." onkeyup="filterProducts()">
     </div>
 
     <div class="products-grid" id="allProductsGrid">
         </div>
 
     <script>
-        // Only Women's products here
+        // Only Men's products here
         const products = [
-            { id: 'baby-pink-women-suit', name: 'Baby Pink Women Suit', price: 1550, image: 'https://i.postimg.cc/j5TPsn7K/BPSW.jpg', link: 'product-baby-pink-women-suit.html', gender: 'women' },
-            { id: 'dark-gray-women-suit', name: 'Dark Gray Women Suit', price: 1500, image: 'https://i.postimg.cc/J0PnCGbT/DGW.jpg', link: 'product-dark-gray-women-suit.html', gender: 'women' }
-            // Add more women's products here
+            { id: 'baby-blue-men-suit', name: 'Baby Blue Men Suit', price: 1500, image: 'https://i.postimg.cc/mZy4NzbZ/BBS.jpg', link: 'product-baby-blue-men-suit.html', gender: 'men' },
+            { id: 'baby-brown-men-suit', name: 'Baby Brown Men Suit', price: 1500, image: 'https://i.postimg.cc/GmH1CXv9/DBS.jpg', link: 'product-baby-brown-men-suit.html', gender: 'men' },
+            { id: 'baby-pink-men-suit', name: 'Baby Pink Men Suit', price: 1500, image: 'https://i.postimg.cc/3RHM27VD/BPS.jpg', link: 'product-baby-pink-men-suit.html', gender: 'men' },
+            { id: 'dark-gray-men-suit', name: 'Dark Gray Men Suit', price: 1500, image: 'https://i.postimg.cc/nV289ykC/DGS.jpg', link: 'product-dark-gray-men-suit.html', gender: 'men' }
+            // Add more men's products here
         ];
 
         const allProductsGrid = document.getElementById('allProductsGrid');
@@ -287,7 +383,7 @@
         function displayProducts(productsToDisplay) {
             allProductsGrid.innerHTML = '';
             if (productsToDisplay.length === 0) {
-                allProductsGrid.innerHTML = '<p style="text-align: center; font-size: 1.2em; margin-top: 50px;">No women\'s products found matching your search.</p>';
+                allProductsGrid.innerHTML = '<p style="text-align: center; font-size: 1.2em; margin-top: 50px; color: #555;">No men\'s products found matching your search.</p>'; /* Adjusted color for white background */
                 return;
             }
             productsToDisplay.forEach(product => {
@@ -311,7 +407,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            displayProducts(products); // Display all women's products initially
+            displayProducts(products); // Display all men's products initially
         });
     </script>
 </body>
