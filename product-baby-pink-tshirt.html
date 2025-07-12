@@ -389,7 +389,7 @@
             <button id="increase-quantity" aria-label="Increase quantity">+</button>
         </div>
 
-        <button class="add-to-cart-btn" onclick="addToCart('Baby Pink T-shirt', 700.00, document.querySelector('input[name=\'size-baby-pink-tshirt\']:checked').value, document.getElementById('quantity-display').innerText)">Add to Cart</button>
+        <button class="add-to-cart-btn">Add to Cart</button>
     </div>
 
     <script>
@@ -397,24 +397,58 @@
             const decreaseBtn = document.getElementById('decrease-quantity');
             const increaseBtn = document.getElementById('increase-quantity');
             const quantityDisplay = document.getElementById('quantity-display');
+            const addToCartBtn = document.querySelector('.add-to-cart-btn');
+
+            let selectedQuantity = parseInt(quantityDisplay.textContent); // Initialize quantity
 
             decreaseBtn.addEventListener('click', () => {
-                let currentQuantity = parseInt(quantityDisplay.innerText);
-                if (currentQuantity > 1) {
-                    quantityDisplay.innerText = currentQuantity - 1;
+                if (selectedQuantity > 1) {
+                    selectedQuantity--;
+                    quantityDisplay.textContent = selectedQuantity;
                 }
             });
 
             increaseBtn.addEventListener('click', () => {
-                let currentQuantity = parseInt(quantityDisplay.innerText);
-                quantityDisplay.innerText = currentQuantity + 1;
+                selectedQuantity++;
+                quantityDisplay.textContent = selectedQuantity;
+            });
+
+            addToCartBtn.addEventListener('click', () => {
+                const productId = 'baby-pink-tshirt-001'; // Unique ID for this product
+                const productName = document.getElementById('product-name').textContent;
+                const productPrice = parseFloat(document.getElementById('product-price').textContent);
+                const productImage = document.getElementById('product-image').src;
+                const selectedSize = document.querySelector('input[name="size-baby-pink-tshirt"]:checked').value;
+
+                let cart = JSON.parse(localStorage.getItem('cart')) || []; // Retrieve cart or create a new one
+
+                // Search for the product in the cart (by ID and size)
+                const existingItemIndex = cart.findIndex(item => item.id === productId && item.size === selectedSize);
+
+                if (existingItemIndex > -1) {
+                    // If product exists, increase quantity
+                    cart[existingItemIndex].quantity += selectedQuantity;
+                } else {
+                    // If product does not exist, add as a new item
+                    cart.push({
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        image: productImage,
+                        size: selectedSize,
+                        quantity: selectedQuantity
+                    });
+                }
+
+                localStorage.setItem('cart', JSON.stringify(cart)); // Save cart to Local Storage
+
+                alert(`Added ${selectedQuantity} of "${productName}" (size: ${selectedSize}) to your cart!`);
+
+                // Reset displayed quantity to 1 after adding to cart
+                selectedQuantity = 1;
+                quantityDisplay.textContent = selectedQuantity;
             });
         });
-
-        function addToCart(productName, productPrice, selectedSize, quantity) {
-            alert(`Added ${quantity} of ${productName} (Size: ${selectedSize}) to cart for LE ${productPrice * quantity} EGP`);
-            // Here you would typically add logic to store the item in local storage or send it to a server
-        }
     </script>
 </body>
 </html>
