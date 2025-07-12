@@ -398,14 +398,24 @@
     <script>
         // Array of all your products
         const products = [
-            { id: 'dark-blue-sweatpants', name: 'Dark Blue Sweatpants', image: 'https://i.postimg.cc/bvkWyWrY/DBP.jpg', link: 'product-dark-blue-sweatpants.html', price: 'LE 850.00 EGP' },
-            { id: 'dark-gray-tshirt', name: 'Dark Gray T-shirt', image: 'https://i.postimg.cc/SxwHpkyt/DGTS.jpg', link: 'product-dark-gray-tshirt.html', price: 'LE 700.00 EGP' },
-            { id: 'baby-blue-men-suit', name: 'Baby Blue Men Suit', image: 'https://i.postimg.cc/mZy4NzbZ/BBS.jpg', link: 'product-baby-blue-men-suit.html', price: 'LE 1500.00 EGP' },
-            { id: 'baby-brown-men-suit', name: 'Baby Brown Men Suit', image: 'https://i.postimg.cc/GmH1CXv9/DBS.jpg', link: 'product-baby-brown-men-suit.html', price: 'LE 1500.00 EGP' },
-            { id: 'baby-pink-men-suit', name: 'Baby Pink Men Suit', image: 'https://i.postimg.cc/3RHM27VD/BPS.jpg', link: 'product-baby-pink-men-suit.html', price: 'LE 1500.00 EGP' },
-            { id: 'dark-gray-men-suit', name: 'Dark Gray Men Suit', image: 'https://i.postimg.cc/nV289ykC/DGS.jpg', link: 'product-dark-gray-men-suit.html', price: 'LE 1500.00 EGP' },
-            { id: 'baby-pink-women-suit', name: 'Baby Pink Women Suit', image: 'https://i.postimg.cc/j5TPsn7K/BPSW.jpg', link: 'product-baby-pink-women-suit.html', price: 'LE 1500.00 EGP' },
-            { id: 'dark-gray-women-suit', name: 'Dark Gray Women Suit', image: 'https://i.postimg.cc/J0PnCGbT/DGW.jpg', link: 'product-dark-gray-women-suit.html', price: 'LE 1500.00 EGP' }
+            // Suits - Assuming these can be unisex in style or offered in unisex sizing
+            { id: 'baby-blue-suit', name: 'Baby Blue Suit', price: 1500, image: 'https://i.postimg.cc/mZy4NzbZ/BBS.jpg', link: 'product-baby-blue-men-suit.html', gender: 'unisex' },
+            { id: 'baby-brown-suit', name: 'Baby Brown Suit', price: 1500, image: 'https://i.postimg.cc/GmH1CXv9/DBS.jpg', link: 'product-baby-brown-men-suit.html', gender: 'unisex' },
+            { id: 'baby-pink-suit', name: 'Baby Pink Suit', price: 1500, image: 'https://i.postimg.cc/3RHM27VD/BPS.jpg', link: 'product-baby-pink-men-suit.html', gender: 'unisex' },
+            { id: 'dark-gray-suit', name: 'Dark Gray Suit', price: 1500, image: 'https://i.postimg.cc/nV289ykC/DGS.jpg', link: 'product-dark-gray-men-suit.html', gender: 'unisex' },
+            
+            // Sweatpants - Explicitly marked as unisex
+            { id: 'dark-blue-sweatpants', name: 'Dark Blue Sweatpants', price: 850, image: 'https://i.postimg.cc/bvkWyWrY/DBP.jpg', link: 'Dark-blue-sweatpants.html', gender: 'unisex' }, // Changed image to original DBP.jpg
+            { id: 'baby-brown-sweatpants', name: 'Baby Brown Sweatpants', price: 850, image: 'https://i.postimg.cc/QMjn8jbq/DGSP.jpg', link: 'product-baby-brown-sweatpants.html', gender: 'unisex' },
+            { id: 'baby-pink-sweatpants', name: 'Baby Pink Sweatpants', price: 850, image: 'https://i.postimg.cc/RFZSH5M7/BPSP.jpg', link: 'product-baby-pink-sweatpants.html', gender: 'unisex' }, // Corrected image link
+            { id: 'dark-gray-sweatpants', name: 'Dark Gray Sweatpants', price: 850, image: 'https://i.postimg.cc/RFZSH5M7/BPSP.jpg', link: 'product-dark-gray-sweatpants.html', gender: 'unisex' },
+                                                                                              
+            // T-shirts - Explicitly marked as unisex
+            { id: 'dark-gray-tshirt', name: 'Dark Gray T-shirt', price: 700, image: 'https://i.postimg.cc/SxwHpkyt/DGTS.jpg', link: 'product-dark-gray-tshirt.html', gender: 'unisex' },
+            { id: 'baby-blue-tshirt', name: 'Baby Blue T-shirt', price: 700, image: 'https://i.postimg.cc/KYzcKhcn/BBBSH.jpg', link: 'product-baby-blue-tshirt.html', gender: 'unisex' },
+            { id: 'gray-tshirt', name: 'Gray T-shirt', price: 700, image: 'https://i.postimg.cc/HxWS1Hm7/DGSH.jpg', link: 'product-gray-tshirt.html', gender: 'unisex' },
+            { id: 'baby-pink-tshirt', name: 'Baby Pink T-shirt', price: 700, image: 'https://i.postimg.cc/3JNPDXPD/BPSH.jpg', link: 'product-baby-pink-tshirt.html', gender: 'unisex' },
+            { id: 'baby-brown-tshirt', name: 'Baby Brown T-shirt', price: 700, image: 'https://i.postimg.cc/mgX31MWh/BBSH.jpg', link: 'product-baby-brown-tshirt.html', gender: 'unisex' }
         ];
 
         const allProductsGrid = document.getElementById('allProductsGrid');
