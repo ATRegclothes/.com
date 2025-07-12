@@ -389,7 +389,7 @@
             <button id="increase-quantity" aria-label="Increase quantity">+</button>
         </div>
 
-        <button class="add-to-cart-btn" onclick="addToCart('Baby Blue Men Suit', 1500.00, document.querySelector('input[name=\'size-baby-blue-men-suit\']:checked').value, document.getElementById('quantity-display').innerText)">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
     </div>
 
     <script>
@@ -411,9 +411,46 @@
             });
         });
 
-        function addToCart(productName, productPrice, selectedSize, quantity) {
-            alert(`Added ${quantity} of ${productName} (Size: ${selectedSize}) to cart for LE ${productPrice * quantity} EGP`);
-            // Here you would typically add logic to store the item in local storage or send it to a server
+        // Function to retrieve cart from Local Storage
+        function getCart() {
+            return JSON.parse(localStorage.getItem('cart')) || [];
+        }
+
+        // Function to save cart to Local Storage
+        function saveCart(cart) {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        // Function to add item to cart
+        function addToCart() {
+            const productName = document.getElementById('product-name').innerText;
+            const productPrice = parseFloat(document.getElementById('product-price').innerText);
+            const productImage = document.getElementById('product-image').src;
+            const selectedSize = document.querySelector('input[name=\'size-baby-blue-men-suit\']:checked').value;
+            const quantity = parseInt(document.getElementById('quantity-display').innerText);
+
+            let cart = getCart();
+
+            // Check if the item (with the same size) already exists in the cart
+            const existingItemIndex = cart.findIndex(item => item.name === productName && item.size === selectedSize);
+
+            if (existingItemIndex > -1) {
+                // If item exists, update its quantity
+                cart[existingItemIndex].quantity += quantity;
+            } else {
+                // If item does not exist, add it as a new item
+                const newItem = {
+                    name: productName,
+                    price: productPrice,
+                    image: productImage,
+                    size: selectedSize,
+                    quantity: quantity
+                };
+                cart.push(newItem);
+            }
+
+            saveCart(cart); // Save the updated cart to localStorage
+            alert(`Added ${quantity} of "${productName}" (Size: ${selectedSize}) to cart!`);
         }
     </script>
 </body>
