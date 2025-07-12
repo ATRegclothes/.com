@@ -347,13 +347,9 @@
 <body>
     <header class="top-header">
         <div class="header-left">
-
             <button class="menu-button" onclick="location.href='partisions.html'" aria-label="Go back to main menu">
                 <i class="fas fa-arrow-left"></i>
             </button>
-               
-            </button>
-            
         </div>
         <div class="header-center">
             <a href="index.html">
@@ -364,7 +360,6 @@
             <button class="icon-button search-button" onclick="location.href='products.html'" aria-label="Search all products">
                 <i class="fas fa-search"></i>
             </button>
-            
             <button class="icon-button cart-button" onclick="location.href='cart.html'" aria-label="View shopping cart">
                 <i class="fas fa-shopping-cart"></i>
             </button>
@@ -425,13 +420,12 @@
 
             // Function to add product to cart (saved in Local Storage)
             addToCartBtn.addEventListener('click', () => {
-                // Updated productId for "Baby Pink Men Suit"
-                const productId = 'baby-pink-men-suit-001';
+                const productId = 'baby-pink-men-suit-001'; // Unique ID for this product
                 const productName = document.getElementById('product-name').textContent;
                 const productPrice = parseFloat(document.getElementById('product-price').textContent);
                 const productImage = document.getElementById('product-image').src;
-                // Updated selector for "Baby Pink Men Suit" sizes
-                const selectedSize = document.querySelector('#product-sizes input[name="size-baby-pink-men-suit"]:checked').value;
+                // Get the value of the checked radio button for the "Baby Pink Men Suit" sizes
+                const selectedSize = document.querySelector('input[name="size-baby-pink-men-suit"]:checked').value;
 
                 let cart = JSON.parse(localStorage.getItem('cart')) || []; // Retrieve cart or create a new one
 
@@ -455,7 +449,7 @@
 
                 localStorage.setItem('cart', JSON.stringify(cart)); // Save cart to Local Storage
 
-                alert(`Added ${selectedQuantity} from ${productName} (size: ${selectedSize}) to your cart!`);
+                alert(`Added ${selectedQuantity} of "${productName}" (size: ${selectedSize}) to your cart!`);
 
                 // Reset displayed quantity to 1 after adding to cart
                 selectedQuantity = 1;
